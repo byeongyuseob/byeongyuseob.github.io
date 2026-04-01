@@ -3,82 +3,86 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>병해조기경보 | AWS Activate Founder</title>
+    <title>병해조기경보 | 병해 조기경보 서비스</title>
     <meta
       name="description"
-      content="병해조기경보 프로젝트의 AWS Activate Founder 신청용 소개 페이지입니다."
+      content="병해조기경보는 위치, 작물, 기상 정보를 바탕으로 병해 발생 위험을 먼저 살피고, 고령 농가도 이해하기 쉬운 설명과 대응 안내를 제공하려는 서비스입니다."
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand-mark" href="#overview">병해조기경보</a>
         <nav class="site-nav" aria-label="Primary">
-          <a href="#overview">프로젝트 소개</a>
+          <a href="#overview">서비스 소개</a>
+          <a href="#why-now">왜 지금 필요한가</a>
           <a href="#principles">핵심 원칙</a>
-          <a href="#architecture">구축 계획</a>
-          <a href="#roadmap">추진 계획</a>
+          <a href="#system">시스템 구성</a>
+          <a href="#references">근거 자료</a>
         </nav>
       </div>
     </header>
 
     <main>
       <section class="hero" id="overview">
+        <div class="hero-glow hero-glow-left"></div>
+        <div class="hero-glow hero-glow-right"></div>
         <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">AWS Activate Founder 신청 프로젝트</p>
-            <p class="section-label">현재 단계</p>
-            <h1>병해조기경보</h1>
-            <p class="hero-subtitle">농가가 미리 이해할 수 있는 병해 예측 서비스</p>
+          <div class="hero-copy reveal" data-delay="0">
+            <p class="eyebrow">공식 병해충 정보와 농업기상 데이터를 바탕으로</p>
+            <p class="section-label">서비스 소개</p>
+            <h1>병해를 더 늦기 전에 알 수 있다면</h1>
+            <p class="hero-subtitle">병해조기경보 EarlyCropDiseaseAlert</p>
             <p class="lead">
               병해조기경보는 위치, 작물, 기상 정보를 바탕으로 병해 발생
-              위험을 미리 살피고, 고령 농가도 이해하기 쉬운 대응 안내를
-              제공하려는 실사용형 AI 플랫폼입니다.
+              위험을 먼저 살피고, 고령 농가도 이해하기 쉬운 설명과 대응
+              안내를 제공하려는 서비스입니다.
             </p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#principles">핵심 원칙 보기</a>
-              <a class="button button-secondary" href="#activate">AWS Activate 목적 보기</a>
+              <a class="button button-primary" href="#principles">서비스 원칙 보기</a>
+              <a class="button button-secondary" href="#references">근거 자료 보기</a>
             </div>
             <ul class="hero-metrics" aria-label="핵심 요약">
-              <li>
+              <li class="reveal" data-delay="80">
                 <strong>핵심 요약</strong>
                 <span>LLM이 판단하지 않는 구조</span>
               </li>
-              <li>
+              <li class="reveal" data-delay="160">
                 <strong>예측 목표</strong>
-                <span>포도 탄저병 위험도 정확도 90% 이상</span>
+                <span>포도 탄저병 위험도 예측 목표 90%+</span>
               </li>
-              <li>
+              <li class="reveal" data-delay="240">
                 <strong>운영 방향</strong>
-                <span>EKS 기반 운영과 비용 최적화 검증</span>
+                <span>실제 운영 가능한 구조를 먼저 검증</span>
               </li>
             </ul>
           </div>
-          <aside class="hero-panel">
+          <aside class="hero-panel reveal" data-delay="120">
             <div class="panel-stack">
               <div class="panel-block">
-                <p class="panel-label">신청 목적</p>
-                <p class="panel-value">AWS Activate Founder</p>
+                <p class="panel-label">현재 단계</p>
+                <p class="panel-value">기획 및 구축 준비 단계</p>
               </div>
               <div class="panel-block">
                 <p class="panel-label">중점 방향</p>
                 <p class="panel-value">신뢰할 수 있는 병해 위험 예측</p>
               </div>
               <div class="panel-block">
-                <p class="panel-label">진행 상태</p>
-                <p class="panel-value">설계 및 구축 계획 수립 단계</p>
+                <p class="panel-label">핵심 입력값</p>
+                <p class="panel-value">위치, 작물, 강수, 온도, 습도</p>
               </div>
             </div>
           </aside>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container section-shell section-shell-split">
+      <section class="section" id="why-now">
+        <div class="container section-shell section-shell-split reveal" data-delay="0">
           <div class="section-heading">
-            <p class="section-kicker">프로젝트 소개</p>
-            <h2>실제 농장 피해 경험에서 출발한 서비스입니다</h2>
+            <p class="section-kicker">왜 지금 필요한가</p>
+            <h2>고령 농가일수록 더 빠르고 쉬운 정보가 필요합니다</h2>
           </div>
           <div class="section-body prose">
             <p>
@@ -87,96 +91,137 @@
               있었다면 줄일 수 있었겠다는 문제의식이 출발점입니다.
             </p>
             <p>
-              병해조기경보는 단순한 데모가 아니라, 실제 운영을 염두에 둔
-              서비스로 설계하고 있습니다. 예측의 신뢰성, 근거 기반 설명,
-              운영 가능성을 처음부터 함께 고려하는 것이 목표입니다.
+              통계청의 2024년 농림어업조사에 따르면 농가 인구의 55.8%는
+              65세 이상이며, 농가 경영주의 50.8%는 70세 이상입니다.
+              복잡한 정보를 늦게 이해하는 구조보다, 더 빠르고 이해하기 쉬운
+              안내가 먼저 필요합니다.
+            </p>
+            <p class="highlight-line">
+              포도는 성숙기에 비가 많으면 당 함량이 떨어지고 탄저병을
+              비롯한 병해와 열과 피해가 커질 수 있습니다.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="section section-alt" id="principles">
-        <div class="container section-shell">
+      <section class="section section-alt" id="stats">
+        <div class="container stats-grid">
+          <article class="stat-card reveal" data-delay="0">
+            <strong>55.8%</strong>
+            <p>2024년 기준 농가 인구 중 65세 이상 비율</p>
+          </article>
+          <article class="stat-card reveal" data-delay="100">
+            <strong>50.8%</strong>
+            <p>2024년 기준 70세 이상 농가 경영주 비율</p>
+          </article>
+          <article class="stat-card reveal" data-delay="200">
+            <strong>90%+</strong>
+            <p>포도 탄저병 위험도 예측 정확도 목표</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="principles">
+        <div class="container section-shell reveal" data-delay="0">
           <div class="section-heading section-heading-wide">
             <p class="section-kicker">핵심 원칙</p>
             <h2>검증 가능한 판단 구조를 먼저 세웁니다</h2>
             <p class="section-intro">
-              병해조기경보는 LLM 중심 서비스가 아니라, 예측과 설명의 역할을
-              분리한 구조를 지향합니다.
+              병해조기경보는 더 복잡한 AI보다, 더 믿을 수 있는 판단 구조를
+              먼저 만드는 데 집중합니다.
             </p>
           </div>
           <div class="grid three">
-            <article class="flat-card">
+            <article class="flat-card reveal" data-delay="0">
               <h3>규칙 엔진이 먼저 판단합니다</h3>
               <p>
                 병해 위험도는 규칙 기반 로직과 Random Forest를 중심으로
-                계산합니다. 판단 과정이 설명 가능하고 검증 가능해야 한다는
-                기준을 가장 먼저 둡니다.
+                계산합니다. 어떤 이유로 위험도가 높아졌는지 설명할 수 있는
+                구조를 우선합니다.
               </p>
             </article>
-            <article class="flat-card">
+            <article class="flat-card reveal" data-delay="100">
               <h3>LLM은 설명을 돕는 역할에만 사용합니다</h3>
               <p>
-                LLM이 병해를 판단하지는 않습니다. 고령 농가가 이해하기 쉬운
-                설명, 체크리스트, 쉬운 표현 변환처럼 안내를 돕는 용도로만
-                사용합니다.
+                LLM이 병해를 판단하지는 않습니다. 어려운 정보를 더 쉬운
+                문장과 체크리스트로 바꾸고, 고령 농가가 이해하기 쉬운 표현을
+                만드는 데 집중합니다.
               </p>
             </article>
-            <article class="flat-card">
+            <article class="flat-card reveal" data-delay="200">
               <h3>공식 문서를 근거로 설명합니다</h3>
               <p>
-                농진청과 NCPMS 같은 공신력 있는 자료를 RAG로 연결해 답변의
-                근거를 분명히 하려고 합니다. 환각을 줄이고, 농가가 믿고
-                참고할 수 있는 설명을 만드는 것이 목적입니다.
+                농진청, NCPMS, 농업날씨365 같은 공식 자료를 연결해 답변의
+                근거를 분명히 하려고 합니다. 서비스가 먼저 신뢰를 잃지 않는
+                것이 중요하기 때문입니다.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="architecture">
-        <div class="container section-shell">
+      <section class="section" id="system">
+        <div class="container section-shell reveal" data-delay="0">
           <div class="section-heading section-heading-wide">
-            <p class="section-kicker">AWS 기반 구축 계획</p>
-            <h2>AWS 위에서 실제 운영 가능한 구조를 검증하려고 합니다</h2>
+            <p class="section-kicker">시스템 구성</p>
+            <h2>현장에서 필요한 흐름을 그대로 담은 시스템</h2>
+            <p class="section-intro">
+              병해조기경보는 데이터 수집, 위험도 계산, 설명 생성, 운영
+              검증까지 한 흐름으로 이어지는 서비스 구조를 목표로 합니다.
+            </p>
           </div>
-          <div class="architecture-grid">
-            <article class="flat-card">
-              <h3>플랫폼</h3>
-              <ul>
-                <li>AWS 서울 리전 EKS를 기준으로 구성합니다</li>
-                <li>Terraform과 Helm으로 재현 가능한 배포 구조를 만듭니다</li>
-                <li>ArgoCD로 GitOps 운영 흐름을 준비합니다</li>
-              </ul>
+          <div class="system-flow">
+            <article class="flow-card reveal" data-delay="0">
+              <span class="flow-step">01</span>
+              <h3>데이터를 받습니다</h3>
+              <p>
+                위치, 작물, 강수량, 온도, 습도 같은 농업기상 데이터를 먼저
+                모읍니다.
+              </p>
             </article>
-            <article class="flat-card">
-              <h3>애플리케이션과 추론</h3>
-              <ul>
-                <li>FastAPI로 핵심 API를 구성합니다</li>
-                <li>KServe와 vLLM으로 LLM 서빙을 계획합니다</li>
-                <li>Redis, PostgreSQL, ChromaDB로 실행 계층을 뒷받침합니다</li>
-              </ul>
+            <article class="flow-card reveal" data-delay="90">
+              <span class="flow-step">02</span>
+              <h3>위험도를 계산합니다</h3>
+              <p>
+                규칙 기반 로직과 Random Forest를 함께 사용해 병해 위험을
+                계산합니다.
+              </p>
             </article>
-            <article class="flat-card">
-              <h3>운영</h3>
-              <ul>
-                <li>Prometheus, Grafana, Loki로 관측성을 확보합니다</li>
-                <li>Karpenter와 HPA로 오토스케일링을 적용합니다</li>
-                <li>Spot 우선 전략으로 비용 최적화를 추진합니다</li>
-              </ul>
+            <article class="flow-card reveal" data-delay="180">
+              <span class="flow-step">03</span>
+              <h3>설명을 쉽게 바꿉니다</h3>
+              <p>
+                공식 자료를 바탕으로 대응 안내를 만들고, 농가가 이해하기
+                쉬운 문장으로 정리합니다.
+              </p>
             </article>
+            <article class="flow-card reveal" data-delay="270">
+              <span class="flow-step">04</span>
+              <h3>운영 구조를 검증합니다</h3>
+              <p>
+                API, 모델 서빙, 캐시, 관측성, 오토스케일링까지 실제 운영
+                기준으로 점검합니다.
+              </p>
+            </article>
+          </div>
+          <div class="system-note reveal" data-delay="140">
+            <p>
+              국가농작물병해충관리시스템 NCPMS는 예찰, 예측지도, 발생정보,
+              상담, Open API를 제공합니다. 병해조기경보는 이 공식 인프라를
+              더 빠르고 이해하기 쉬운 현장 서비스로 연결하려는 시도입니다.
+            </p>
           </div>
         </div>
       </section>
 
       <section class="section section-alt" id="roadmap">
-        <div class="container section-shell">
+        <div class="container section-shell reveal" data-delay="0">
           <div class="section-heading section-heading-wide">
             <p class="section-kicker">추진 계획</p>
             <h2>짧은 기간 안에 핵심 검증을 끝내는 일정입니다</h2>
           </div>
           <div class="grid two">
-            <article class="flat-card">
+            <article class="flat-card reveal" data-delay="0">
               <h3>8주 로드맵</h3>
               <ol class="flat-list">
                 <li>Phase 0: 공공 API 준비와 EKS 기본 환경 구성</li>
@@ -187,10 +232,10 @@
                 <li>Phase 5: README, 데모, 포트폴리오 정리</li>
               </ol>
             </article>
-            <article class="flat-card">
+            <article class="flat-card reveal" data-delay="100">
               <h3>목표 지표</h3>
               <ul class="flat-list">
-                <li>포도 탄저병 위험도 예측 정확도 90% 이상</li>
+                <li>포도 탄저병 위험도 예측 목표 90%+</li>
                 <li>LLM 평균 추론 지연시간 2초 이내</li>
                 <li>GPU 월 운영 비용 40% 이상 절감</li>
                 <li>근거 기반 응답률 95% 이상 확보</li>
@@ -200,25 +245,46 @@
         </div>
       </section>
 
-      <section class="section" id="activate">
-        <div class="container section-shell section-shell-split">
-          <div class="section-heading">
-            <p class="section-kicker">AWS Activate</p>
-            <h2>AWS Activate가 필요한 이유</h2>
+      <section class="section" id="references">
+        <div class="container section-shell reveal" data-delay="0">
+          <div class="section-heading section-heading-wide">
+            <p class="section-kicker">근거 자료</p>
+            <h2>페이지에 사용한 핵심 문장과 수치는 공식 자료를 기준으로 정리했습니다</h2>
           </div>
-          <div class="section-body prose">
-            <p>
-              AWS 크레딧은 EKS 검증, GPU 추론 실험, 관측성 구성,
-              오토스케일링 테스트를 실제 환경에 가깝게 검증하는 데 직접
-              필요합니다. 단순한 시연용 페이지가 아니라 운영 가능한 구조를
-              초기에 확인하려는 목적입니다.
-            </p>
-            <p>
-              이 프로젝트는 농업 AI도 충분히 신뢰 가능하고 운영 가능하게
-              설계될 수 있다는 점을 보여주기 위한 시도입니다. 예측 로직,
-              공식 문서 기반 설명, 클라우드 운영 구조를 함께 설계해 실제
-              서비스로 이어질 수 있는 기반을 만들고자 합니다.
-            </p>
+          <div class="references-grid">
+            <article class="reference-card reveal" data-delay="0">
+              <h3>농가 고령화 통계</h3>
+              <p>
+                농가 인구 중 65세 이상 비율 55.8%, 70세 이상 농가 경영주
+                비율 50.8%를 반영했습니다.
+              </p>
+              <a href="https://kostat.go.kr/board.es?act=view&bid=226&list_no=436097&mid=a10301080100&nPage=1&ref_bid=&tag=" target="_blank" rel="noreferrer">통계청 2024년 농림어업조사</a>
+            </article>
+            <article class="reference-card reveal" data-delay="90">
+              <h3>포도 생육과 병해 특성</h3>
+              <p>
+                성숙기에 비가 많으면 탄저병과 열과 피해가 커질 수 있다는
+                설명을 반영했습니다.
+              </p>
+              <a href="https://www.nongsaro.go.kr/portal/ps/psb/psbl/workScheduleDtl.ps?cntntsNo=30669&menuId=PS00087&sKidofcomdtySeCode=FC01" target="_blank" rel="noreferrer">농사로 포도(무가온)</a>
+            </article>
+            <article class="reference-card reveal" data-delay="180">
+              <h3>공식 병해충 정보 인프라</h3>
+              <p>
+                예찰, 예측지도, 발생정보, 상담, Open API를 제공하는 공식
+                시스템 구조를 반영했습니다.
+              </p>
+              <a href="https://ncpms.rda.go.kr/npms/OpenApiInfo.np" target="_blank" rel="noreferrer">NCPMS Open API 안내</a>
+            </article>
+            <article class="reference-card reveal" data-delay="270">
+              <h3>농업기상 데이터</h3>
+              <p>
+                농업날씨365와 농촌진흥청 기후 시나리오 자료를 바탕으로 위치와
+                기상 기반 서비스 구조를 설명했습니다.
+              </p>
+              <a href="https://weather.rda.go.kr/index.do" target="_blank" rel="noreferrer">농업날씨365</a>
+              <a href="https://weather.rda.go.kr/appMap/climateDown.do" target="_blank" rel="noreferrer">농촌진흥청 기후변화 시나리오</a>
+            </article>
           </div>
         </div>
       </section>
@@ -226,7 +292,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>AWS Activate Founder 검토를 위해 준비한 프로젝트 소개 페이지입니다.</p>
+        <p>병해조기경보는 공식 병해충 정보와 농업기상 데이터를 연결해 현장 대응 시점을 앞당기기 위한 서비스 기획입니다.</p>
         <a href="https://github.com/byeongyuseob" target="_blank" rel="noreferrer">
           GitHub 프로필
         </a>

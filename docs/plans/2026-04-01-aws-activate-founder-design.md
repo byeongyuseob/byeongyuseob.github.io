@@ -1,64 +1,68 @@
-# AWS Activate Founder Landing Page Design
+# Research-Backed Service Intro Page Design
 
 **Date:** 2026-04-01
 **Project:** `byeongyuseob.github.io`
 
 ## Goal
 
-Create a single GitHub Pages landing page for the `병해조기경보 (EarlyCropDiseaseAlert)` project that supports an AWS Activate Founder application.
+Create a single GitHub Pages landing page for the `병해조기경보` project that reads like a real service introduction page and grounds its main claims in official Korean agricultural and statistics sources.
 
 ## Approved Direction
 
-- Audience: balanced for both AWS reviewers and startup context
-- Tone: formal and documentation-first
-- Priority: product reliability first, architecture second
+- Audience: people first, service-introduction first
+- Tone: simple, calm, and human, while still structured like a proposal
+- Priority: why the service is needed, then how trust is built
 - Project status: planning-stage only
-- Visual direction: KISS and flat
+- Visual direction: modern, gentle, simple, and clean
+- Motion: subtle reveal animation only
 
 ## Content Structure
 
 1. Hero
-   - Project name
-   - One-line summary
-   - Planning-stage note
-   - AWS Activate Founder context
-2. Problem Background
-   - 2025 anthracnose damage on the founder's father's grape farm
-   - Motivation to reduce preventable crop loss
-3. Reliability Principles
+   - Big human message first
+   - Service name second
+   - One clear service summary
+   - Three short metric cards based on official data
+2. Why Now
+   - Founder's family farm experience as the starting point
+   - Statistics on aging farmers
+   - Why weather-linked disease response timing matters
+3. Service Principles
    - Rule engine first
-   - LLM as explanation layer only
-   - Official-document grounded RAG
-4. AWS-Native Architecture
-   - AWS EKS, Terraform, Helm, ArgoCD
-   - FastAPI, Random Forest, Redis, PostgreSQL, ChromaDB
-   - KServe, vLLM, Prometheus, Grafana, Loki
-   - Karpenter, HPA, Spot-first cost strategy
-5. Roadmap and KPIs
-   - 8-week phased plan
+   - LLM for explanation only
+   - Official-source grounded responses
+4. System Flow
+   - Weather and location inputs
+   - Risk scoring
+   - Explanation generation
+   - Cloud-native operation and monitoring
+5. Roadmap and KPI Targets
+   - 8-week plan
    - Accuracy, latency, cost, and grounding targets
-6. Why AWS Activate
-   - Explain how AWS credits unlock EKS validation, GPU inference experiments, autoscaling, and observability
+6. References
+   - KOSTAT agriculture census release
+   - RDA/NCPMS/Nongsaro/AgWeather links
 
 ## Copy Constraints
 
 - Avoid hype language
 - Do not claim implementation is complete
 - Keep founder story short and factual
-- Emphasize trust, safety, and operational realism
+- Use official numbers where possible
+- AWS Activate mention should be secondary, not the main page identity
 
 ## UI Constraints
 
 - Single static page
-- Flat visual system
+- Minimal but modern visual system
 - Minimal JavaScript
 - Responsive layout
 - No dark mode
-- No decorative animation dependencies
+- Reveal-on-scroll only, no heavy motion library
 
 ## Deliverables
 
 - `index.html`
 - `styles.css`
-- Optional lightweight JS only if needed for anchor navigation
-- Updated `README.md`
+- `script.js`
+- Updated `README.md` if needed
