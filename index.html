@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EarlyCropDiseaseAlert | AWS Activate Founder</title>
+    <meta
+      name="description"
+      content="Planning-stage overview for the 병해조기경보 project, prepared for the AWS Activate Founder application."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <p class="eyebrow">AWS Activate Founder Application Project</p>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#overview">Overview</a>
+          <a href="#principles">Principles</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#roadmap">Roadmap</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div class="container hero-grid">
+          <div>
+            <p class="section-label">Planning Stage</p>
+            <h1>병해조기경보</h1>
+            <p class="hero-subtitle">EarlyCropDiseaseAlert</p>
+            <p class="lead">
+              A practical AI platform concept for early crop disease risk
+              assessment based on location, crop, and weather data, designed to
+              support elderly farmers with clear response guidance.
+            </p>
+          </div>
+          <div class="hero-panel">
+            <dl>
+              <div>
+                <dt>Application context</dt>
+                <dd>AWS Activate Founder</dd>
+              </div>
+              <div>
+                <dt>Primary focus</dt>
+                <dd>Reliable disease risk assessment</dd>
+              </div>
+              <div>
+                <dt>Current state</dt>
+                <dd>Architecture and execution planning</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container prose">
+          <h2>Project Background</h2>
+          <p>
+            The project started after anthracnose damage on my father's grape
+            farm in 2025. The goal is to reduce preventable crop loss by
+            combining weather-aware risk estimation, grounded disease guidance,
+            and an interface that remains understandable for elderly farmers.
+          </p>
+          <p>
+            This is not positioned as an LLM-first demo. It is planned as a
+            production-minded platform that emphasizes trust, traceability, and
+            operational discipline from the start.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="principles">
+        <div class="container">
+          <h2>Reliability Principles</h2>
+          <div class="grid three">
+            <article class="flat-card">
+              <h3>Rule engine first</h3>
+              <p>
+                Disease risk scoring is planned around explicit rules plus
+                Random Forest support so the prediction layer remains auditable
+                and trustworthy.
+              </p>
+            </article>
+            <article class="flat-card">
+              <h3>LLM as an explanation layer</h3>
+              <p>
+                The language model is limited to explanation, checklist
+                generation, and simplification for elderly users. It is not the
+                disease decision engine.
+              </p>
+            </article>
+            <article class="flat-card">
+              <h3>Official-source grounded RAG</h3>
+              <p>
+                Responses are planned to be grounded in official agricultural
+                guidance from trusted sources such as RDA and NCPMS to minimize
+                hallucination risk.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture">
+        <div class="container">
+          <h2>AWS-native architecture</h2>
+          <div class="architecture-grid">
+            <article class="flat-card">
+              <h3>Platform</h3>
+              <ul>
+                <li>AWS EKS in Seoul region</li>
+                <li>Terraform + Helm for reproducible setup</li>
+                <li>ArgoCD for GitOps-driven delivery</li>
+              </ul>
+            </article>
+            <article class="flat-card">
+              <h3>Inference and application</h3>
+              <ul>
+                <li>FastAPI backend for API orchestration</li>
+                <li>KServe + vLLM for model serving</li>
+                <li>Redis, PostgreSQL, and ChromaDB for runtime support</li>
+              </ul>
+            </article>
+            <article class="flat-card">
+              <h3>Operations</h3>
+              <ul>
+                <li>Prometheus, Grafana, and Loki for observability</li>
+                <li>Karpenter + HPA for autoscaling</li>
+                <li>Spot-first strategy for cost optimization</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="roadmap">
+        <div class="container">
+          <h2>Roadmap and KPI Targets</h2>
+          <div class="grid two">
+            <article class="flat-card">
+              <h3>Roadmap</h3>
+              <ol class="flat-list">
+                <li>Phase 0: API access and EKS baseline setup</li>
+                <li>Phase 1: FastAPI core service and rule engine</li>
+                <li>Phase 2: KServe, vLLM, and RAG integration</li>
+                <li>Phase 3: Observability and autoscaling layer</li>
+                <li>Phase 4: GitOps, CI/CD, and hardening</li>
+                <li>Phase 5: README, demo, and portfolio packaging</li>
+              </ol>
+            </article>
+            <article class="flat-card">
+              <h3>KPI Targets</h3>
+              <ul class="flat-list">
+                <li>Anthracnose risk prediction accuracy: 90%+</li>
+                <li>Average LLM inference latency: under 2 seconds</li>
+                <li>GPU monthly cost reduction: 40%+ vs on-demand</li>
+                <li>Grounded response rate after RAG: 95%+</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="activate">
+        <div class="container prose">
+          <h2>Why AWS Activate</h2>
+          <p>
+            AWS credits would directly support EKS validation, GPU-backed
+            inference experiments, observability setup, and autoscaling tests in
+            a realistic environment. The objective is to validate a
+            production-oriented architecture early, not to build a superficial
+            demo.
+          </p>
+          <p>
+            The project is intended to prove that agricultural AI can be both
+            trustworthy and operationally practical when prediction logic,
+            grounded retrieval, and cloud-native operations are designed
+            together.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Prepared for AWS Activate Founder review.</p>
+        <a href="https://github.com/byeongyuseob" target="_blank" rel="noreferrer">
+          GitHub Profile
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
