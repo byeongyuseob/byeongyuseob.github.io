@@ -25,6 +25,11 @@ class LandingPageTest(unittest.TestCase):
         self.assertIn("AWS 기반 구축 계획", html)
         self.assertIn("추진 계획", html)
         self.assertIn("AWS Activate가 필요한 이유", html)
+        self.assertIn('class="hero-actions"', html)
+        self.assertIn('class="hero-metrics"', html)
+        self.assertIn("핵심 요약", html)
+        self.assertIn("검증 가능한 판단 구조", html)
+        self.assertIn("section-shell", html)
         self.assertIn('href="styles.css"', html)
 
 
