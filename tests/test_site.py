@@ -17,12 +17,14 @@ class LandingPageTest(unittest.TestCase):
 
         self.assertIn("병해조기경보", html)
         self.assertIn("AWS Activate Founder", html)
-        self.assertIn("Planning Stage", html)
-        self.assertIn("Rule engine first", html)
-        self.assertIn("LLM as an explanation layer", html)
-        self.assertIn("AWS-native architecture", html)
-        self.assertIn("Roadmap", html)
-        self.assertIn("Why AWS Activate", html)
+        self.assertIn("현재 단계", html)
+        self.assertIn("프로젝트 소개", html)
+        self.assertIn("핵심 원칙", html)
+        self.assertIn("규칙 엔진이 먼저 판단합니다", html)
+        self.assertIn("LLM은 설명을 돕는 역할에만 사용합니다", html)
+        self.assertIn("AWS 기반 구축 계획", html)
+        self.assertIn("추진 계획", html)
+        self.assertIn("AWS Activate가 필요한 이유", html)
         self.assertIn('href="styles.css"', html)
 
 
