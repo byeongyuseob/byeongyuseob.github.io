@@ -316,61 +316,6 @@ p {
   border-radius: 28px;
 }
 
-.visual-chip {
-  position: absolute;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  max-width: 13rem;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid rgba(23, 19, 17, 0.06);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 14px 24px rgba(64, 49, 38, 0.09);
-  font-size: 0.86rem;
-  color: var(--muted);
-}
-
-.visual-chip strong {
-  color: var(--text);
-  font-size: 0.95rem;
-}
-
-.visual-chip-top {
-  top: 1rem;
-  right: 1rem;
-}
-
-.visual-chip-middle {
-  right: 1.2rem;
-  bottom: 7.4rem;
-}
-
-.visual-chip-bottom {
-  left: 1rem;
-  bottom: 1rem;
-}
-
-.story-portrait {
-  margin: 0.5rem 0 0;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.story-portrait img {
-  width: 12rem;
-  height: 12rem;
-  display: block;
-  border-radius: 999px;
-  box-shadow: var(--shadow);
-}
-
-.story-portrait figcaption {
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
 .section {
   padding: 1.2rem 0 3rem;
 }
@@ -601,12 +546,6 @@ p {
 
   .hero-visual {
     padding: 0.85rem;
-  }
-
-  .visual-chip {
-    position: static;
-    max-width: none;
-    margin-top: 0.75rem;
   }
 
   .hero-metrics li,

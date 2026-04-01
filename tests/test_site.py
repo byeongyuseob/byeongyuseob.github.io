@@ -11,13 +11,11 @@ class LandingPageTest(unittest.TestCase):
         styles_path = ROOT / "styles.css"
         script_path = ROOT / "script.js"
         hero_image_path = ROOT / "assets" / "hero-illustration.svg"
-        portrait_image_path = ROOT / "assets" / "story-portrait.svg"
 
         self.assertTrue(index_path.exists(), "index.html should exist")
         self.assertTrue(styles_path.exists(), "styles.css should exist")
         self.assertTrue(script_path.exists(), "script.js should exist")
         self.assertTrue(hero_image_path.exists(), "hero illustration should exist")
-        self.assertTrue(portrait_image_path.exists(), "story portrait should exist")
 
         html = index_path.read_text(encoding="utf-8")
 
@@ -47,9 +45,10 @@ class LandingPageTest(unittest.TestCase):
         self.assertIn("nongsaro.go.kr", html)
         self.assertIn("weather.rda.go.kr", html)
         self.assertIn('src="assets/hero-illustration.svg"', html)
-        self.assertIn('src="assets/story-portrait.svg"', html)
         self.assertIn("포도 농장과 데이터 흐름을 표현한 병해조기경보 일러스트", html)
-        self.assertIn("문제의 출발점을 표현한 인물 일러스트", html)
+        self.assertNotIn('src="assets/story-portrait.svg"', html)
+        self.assertNotIn('class="visual-chip', html)
+        self.assertNotIn('class="story-portrait', html)
 
 
 if __name__ == "__main__":
