@@ -1,19 +1,68 @@
 ---
 title: "K3s 플랫폼 검증 환경 구축"
-description: "물리 서버 1대에 VM 7대로 K3s 플랫폼을 세우고, GitOps 배포, 관측, 저장소, IssueOps 배포 창구, 소형 모델 추론·학습까지 올려 검증한 경험"
-date: 2026-09-23
-period: "2026.09 – 2026.10"
+description: "물리 서버 1대에 VM 7대로 K3s 플랫폼을 기획·설계·구축하고, GitOps 배포, 관측, 저장소, IssueOps 배포 창구, vLLM 추론과 LoRA 학습까지 올려 ML 인프라 운영 시나리오를 검증하는 프로젝트"
+date: 2026-09-07
+period: "2026.09 – 현재"
 weight: 5
 track: "platform"
-role: "구축, 검증"
-summary: "물리 서버 1대에 VM 7대로 K3s 클러스터를 만들고, ArgoCD로 플랫폼 부품 23개를 배포해 관측, 저장소, 배포 창구, 모델 추론·학습까지 검증했습니다."
-result: "VM 7대, ArgoCD Application 23개, IssueOps 배포, vLLM 추론, LoRA 학습 Job"
+role: "기획, 설계, 구축, 검증"
+summary: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, ArgoCD로 플랫폼 부품 23개를 배포하고 vLLM 추론 SLO 기준선까지 측정했습니다."
+result: "VM 7대, ArgoCD Application 23개, IssueOps 배포, vLLM SLO 기준선(Pod당 동시 4), LoRA 학습→서빙 고리"
 stack: ["K3s", "Cilium", "ArgoCD", "Longhorn", "MinIO", "Grafana LGTM", "Harbor", "vLLM", "Terraform", "Ansible"]
 ---
 
-## 배경
+## 왜 시작했나
 
-컴포넌트를 하나씩 설치해 보는 것만으로는 실제 운영에서 서로 맞물렸을 때 어떻게 동작하는지 알기 어려웠습니다. 장애가 났을 때 관측, 복구, 원인 추적이 실제로 이어지는지, 그리고 그 위에서 모델 추론과 학습을 돌릴 수 있는지 확인하고 싶었습니다.
+컴포넌트를 하나씩 설치해 보는 것만으로는 실제 운영에서 서로 맞물렸을 때 어떻게 동작하는지 알기 어려웠습니다. 그래서 두 가지를 목표로 잡았습니다.
+
+| 단계 | 목표 |
+|---|---|
+| 1. 플랫폼 | Cilium, Longhorn, MinIO, 관측 스택, ArgoCD가 서로 물린 상태에서 장애, 복구, 추적이 end-to-end로 성립하는지 확인 |
+| 2. ML 인프라 | GPU 없이 CPU 클러스터에서, ML 인프라 엔지니어가 하는 운영 일(서빙 용량 계획, 자동 확장, 카나리, 학습 Job 대기열)을 같은 도구와 같은 지표로 해 보기 |
+
+숫자(지연, 처리량 절대값)는 GPU 환경과 다르지만, 곡선의 모양, 병목이 생기는 이유, 운영 절차는 같다고 보고 진행하고 있습니다.
+
+## 진행 경과
+
+{{< flow >}}
+title: "진행 경과 · 단계를 눌러 보세요"
+steps:
+  - title: "리서치 · 설계"
+    sub: "2026.09 초"
+    detail: "기술 리서치로 blocker 15개와 risk 8개, 버전 고정 표를 정리하고, 실제 HCL과 values를 담은 상세 설계 문서(4,099줄)를 썼습니다. 처음 계획한 노트북 VM 환경을 이 단계에서 물리 서버로 바꿨습니다."
+  - title: "프리플라이트"
+    sub: "2026.09.23"
+    detail: "서버와 노트북 상태를 읽기 전용으로 수집하고, 사람이 Go/No-Go를 판단한 결과를 Terraform 입력값으로 썼습니다."
+  - title: "구축"
+    sub: "Terraform · Ansible · ArgoCD"
+    detail: "VM, 네트워크, 디스크는 Terraform으로, 노드 OS부터 ArgoCD 첫 설치까지는 Ansible로 세우고, 나머지 플랫폼 부품 23개는 ArgoCD가 설치하게 했습니다."
+  - title: "배포 창구"
+    sub: "IssueOps"
+    detail: "개발자가 이슈 양식만으로 새 앱, dev 배포, 운영 승격, 되돌리기, 삭제를 요청하는 창구를 붙였습니다."
+  - title: "아키텍처 리뷰"
+    sub: "2026.10.13"
+    detail: "지금 시스템을 다시 점검해 high 1건, medium 16건을 찾았습니다. 알림 문제는 바로 고쳤습니다."
+  - title: "추론 · 학습"
+    sub: "2026.10.14"
+    tone: "ok"
+    detail: "서빙 엔진을 vLLM으로 정하고 부하를 늘려 가며 기준선을 재서 SLO를 정했습니다. LoRA 학습 결과를 서빙까지 잇는 고리도 한 바퀴 돌렸습니다."
+  - title: "다음: 자동 확장"
+    sub: "진행 예정"
+    tone: "warn"
+    detail: "대기 요청 수로 서빙 Pod를 늘리고, 시작 시간 약 2분(컴파일, 예열)을 줄이는 단계입니다."
+{{< /flow >}}
+
+## 설계에서 내린 판단
+
+| 판단 | 대안 | 고른 이유 |
+|---|---|---|
+| 노트북 VM 대신 물리 서버 1대 | 노트북(24GB) + VM 3대 | 노트북 가상 네트워크는 외부로 나가는 트래픽을 모두 NAT해서 egress gateway를 검증할 방법이 없었습니다. 메모리도 ArgoCD, 관측 스택만 약 19GB로 가용 18GB를 넘었습니다. |
+| libvirt network를 `route` 모드로 | 기본 `nat` 모드 | `nat`은 Pod에서 관측점으로 가는 트래픽 출발지를 브리지 IP로 바꿔서, egress gateway가 동작하지 않는 것과 증상이 구별되지 않습니다. |
+| Cilium은 GitOps 밖에 둠 | ArgoCD로 함께 관리 | ArgoCD가 CNI를 잘못 반영하면 클러스터 네트워크가 끊겨 ArgoCD 스스로 복구할 수 없습니다. |
+| MinIO와 관측 작업 공간은 노드 local 디스크에 | 모두 Longhorn 위에 | Longhorn에 장애가 나도 그 장애를 관측할 수 있어야 합니다. 순환 의존과 쓰기 증폭도 피합니다. |
+| 비밀값은 sops + age | sealed-secrets | sealed-secrets 키는 클러스터 안에 있어서 클러스터를 지우면 저장소의 비밀값을 영영 풀 수 없습니다. age 키는 클러스터 수명과 무관합니다. |
+| 하이퍼바이저에 Docker 미설치 | 설치 | Docker가 거는 `FORWARD DROP` 정책이 노드 간 VXLAN을 막고, 증상이 Cilium 고장과 구별되지 않습니다. |
+| 메트릭 수집은 Prometheus 하나만 | Alloy도 함께 scrape | 둘 다 수집하면 Mimir에 같은 series가 두 번 저장됩니다. Alloy는 로그와 트레이스만 맡겼습니다. |
 
 ## 전체 구조
 
@@ -23,58 +72,50 @@ layers:
   - name: "진입"
     items:
       - name: "HAProxy"
-        detail: "물리 서버에서 사내망 입구 역할을 합니다."
+        detail: "물리 서버에서 사내망 입구 역할을 합니다. 포트별로 LoadBalancer IP에 연결합니다."
       - name: "Cilium LB-IPAM"
         detail: "LoadBalancer IP를 나눠 주고 서비스로 연결합니다."
       - name: "Gateway API"
-        detail: "앱 공용 입구입니다. dev와 prod 경로를 나눠 받습니다."
+        detail: "앱 공용 입구입니다. dev는 /dev/<앱>, prod는 /<앱> 경로로 받습니다."
   - name: "워크로드"
     tool: "apps-workload"
     items:
       - name: "vLLM 추론"
-        detail: "SmolLM2-135M 모델을 CPU로 서빙합니다. 모델 파일은 MinIO에서 받습니다."
+        detail: "SmolLM2-135M 모델을 CPU로 서빙합니다. 모델 파일은 MinIO에서 받고, OpenAI 호환 API로 엽니다."
       - name: "LoRA 학습 Job"
-        detail: "train namespace에서 LoRA 학습 Job을 실행합니다. 자리와 한도는 ArgoCD로 관리합니다."
+        detail: "train namespace에서 LoRA 학습 Job을 실행합니다. namespace 한도는 CPU 8, 메모리 16Gi입니다."
       - name: "개발자 앱"
         detail: "IssueOps로 요청받아 dev와 prod에 배포합니다."
   - name: "플랫폼"
     tool: "ArgoCD · 23개"
     items:
       - name: "ArgoCD"
-        detail: "저장소의 정의를 보고 나머지 플랫폼 부품을 설치합니다. Application 23개입니다."
+        detail: "저장소의 정의를 보고 나머지 플랫폼 부품을 sync-wave 순서로 설치합니다. Application 23개입니다."
       - name: "Harbor"
-        detail: "앱 이미지 저장소입니다."
+        detail: "앱 이미지와 학습 이미지 저장소입니다."
       - name: "Grafana LGTM"
-        detail: "메트릭은 Mimir, 로그는 Loki, 트레이스는 Tempo로 모아 Grafana에서 함께 봅니다."
+        detail: "메트릭은 Prometheus에서 Mimir로, 로그는 Alloy에서 Loki로, 트레이스는 OTLP로 Tempo에 모아 Grafana에서 함께 봅니다."
       - name: "Longhorn"
         detail: "앱 PVC용 저장소입니다. 복제 3, MinIO로 매일 백업합니다."
       - name: "MinIO"
-        detail: "관측 데이터 장기 보관, 이미지, 백업, 모델, 학습 데이터를 S3 하나로 모읍니다."
+        detail: "관측 데이터 장기 보관, 이미지, 백업, 모델, 학습 데이터, 체크포인트를 S3 하나로 모읍니다."
   - name: "노드"
     tool: "K3s · Cilium"
     items:
       - name: "Control plane × 3"
-        detail: "K3s server와 etcd 3대 정족수입니다. 앱은 올리지 않습니다."
+        detail: "4 vCPU, 8GiB. K3s server와 etcd 3대 정족수입니다. 앱은 올리지 않습니다."
       - name: "Worker × 3"
-        detail: "앱과 플랫폼 부품이 올라가고 Longhorn, MinIO 디스크를 가집니다."
+        detail: "8 vCPU, 24GiB. 앱과 플랫폼 부품이 올라가고 Longhorn 80G, MinIO 60G 디스크 2개를 가집니다."
       - name: "관측 노드 × 1"
-        detail: "클러스터 밖에서 바라보는 관측점입니다."
+        detail: "2 vCPU, 2GiB. 클러스터에 join하지 않는 바깥 관측점입니다. egress gateway가 실제로 동작하는지 밖에서 확인하는 용도입니다."
   - name: "기반"
     tool: "Terraform · Ansible"
     items:
       - name: "물리 서버 1대"
-        detail: "libvirt로 VM 7대를 띄웁니다. VM, 네트워크, 디스크는 Terraform으로 만듭니다."
+        detail: "48 thread, 125GiB. libvirt로 VM 7대를 띄웁니다. VM, 네트워크, 디스크는 Terraform으로 만듭니다."
       - name: "Ansible"
-        detail: "노드 OS, K3s, Cilium, ArgoCD 첫 설치, 비밀값을 맡습니다. Cilium은 GitOps 밖에 둡니다."
+        detail: "노드 OS, K3s, Cilium, ArgoCD 첫 설치, 비밀값을 맡습니다."
 {{< /arch >}}
-
-| 층 | 내용 | 도구 |
-|---|---|---|
-| 기반 | 서버 1대, VM 7대(control plane 3, worker 3, 관측 1), K3s, Cilium | Terraform, Ansible |
-| 플랫폼 | ArgoCD가 저장소의 정의를 보고 나머지 부품을 설치(Application 23개) | GitOps |
-| 앱 배포 창구 | 이슈로 요청하면 자동화가 배포 값을 만들고 ArgoCD가 dev·prod에 반영 | IssueOps |
-| 추론 | vLLM(SmolLM2-135M, CPU), 모델은 MinIO에서 받음 | apps-workload |
-| 학습 | train namespace에서 LoRA 학습 Job 실행 | apps-workload |
 
 ## 누가 무엇을 바꾸는지
 
@@ -83,9 +124,11 @@ layers:
 | VM, 네트워크, 디스크 | Terraform |
 | 노드 OS, K3s, Cilium, ArgoCD 첫 설치, 비밀값 | Ansible |
 | 저장소, 관측, Harbor, Gateway 같은 플랫폼 부품 | ArgoCD (저장소에 파일을 넣고 push) |
+| 서빙, 포털 같은 플랫폼 워크로드 | ArgoCD |
+| 학습 Job | 손으로 제출 (자리와 한도는 ArgoCD) |
 | 개발자 앱 | IssueOps |
 
-Cilium은 GitOps 밖에 두었습니다. ArgoCD가 CNI를 잘못 반영하면 클러스터 네트워크가 끊겨 ArgoCD 스스로 복구할 수 없기 때문입니다.
+다시 세우는 순서는 `make ansible-deps → host-prepare → infra → k3s → cilium → argocd → secrets`이고, 그 뒤는 ArgoCD가 sync-wave 순서로 이어 받습니다.
 
 ## 저장소 구성
 
@@ -102,9 +145,9 @@ title: "IssueOps 배포 흐름 · 단계를 눌러 보세요"
 steps:
   - title: "요청 이슈"
     sub: "새 앱 · 배포 · 승격 · 되돌리기"
-    detail: "개발자는 저장소 이슈 양식으로 새 앱, dev 배포, 운영 승격, 되돌리기, 삭제를 요청합니다."
+    detail: "개발자는 저장소 이슈 양식으로 새 앱, dev 배포, 운영 승격, 되돌리기, 삭제를 요청합니다. kubectl과 YAML은 몰라도 됩니다."
   - title: "self-hosted runner"
-    detail: "자동화가 요청을 읽고 배포 값을 만듭니다. 권한은 GitHub App 두 개로 나눴습니다."
+    detail: "자동화가 요청을 읽고 배포 값을 만듭니다. 권한은 GitHub App 두 개(배포용, 저장소 생성용)로 나눴습니다."
   - title: "배포 값 저장소"
     sub: "dev 자동 · prod 승인"
     detail: "dev 변경은 바로 merge되고, prod 변경은 담당자 승인을 거칩니다."
@@ -113,24 +156,135 @@ steps:
   - title: "반영 확인"
     tone: "ok"
     sub: "커밋 · 이미지 · rollout · HTTP 200"
-    detail: "ArgoCD가 그 커밋을 실제로 반영했는지, 이미지와 rollout, HTTP 200까지 스크립트로 확인합니다."
+    detail: "ArgoCD가 그 커밋을 실제로 반영했는지, 이미지와 rollout, HTTP 200까지 스크립트로 확인합니다. dev에서 확인이 실패하면 자동으로 되돌립니다."
 {{< /flow >}}
 
-- 저장소를 플랫폼, 배포 값, 앱 코드로 나누고 권한은 GitHub App 두 개로 분리했습니다.
-- 배포 후에는 ArgoCD가 해당 커밋을 실제로 반영했는지, 이미지와 rollout, HTTP 200까지 스크립트로 확인합니다.
+| 요청 | 하는 일 | 승인 |
+|---|---|---|
+| 새 앱 만들기 | 템플릿으로 앱 저장소 생성, main 보호와 CODEOWNERS 설정, dev 배포까지 자동 | 없음 |
+| dev 배포 | merge된 커밋을 빌드해 dev에 반영, 확인 실패면 자동 되돌림 | 없음 |
+| 운영 승격 | dev에서 정상인 이미지와 설정을 그대로 prod로 | 담당자 |
+| 되돌리기 | 이전 이미지로, 버전을 비우면 바로 이전 버전 | prod만 담당자 |
+| 앱 삭제 | dev·prod에서 내리고 앱 저장소를 보관 처리 | prod만 담당자 |
+
+- 결과는 같은 이슈에 댓글과 메일로 오고, 배포 현황은 포털에서 30초마다 새로 읽어 보여 줍니다.
+- 앱이 지킬 약속(PORT, `/healthz`, SIGTERM 처리, 일반 사용자 실행, 비밀값 금지)을 템플릿에 문서로 두고, 앱 저장소 CI가 이 약속을 검사해야 merge됩니다.
 
 ## 관측
 
 - 메트릭은 Prometheus에서 Mimir로, 로그는 Alloy에서 Loki로, 트레이스는 OTLP로 Tempo에 모아 Grafana에서 함께 봅니다.
-- Alertmanager가 사내 메일로 알림을 보내고, 앱 5xx 에러율 알림과 앱 대시보드를 만들었습니다.
+- Alertmanager가 사내 메일로 알림을 보내고, 앱 5xx 에러율 알림과 앱 대시보드, vLLM 대시보드를 만들었습니다.
 
-## 검증 방법
+## 검증 설계
 
-- 시작 전 프리플라이트로 서버 상태를 읽기 전용으로 수집하고, 사람이 Go/No-Go를 판단한 결과를 Terraform 입력값으로 썼습니다.
-- `terraform apply` 전과 서버 재부팅 후에는 드리프트 검사를 돌려, 커널 업그레이드처럼 바꾸지 않은 요인으로 생기는 문제를 잡았습니다.
-- bats로 smoke, full, chaos 단계 검증 스크립트를 만들었습니다.
+- 프리플라이트는 서버에 아무것도 쓰지 않고 상태만 수집합니다. 기계가 만든 결과(증거)와 사람이 리뷰한 입력값(결정)을 파일로 나눠 나중에 감사할 수 있게 했습니다.
+- `terraform apply` 전과 서버 재부팅 후에는 드리프트 검사를 돌립니다. 커널 업그레이드처럼 내가 바꾸지 않은 요인으로 어제 되던 랩이 오늘 안 되는 경우를 잡기 위해서입니다.
+- 핵심 증명은 세 가지로 설계했습니다.
+
+{{< tabs >}}
+title: "핵심 증명 세 가지 · 탭을 바꿔 보세요"
+items:
+  - label: "Egress Gateway"
+    steps: ["정책 없음 → 노드 IP", "정책 적용 → egress IP", "같은 Pod에서 정책만 삭제 → 다시 노드 IP"]
+    text: "같은 Pod, 같은 노드에서 정책만 넣고 빼서, 관측점이 보는 출발지 IP가 바뀐 원인이 정책이라는 것을 고정합니다."
+  - label: "metric → trace → log"
+    steps: ["알려진 trace ID로 요청 1건", "Tempo · Loki · Mimir에서 같은 ID 조회", "Grafana 링크 자체도 확인"]
+    text: "HotROD 샘플 앱과 짧은 fault injector로 요청 하나를 세 저장소에서 함께 찾아갑니다."
+  - label: "Longhorn 장애 관측"
+    tone: "warn"
+    steps: ["Longhorn 제어면 · 데이터면 정지", "마운트에서 실제 I/O 오류 확인", "그동안 메트릭 표본 나이로 수집 지속 확인"]
+    text: "관측 평면을 Longhorn 밖에 둔 이유를 장애 중에 증명합니다. 최근 표본의 나이로 확인해야 수집이 멈춘 상태를 놓치지 않습니다."
+{{< /tabs >}}
+
+- 검증은 smoke(6분 이내), full(70분 이내), chaos(100분 이내, 직렬) 세 단계로 나눴습니다. 자동 검증 스크립트는 아직 만들지 못했고, 아키텍처 리뷰에서도 남은 과제로 잡혀 있습니다.
+
+## 추론: vLLM 기준선과 SLO
+
+서빙 엔진은 현업 LLM 서빙 표준인 vLLM(CPU 이미지)으로 정했습니다. 모델은 SmolLM2-135M 하나만 씁니다. 더 큰 모델은 CPU에서 너무 느려 부하 시험이 성립하지 않아서, 압박은 CPU 한도로 만들었습니다.
+
+같은 조건(입력 256, 출력 128 토큰, 동시 8, CPU 4)에서 엔진을 비교했습니다.
+
+| 엔진 | 출력 tok/s | TTFT 평균 | TPOT 평균 | 시작 |
+|---|---|---|---|---|
+| vLLM bf16 | 46 | 1.4초 | 165ms | 약 2분 |
+| vLLM fp32 | 48 | 5.9초 | 122ms | 약 1분 45초 |
+| llama.cpp Q8 | 133 | 3.4초 | 29ms | 몇 초 |
+
+처리량은 llama.cpp가 높았지만, 지표와 설정, 측정 도구가 현업과 같은 vLLM을 골랐습니다.
+
+이어서 vLLM Pod 1개(CPU 4, 메모리 6Gi)에 동시 요청을 1에서 32까지 늘리며 `vllm bench serve`로 쟀습니다.
+
+| 동시 | 출력 tok/s | TTFT p50 / p95 | TPOT p50 / p95 |
+|---|---|---|---|
+| 1 | 16 | 1.3초 / 3.7초 | 47 / 48ms |
+| 2 | 32 | 0.37초 / 0.48초 | 60 / 63ms |
+| 4 | 48 | 0.75초 / 0.79초 | 77 / 81ms |
+| 8 | 39 | 1.4초 / 8.6초 | 166 / 197ms |
+| 16 | 55 | 2.2초 / 16초 | 228 / 285ms |
+| 32 | 66 | 4.3초 / 31초 | 345 / 536ms |
+
+- 꺾이는 지점은 동시 4에서 8 사이입니다. p95 TTFT가 0.8초에서 8.6초로 뛰고, 처리량은 오히려 줄었습니다.
+- 대기 요청은 동시 32 전까지 0이었고 KV 캐시도 7%만 썼습니다. 줄이 막히거나 메모리가 모자란 문제는 아니었습니다.
+- vLLM은 받을 수 있는 만큼 받고 모두 함께 느려졌습니다(실패 0). llama.cpp는 처리 칸이 정해져 있어 5번째 요청부터 줄을 섰습니다.
+- 동시 1의 p95 TTFT 3.7초는 시작 직후 첫 요청들의 컴파일 때문이었습니다. 예열 없이 Ready가 되면 첫 사용자가 느립니다.
+
+그래서 SLO를 TTFT p95 1초 이하, TPOT p95 100ms 이하, 에러율 0%로 정하고, Pod 하나의 용량을 동시 4로 잡았습니다. 다음 단계의 자동 확장 기준은 Pod당 실행 중 요청이 4를 넘기 전에 늘리는 것입니다.
+
+## 학습: LoRA 결과를 서빙까지
+
+{{< flow >}}
+title: "학습에서 서빙까지 · 단계를 눌러 보세요"
+steps:
+  - title: "학습 Job"
+    sub: "약 2분"
+    detail: "train namespace에서 LoRA 학습 Job을 실행하고 adapter를 MinIO 체크포인트에 남깁니다."
+  - title: "등록 Job"
+    sub: "합치기 · 올리기"
+    detail: "adapter를 원래 모델과 합쳐 Hugging Face 형식으로 MinIO 모델 경로에 올립니다."
+  - title: "모델 변경 PR"
+    detail: "서빙 설정의 MODEL 값을 바꾸는 PR을 merge합니다."
+  - title: "새 Pod"
+    sub: "준비 약 2분"
+    tone: "ok"
+    detail: "ArgoCD가 반영하면 새 모델로 서빙 Pod가 뜹니다. 되돌리기는 그 커밋을 revert하면 됩니다."
+{{< /flow >}}
+
+- 학습 Job은 PriorityClass `batch-low`로 두어 추론(`inference`)에 자원을 양보하게 했습니다.
+- 학습 이미지는 torch CPU와 peft로 만들어 Harbor에 올렸고, 데이터와 체크포인트는 각각 10GiB 한도를 둔 전용 계정으로만 씁니다.
+
+## 아키텍처 리뷰에서 찾은 것
+
+2026.10.13에 지금 시스템을 다시 점검했습니다. 고칠 것을 우선순위로 정리했고, 알림 문제는 바로 고쳤습니다.
+
+| 우선순위 | 찾은 것 | 상태 |
+|---|---|---|
+| high | 빈 클러스터에서 다시 세우면 Cilium 설치가 실패함. Cilium 설정이 쓰는 ServiceMonitor CRD를 ArgoCD가 나중에 설치하는 순서 문제 | 고칠 예정 |
+| medium | 알림 수신처가 비어 있음 | 사내 메일로 고침 |
+| medium | Harbor 보관 정책(최근 10개)이 prod가 쓰는 이미지를 지울 수 있음 | 고칠 예정 |
+| medium | 게스트 커널이 무인 업그레이드로 바뀌고 있음 | 고칠 예정 |
+| medium | 백업을 되돌려 본 적이 없음 | 복원 훈련 예정 |
+| medium | 자동 검증(smoke)이 없음 | 만들 예정 |
+| medium | dev 앱이 인증 없는 이미지 창고와 평평한 클러스터망으로 플랫폼에 닿을 수 있음 | 고칠 예정 |
+
+## 앞으로 할 것
+
+{{< tabs >}}
+title: "다음 시나리오 · 탭을 바꿔 보세요"
+items:
+  - label: "서빙"
+    steps: ["S2 자동 확장 · 콜드 스타트", "S3 모델 카나리", "S4 멀티 LoRA", "S5 보호 장치", "S6 부하 중 장애"]
+    text: "대기 요청 수로 확장하고 시작 2분을 줄인 뒤, 새 모델에 트래픽 10%를 보내 나쁘면 자동으로 되돌리고, adapter 여러 개를 한 모델로 서빙하고, 사용자별 요청 제한과 부하 중 Pod 삭제·노드 drain 훈련까지 이어 갑니다."
+  - label: "학습 · 배치"
+    steps: ["T1 Kueue + 가짜 GPU", "T2 체크포인트 재개", "T3 파이프라인", "T4 평가 게이트", "T5 MLflow", "T6 분산 학습"]
+    text: "노드에 가짜 GPU 자원을 등록해 Kueue로 팀별 할당량·빌려 쓰기·선점을 해 보고, 끊긴 학습 이어 하기, Argo Workflows 파이프라인, 평가 게이트, 실험 추적, gloo 분산 학습 구조까지 확인합니다."
+  - label: "이 랩 밖"
+    tone: "warn"
+    steps: ["GPU 메모리 용량 계획", "MIG · time-slicing", "NCCL · InfiniBand", "GPU 노드 자동 증설"]
+    text: "GPU가 있어야 하는 부분은 이 랩에서 할 수 없습니다. H200 클러스터 운영 경험과 이어서 GPU 환경에서 따로 확인할 계획입니다."
+{{< /tabs >}}
 
 ## 알게 된 점
 
-- 빈 클러스터에서 다시 세울 때 Cilium 설정이 쓰는 ServiceMonitor CRD가 ArgoCD 설치 이후에 생겨 순서 문제가 있었습니다. 다시 세우는 순서도 검증 대상이라는 것을 확인했습니다.
-- 다음 단계로 이 환경에서 GPU 없이 진행한 추론·학습 구성을 GPU 클러스터 운영과 연결해 볼 계획입니다.
+- 다시 세우는 순서도 검증 대상이었습니다. 처음 설치할 때는 없던 설정이 나중에 추가되면서, 지금 클러스터는 돌지만 빈 클러스터에서는 실패하는 상태가 생겼습니다.
+- 증상이 같은 원인이 여럿인 경우가 많았습니다. NAT 모드, Docker의 방화벽 정책, 브리지 필터 설정은 모두 Cilium 고장처럼 보여서, 설계 단계에서 미리 제거했습니다.
+- 서빙 성능은 처리량 하나로 보면 안 됐습니다. 처리량이 비슷해도 TTFT p95는 10배 넘게 차이가 났고, SLO는 꺾이는 지점을 보고 정해야 했습니다.
