@@ -4,12 +4,12 @@
 <header class="post-head">
 {{ if $work }}
 <a class="back mono small" href="{{ "work/" | relURL }}">{{ partial "icon.html" "arrow-left" }} 주요 프로젝트</a>
-<span class="mono small muted">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>
 {{ else }}
 <a class="back mono small" href="{{ "posts/" | relURL }}">{{ partial "icon.html" "arrow-left" }} 기록</a>
 <time class="mono small muted" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
 {{ end }}
 <h1>{{ .Title }}</h1>
+{{ if $work }}<span class="mono small muted">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>{{ end }}
 {{ with .Params.result }}<p class="result">{{ . }}</p>{{ end }}
 {{ with .Params.stack }}<ul class="tags tags-sm">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
 <div class="chips">

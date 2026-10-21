@@ -4,7 +4,7 @@ description: "8-GPU 서버 전력 실측으로 랙 배치를 정하고, 약 200�
 date: 2025-01-01
 period: "2025"
 weight: 1
-role: "현장 구축 · 운영 담당"
+role: "현장 구축·운영"
 summary: "약 200노드 H200 학습 클러스터의 입고 전 전력 실측부터 랙 마운트, InfiniBand fabric 정비, 고장 노드 복구까지 물리 계층 전체를 현장에서 맡음"
 result: "약 200노드 입고 · IB 광모듈 7천여 개 전수 교체 · rail 정렬 보존 복구 9회"
 stack: ["H200 (HGX)", "InfiniBand NDR 400G", "Rail-optimized Fat-tree", "UPS · Rack Power", "UFM"]

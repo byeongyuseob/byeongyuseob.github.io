@@ -4,7 +4,7 @@ description: "서버 60,000대 이상 환경에서 수작업 검수 자동화(20
 date: 2017-02-01
 period: "2017.02 – 2022.10"
 weight: 4
-role: "PM (3개 프로젝트 주도)"
+role: "PM · 3건 주도"
 summary: "서버 60,000대 이상, 하루 30~40건 장애가 나는 환경에서 수작업을 자동화하고, 장애 대응을 표준 절차 → Playbook → 웹 콘솔로 단계적으로 바꿈"
 result: "정형 장애는 Playbook 실행 한 번 · 서버 직접 접속 대부분 제거 · 전 서버 전수 검수"
 stack: ["Ansible", "Dynamic Inventory", "SSO", "Flask", "Vue.js", "Elasticsearch", "Kibana", "CMDB"]
