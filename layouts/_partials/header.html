@@ -2,8 +2,9 @@
 <header class="wrap header">
 <a class="logo" href="{{ "/" | relURL }}">{{ site.Params.logo }}</a>
 <nav aria-label="주 메뉴">
+{{ with where site.RegularPages "Section" "work" }}<a href="{{ "work/" | relURL }}"{{ if hasPrefix $cur ("work/" | relURL) }} aria-current="page"{{ end }}>프로젝트</a>{{ end }}
+{{ with site.Taxonomies.projects }}<a href="{{ "projects/" | relURL }}"{{ if hasPrefix $cur ("projects/" | relURL) }} aria-current="page"{{ end }}>진행 중</a>{{ end }}
 <a href="{{ "posts/" | relURL }}"{{ if hasPrefix $cur ("posts/" | relURL) }} aria-current="page"{{ end }}>기록</a>
-{{ with site.Taxonomies.projects }}<a href="{{ "projects/" | relURL }}"{{ if hasPrefix $cur ("projects/" | relURL) }} aria-current="page"{{ end }}>프로젝트</a>{{ end }}
 <a href="{{ "categories/" | relURL }}"{{ if hasPrefix $cur ("categories/" | relURL) }} aria-current="page"{{ end }}>분류</a>
 </nav>
 </header>

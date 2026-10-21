@@ -1,0 +1,9 @@
+<a class="card work" href="{{ .RelPermalink }}">
+<span class="label">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>
+<div class="stack-sm">
+<h3>{{ .Title }}</h3>
+{{ with .Params.summary }}<p class="small muted">{{ . }}</p>{{ end }}
+</div>
+{{ with .Params.result }}<span class="result">{{ . }}</span>{{ end }}
+{{ with .Params.stack }}<ul class="tags tags-sm">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+</a>

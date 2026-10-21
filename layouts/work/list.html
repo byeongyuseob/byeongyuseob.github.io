@@ -1,0 +1,11 @@
+{{ define "main" }}
+<section>
+<header class="page-head">
+<h1>{{ .Title }}</h1>
+{{ with .Params.summary }}<p class="lead muted">{{ . }}</p>{{ end }}
+</header>
+<div class="bento">
+{{ range .Pages.ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
+</div>
+</section>
+{{ end }}

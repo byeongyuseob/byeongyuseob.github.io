@@ -65,6 +65,14 @@ a:hover { color: #FFFFFF; }
 .career .org { flex: 1 1 200px; font-weight: 500; }
 .career .role { flex: 1 1 100%; font-size: 14px; color: var(--muted); }
 .career + .label { margin-top: 12px; }
+.career .bullets { flex: 1 1 100%; margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--soft); }
+.career .bullets li { display: list-item; }
+.work { flex: 1 1 320px; justify-content: space-between; text-decoration: none; }
+.work h3 { margin: 0; font-size: 19px; line-height: 1.4; }
+.work p { margin: 0; }
+.work:hover h3 { color: var(--accent); }
+.result { margin: 0; font-size: 14px; font-weight: 500; color: var(--text); }
+.tags-sm li { padding: 3px 8px; font-size: 12px; color: var(--soft); }
 .card-wide { flex: 2 1 640px; }
 .card-narrow { flex: 1 1 300px; }
 .certs { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }

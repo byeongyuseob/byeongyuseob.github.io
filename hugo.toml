@@ -19,15 +19,22 @@ style = "github-dark"
 name = "변규섭"
 logo = "byeongyuseob.github.io"
 headline = "데이터센터 운영 10년, 이제 GPU 클러스터로."
-description = "전력·냉각·하드웨어·장애 대응을 다뤄 온 경험 위에 GPU 클러스터와 AI 인프라를 쌓고 있습니다. 해 온 일과 배운 것을 날짜순으로 남깁니다."
+description = "NAVER · NAVER Cloud의 서버 60,000대 이상을 운영하며 쌓은 장애 대응과 자동화 경험 위에 GPU 클러스터와 AI 인프라를 쌓고 있습니다. 해 온 일과 배운 것을 날짜순으로 남깁니다."
 github = "https://github.com/byeongyuseob"
-email = ""   # 예: "me@example.com"
-resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 파일을 둔다
+linkedin = "https://www.linkedin.com/in/byeongyuseob"
+email = "byeongyuseob.career@gmail.com"
+resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호 없는 판으로)
 
 [[params.career]]
 period = "2016.04 – 현재"
-org = "엔아이티서비스 · IDC 운영"
-role = "Data Center Operations — Power & Cooling · Hardware Lifecycle · Incident Response"
+org = "NIT Service"
+role = "서버·인프라 운영 — NAVER · NAVER Cloud"
+highlights = [
+  "서버 60,000대 이상의 Server Lifecycle 관리 — 입고 설정·BIOS 최적화, 운영 중 하드웨어 장애 처리, 폐기·재사용 부품 분류",
+  "SLA 99.9% 기준 운영, MTBF · MTTR · MTTF 지표로 서비스 품질 관리",
+  "Kickstart · 프로필 이미지로 설치 과정 표준화·자동화",
+  "ISMS · SOC · CSP 인증 대응 물리 보안 — 출입 통제, 정보 자산 분류 기준, 보안 인식 교육",
+]
 
 # 자격: 최신순. 만료된 것은 넣지 않는다.
 [[params.certs]]
@@ -50,6 +57,11 @@ date = "2024.02"
 name = "CKA · Certified Kubernetes Administrator"
 issuer = "The Linux Foundation"
 
+[[params.education]]
+period = "2009.02 – 2015.02"
+school = "선문대학교"
+degree = "정보통신공학부 학사"
+
 [params.skills]
-have = ["Data Center Operations", "Power & Cooling", "Hardware Lifecycle", "Incident Response", "Linux", "Kubernetes", "Docker", "Terraform", "Bash · Python"]
+have = ["Server Lifecycle", "Hardware Troubleshooting", "BIOS · Firmware", "Incident Response", "Linux", "Ansible", "Kubernetes", "ArgoCD", "Docker", "GitHub Actions", "Prometheus · Grafana", "Elasticsearch · Kibana", "Terraform", "Python · Shell"]
 learning = ["Slurm", "DCGM", "NCCL", "InfiniBand", "GPU Xid Errors", "AI Workload Sizing"]
