@@ -1,5 +1,5 @@
 ---
-title: "AI 에이전트가 남의 레포를 git pull 했다 — 되돌리기와 막기"
+title: "AI 에이전트 git pull 되돌리기와 막기"
 description: "AI 코딩 에이전트가 남의 레포에 git pull 한 것을 되돌리고, ask 규칙으로 다시 못 하게 막은 기록"
 date: 2026-10-21
 categories: ["ai-tools"]

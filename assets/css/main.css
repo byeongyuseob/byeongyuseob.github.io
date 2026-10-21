@@ -103,7 +103,7 @@ a:hover { color: #FFFFFF; }
 .group { font-family: var(--mono); font-size: 13px; color: var(--muted); padding: 8px 0 12px; border-bottom: 1px solid var(--line); }
 .row { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--row-line); text-decoration: none; }
 .row time { flex: 0 0 64px; font-family: var(--mono); font-size: 14px; color: var(--muted); }
-.row-title { flex: 1 1 360px; min-width: 0; font-size: 17px; font-weight: 500; }
+.row-title { flex: 1 1 360px; min-width: 0; font-size: 17px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .row:hover .row-title { color: var(--accent); }
 .more { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--accent); text-decoration: none; }
 .page-head { display: flex; flex-direction: column; gap: 12px; }

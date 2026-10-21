@@ -1,5 +1,5 @@
 ---
-title: "Postmortem: CPU P-state 와 메모리 성능 저하 — 부품 교체로 안 풀린 문제를 firmware 로"
+title: "Postmortem: P-state와 메모리 성능 저하"
 description: "특정 서버 모델에서 CPU P-state 와 메모리 성능이 얽힌 원인 불명 저하를, 부품 교체·메모리 구성 실험·UEFI 설정·제조사 협업을 거쳐 UEFI v2.31 로 해결한 과정과 GPU 클러스터 firmware·driver 관리로 옮긴 교훈"
 date: 2020-07-31
 categories: ["hardware"]

@@ -1,5 +1,5 @@
 ---
-title: "Postmortem: 서버 약 200대의 CPU 온도 이상 — 원인은 BMC firmware 였다"
+title: "Postmortem: 서버 200대 CPU 온도 이상"
 description: "약 200대 서버의 CPU 온도 상승과 성능 저하를 부하·외부 요인 배제 → 냉각 설정 실험 → 제조사 로그 분석으로 좁혀 iLO firmware 버그를 찾은 과정과, 같은 문제가 GPU 노드에서 어떻게 보이는지"
 date: 2020-08-31
 categories: ["hardware"]
