@@ -5,7 +5,7 @@ date: 2023-01-31
 categories: ["docker"]
 ---
 
-> 2023.01, PM. 프로젝트 시작 단계. 관련 프로젝트: [통합 배포 시스템 구축](/work/cicd-platform/), 이후 과정: [사내 배포를 GitOps 파이프라인으로 바꾸기](/posts/gitops-deploy-pipeline/)
+> 2023.01, PM. 프로젝트 시작 단계. 관련 프로젝트: [통합 배포 시스템 구축](/work/cicd-platform/), 이후 과정: [사내 배포를 하나의 파이프라인으로 정리하기](/posts/deploy-pipeline/)
 
 ## 요약
 
@@ -48,4 +48,4 @@ items:
 - CI/CD 자동화와 표준화로 배포 과정을 안정화하기
 - 서비스가 늘어나도 같은 방식으로 추가할 수 있는 구조 만들기
 
-이 기준 위에 GitHub Actions, ArgoCD, kubeadm 3노드 Kubernetes를 올렸고, 결과는 2024년 1월에 [따로 정리](/posts/gitops-deploy-pipeline/)했습니다.
+이 기준 위에 GitHub Actions 파이프라인과 배포 알림을 올렸고, 결과는 2024년 1월에 [따로 정리](/posts/deploy-pipeline/)했습니다.
