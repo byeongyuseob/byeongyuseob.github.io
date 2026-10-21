@@ -1,0 +1,14 @@
+{{/* 글 목록을 연·월로 묶어 보여 준다. 받는 값: Pages */}}
+<div>
+{{ range .GroupByDate "2006 · 1월" }}
+<div class="group">{{ .Key }}</div>
+{{ range .Pages }}
+<a class="row" href="{{ .RelPermalink }}">
+<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01-02" }}</time>
+<span class="row-title">{{ .Title }}</span>
+{{ range .GetTerms "projects" }}<span class="chip chip-sm chip-accent">{{ .LinkTitle }}</span>{{ end }}
+{{ range .GetTerms "categories" }}<span class="chip chip-sm">{{ .LinkTitle }}</span>{{ end }}
+</a>
+{{ end }}
+{{ end }}
+</div>

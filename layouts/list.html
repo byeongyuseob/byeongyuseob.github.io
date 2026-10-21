@@ -1,0 +1,24 @@
+{{/* 기록 목록(/posts/), 분류·프로젝트 목록과 각 항목 페이지에 함께 쓴다 */}}
+{{ define "main" }}
+<section>
+<header class="page-head">
+{{ with .Params.status }}<span class="label">{{ . }}</span>{{ end }}
+<h1>{{ .Title }}</h1>
+{{ with .Params.summary }}<p class="lead muted">{{ . }}</p>{{ end }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+</header>
+{{ if eq .Kind "taxonomy" }}
+<div>
+{{ range .Pages }}
+<a class="row" href="{{ .RelPermalink }}">
+<span class="row-title">{{ .LinkTitle }}</span>
+{{ with .Params.status }}<span class="chip chip-sm chip-accent">{{ . }}</span>{{ end }}
+<span class="mono small muted">{{ len .Pages }}개</span>
+</a>
+{{ end }}
+</div>
+{{ else }}
+{{ partial "post-list.html" .Pages }}
+{{ end }}
+</section>
+{{ end }}

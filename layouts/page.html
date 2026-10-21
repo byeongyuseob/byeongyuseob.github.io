@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="post">
+<header class="post-head">
+<a class="back mono small" href="{{ "posts/" | relURL }}">{{ partial "icon.html" "arrow-left" }} 기록</a>
+<time class="mono small muted" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+<h1>{{ .Title }}</h1>
+<div class="chips">
+{{ range .GetTerms "projects" }}<a class="chip chip-sm chip-accent" href="{{ .RelPermalink }}">프로젝트 · {{ .LinkTitle }}</a>{{ end }}
+{{ range .GetTerms "categories" }}<a class="chip chip-sm" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+</div>
+</header>
+<div class="prose">
+{{ .Content }}
+</div>
+</article>
+{{ end }}

@@ -1,0 +1,34 @@
+# hugo server 는 이 값을 localhost 로 바꿔 띄운다. 배포 때는 GitHub Actions 가 다시 지정한다.
+baseURL = "https://byeongyuseob.github.io/"
+locale = "ko-KR"
+defaultContentLanguage = "ko"
+title = "[이름] · 기록"
+timeZone = "Asia/Seoul"
+hasCJKLanguage = true
+capitalizeListTitles = false
+enableRobotsTXT = true
+
+[taxonomies]
+category = "categories"
+project = "projects"
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+name = "[이름]"
+logo = "byeongyuseob.github.io"
+headline = "데이터센터 운영 10년, 이제 GPU 클러스터로."
+description = "전력·냉각·하드웨어·장애 대응을 다뤄 온 경험 위에 GPU 클러스터와 AI 인프라를 쌓고 있습니다. 해 온 일과 배운 것을 날짜순으로 남깁니다."
+github = "https://github.com/byeongyuseob"
+email = ""   # 예: "me@example.com"
+resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 파일을 둔다
+
+[[params.career]]
+period = "[YYYY.MM] – 현재"
+org = "[회사 · 팀]"
+role = "IDC 운영 — 전력·냉각·하드웨어 수명주기·장애 대응"
+
+[params.skills]
+have = ["데이터센터 운영", "전력 · 냉각", "하드웨어 수명주기", "장애 대응", "Linux", "Kubernetes", "Docker", "Terraform", "Bash · Python"]
+learning = ["Slurm", "DCGM", "NCCL", "InfiniBand", "GPU 장애 (Xid)", "AI 워크로드 사이징"]

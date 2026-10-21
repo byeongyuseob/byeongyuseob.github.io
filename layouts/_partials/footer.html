@@ -1,0 +1,7 @@
+<footer class="wrap footer">
+<span>© {{ now.Year }} {{ site.Params.name }}</span>
+<div class="links">
+<a href="{{ "index.xml" | relURL }}">RSS</a>
+{{ with site.Params.github }}<a href="{{ . }}">GitHub</a>{{ end }}
+</div>
+</footer>

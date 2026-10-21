@@ -1,0 +1,73 @@
+{{ define "main" }}
+{{ $p := site.Params }}
+<section class="bento" aria-label="소개">
+<div class="card intro">
+<div class="mono small muted">~/about</div>
+<div class="stack">
+<h1>안녕하세요, <span class="accent">{{ $p.name }}</span>입니다.<br>{{ $p.headline }}</h1>
+<p class="lead muted">{{ $p.description }}</p>
+</div>
+<div class="buttons">
+{{ with $p.github }}<a class="btn btn-primary" href="{{ . }}">GitHub {{ partial "icon.html" "arrow-up-right" }}</a>{{ end }}
+{{ with $p.email }}<a class="btn" href="mailto:{{ . }}">{{ partial "icon.html" "mail" }} 이메일</a>{{ end }}
+{{ with $p.resume }}<a class="btn" href="{{ . | relURL }}">{{ partial "icon.html" "file" }} 이력서 PDF</a>{{ end }}
+</div>
+</div>
+</section>
+
+<section class="bento" aria-label="경력과 기술">
+<div class="card">
+<span class="label">경력</span>
+<ol class="career">
+{{ range $p.career }}
+<li>
+<span class="period">{{ .period }}</span>
+<span class="org">{{ .org }}</span>
+<span class="role">{{ .role }}</span>
+</li>
+{{ end }}
+</ol>
+</div>
+<div class="card">
+<span class="label">기술</span>
+<div class="stack-sm">
+<span class="sub">운영 경험</span>
+<ul class="tags">{{ range $p.skills.have }}<li>{{ . }}</li>{{ end }}</ul>
+</div>
+<div class="stack-sm">
+<span class="sub">지금 익히는 것</span>
+<ul class="tags learning">{{ range $p.skills.learning }}<li>{{ . }}</li>{{ end }}</ul>
+</div>
+</div>
+</section>
+
+{{ with site.Taxonomies.projects }}
+<section aria-labelledby="projects-h">
+<h2 id="projects-h" class="title">프로젝트</h2>
+<div class="bento">
+{{ range .ByCount }}
+{{ $term := .Page }}
+<a class="card project" href="{{ $term.RelPermalink }}">
+<span class="label">{{ $term.Params.status | default "진행 중" }}</span>
+<div class="stack-sm">
+<h3>{{ $term.LinkTitle }}</h3>
+{{ with $term.Params.summary }}<p class="small muted">{{ . }}</p>{{ end }}
+</div>
+<span class="mono small muted">로그 {{ .Count }}개 · 최근 {{ (index .Pages 0).Date.Format "2006-01-02" }}</span>
+</a>
+{{ end }}
+</div>
+</section>
+{{ end }}
+
+<section aria-labelledby="posts-h">
+<div class="between">
+<h2 id="posts-h" class="title">기록</h2>
+<nav class="chips" aria-label="분류">
+{{ range site.Taxonomies.categories.Alphabetical }}<a class="chip" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
+</nav>
+</div>
+{{ partial "post-list.html" (first 10 (where site.RegularPages "Section" "posts")) }}
+<a class="more" href="{{ "posts/" | relURL }}">전체 기록 보기 {{ partial "icon.html" "arrow-right" }}</a>
+</section>
+{{ end }}
