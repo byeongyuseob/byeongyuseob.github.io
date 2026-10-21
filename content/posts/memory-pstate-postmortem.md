@@ -25,15 +25,27 @@ categories: ["hardware"]
 5. 제조사 글로벌 기술지원팀과 자료를 주고받으며 해결 시점을 앞당겼습니다.
 6. UEFI v2.31 firmware 적용 후 메모리 성능 문제가 해결됐습니다.
 
-```mermaid
-flowchart LR
-  A["메모리 성능 저하"] --> B["부품 교체 + MLC 측정<br/>같은 증상"]
-  B --> C["메모리 구성 최소화 실험"]
-  C --> D["UEFI 설정 재조정"]
-  D --> E["UEFI · BMC firmware · 로그 분석"]
-  E --> F["제조사 기술지원 협업"]
-  F --> G["UEFI v2.31로 해결"]
-```
+{{< flow >}}
+title: "원인을 좁힌 순서 · 단계를 눌러 보세요"
+steps:
+  - title: "메모리 성능 저하"
+    tone: "bad"
+    detail: "특정 서버 모델에서 CPU P-state 기능과 관련된 메모리 성능 저하가 있었습니다."
+  - title: "부품 교체 + MLC"
+    sub: "같은 증상"
+    detail: "CPU, 메모리, 시스템 보드를 새 부품으로 바꾸고 다시 쟀지만 같은 증상이었습니다."
+  - title: "메모리 구성 최소화"
+    detail: "메모리 구성을 최소로 줄여 가며 실험했습니다."
+  - title: "UEFI 설정 재조정"
+    detail: "UEFI 설정을 초기화한 뒤 다시 맞췄습니다."
+  - title: "firmware · 로그 분석"
+    detail: "UEFI, BMC firmware 버전과 로그를 분석했습니다."
+  - title: "제조사 기술지원"
+    detail: "제조사 글로벌 기술지원과 함께 원인을 좁혔습니다."
+  - title: "UEFI v2.31"
+    tone: "ok"
+    detail: "UEFI v2.31로 해결했습니다."
+{{< /flow >}}
 
 ## 재발 방지
 
@@ -59,11 +71,19 @@ GPU도 전력 상태(P-state)와 clock 설정이 성능에 영향을 줍니다. 
 | 전력 제한과 P-state | `nvidia-smi -q -d POWER,PERFORMANCE` |
 | 교체·업데이트 후 확인 | `dcgmi diag`로 진단, `nccl-tests`로 통신 성능 재측정 |
 
-```mermaid
-flowchart LR
-  V["노드별 버전 · 설정 수집"] --> G{"같은 조합끼리 비교"}
-  G -->|"버전 불일치"| U["업데이트 계획"]
-  G -->|"설정 불일치"| S["persistence · 전력 제한 맞추기"]
-  U --> CHK["dcgmi diag · nccl-tests로 재측정"]
-  S --> CHK
-```
+{{< flow >}}
+title: "GPU 서버라면 · 단계를 눌러 보세요"
+steps:
+  - title: "버전 · 설정 수집"
+    detail: "노드별 driver, firmware 버전과 persistence mode, 전력 제한 설정을 모읍니다."
+  - title: "같은 조합끼리 비교"
+    detail: "같은 모델과 구성끼리 묶어 다른 값을 가진 노드를 찾습니다."
+  - title: "불일치 정리"
+    tone: "warn"
+    sub: "버전 · 설정"
+    detail: "버전이 다르면 업데이트 계획을 세우고, 설정이 다르면 persistence와 전력 제한을 맞춥니다."
+  - title: "재측정"
+    tone: "ok"
+    sub: "dcgmi diag · nccl-tests"
+    detail: "dcgmi diag와 nccl-tests로 다시 재서 결과를 비교합니다."
+{{< /flow >}}

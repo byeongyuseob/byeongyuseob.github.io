@@ -1,0 +1,14 @@
+{{- $d := .Inner | transform.Unmarshal -}}
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz tabs" data-tabs>
+{{ with $d.title }}<figcaption class="viz-title">{{ . }}</figcaption>{{ end }}
+<div class="tab-list" role="tablist">
+{{ range $i, $t := $d.items }}<button type="button" role="tab" class="tab-btn{{ with $t.tone }} tone-{{ . }}{{ end }}" data-tab="{{ $i }}" aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}">{{ $t.label }}</button>{{ end }}
+</div>
+{{ range $i, $t := $d.items }}
+<div class="tab-panel" role="tabpanel" data-tab-panel="{{ $i }}"{{ if ne $i 0 }} hidden{{ end }}>
+<ol class="chain">{{ range $t.steps }}<li>{{ . }}</li>{{ end }}</ol>
+{{ with $t.text }}<p class="tab-text{{ with $t.tone }} tone-{{ . }}{{ end }}">{{ . }}</p>{{ end }}
+</div>
+{{ end }}
+</figure>

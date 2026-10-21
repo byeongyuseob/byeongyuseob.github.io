@@ -14,14 +14,24 @@ stack: ["Linux", "iLO", "IMM", "UEFI", "Intel MLC", "BIOS 설정"]
 
 두 건 모두 바깥쪽 원인부터 하나씩 지워 가며 안쪽으로 들어갔습니다.
 
-```mermaid
-flowchart TD
-  A["환경 · 부하 확인<br/>과부하 · 외부 요인 배제"] --> B["설정 변경<br/>냉각 모드 · 팬 속도 · UEFI"]
-  B --> C["부품 교체<br/>CPU · 메모리 · 보드"]
-  C --> D["firmware 업데이트 · 로그 분석"]
-  D --> E["제조사 기술지원과 원인 확정"]
-  E --> F["같은 조합 서버에 선제 적용"]
-```
+{{< flow >}}
+title: "원인을 좁힌 순서 · 단계를 눌러 보세요"
+steps:
+  - title: "환경 · 부하"
+    detail: "CPU 온도 건은 서버 환경과 부하를 확인해 과부하가 원인이 아님을 먼저 확인했습니다."
+  - title: "설정 변경"
+    sub: "냉각 · UEFI"
+    detail: "CPU 온도 건은 Enhanced Cooling Mode와 팬 속도 조정으로 증상을 줄였고, 메모리 건은 UEFI 설정을 초기화한 뒤 다시 맞췄습니다."
+  - title: "부품 교체"
+    detail: "메모리 건은 CPU, 메모리, 시스템 보드를 새 부품으로 바꾸고 Intel MLC로 다시 쟀지만 같은 증상이었습니다."
+  - title: "firmware · 로그"
+    detail: "두 건 모두 firmware 업데이트와 로그 분석으로 원인 쪽으로 좁혀 갔습니다."
+  - title: "제조사 확인"
+    tone: "ok"
+    detail: "CPU 온도는 제조사 로그 분석으로 iLO firmware 버그를, 메모리는 제조사 글로벌 기술지원과 UEFI v2.31을 확인했습니다."
+  - title: "선제 적용"
+    detail: "증상이 난 서버뿐 아니라 같은 모델과 firmware 조합의 서버 전체에 미리 적용했습니다."
+{{< /flow >}}
 
 ## 두 건 비교
 

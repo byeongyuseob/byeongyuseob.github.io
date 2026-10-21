@@ -19,15 +19,22 @@ categories: ["gpu-infra"]
 
 ## 정리 방법
 
-```mermaid
-flowchart LR
-  CI["서버 CI · 네트워크 CI"] --> J["노드 · 스위치 · 포트 연결"]
-  CM["IB 케이블맵 2종"] --> J
-  DC["DCIM 상면 정보"] --> J
-  J --> M["상면 · IB 3층 인터랙티브 지도"]
-  J --> X["케이블 5,833행 엑셀"]
-  J --> DOC["구조 해설 문서"]
-```
+{{< flow >}}
+title: "자료를 합친 흐름 · 단계를 눌러 보세요"
+steps:
+  - title: "서버 · 네트워크 CI"
+    detail: "서버와 네트워크 장비의 CI 정보를 모았습니다."
+  - title: "IB 케이블맵 2종"
+    detail: "IB 케이블맵 두 가지를 함께 썼습니다."
+  - title: "DCIM 상면 정보"
+    detail: "랙 위치를 알기 위해 DCIM 상면 정보를 붙였습니다."
+  - title: "노드 · 스위치 · 포트 연결"
+    detail: "세 자료를 노드, 스위치, 포트 단위로 이어 붙였습니다."
+  - title: "결과물 3종"
+    tone: "ok"
+    sub: "지도 · 엑셀 · 해설"
+    detail: "상면과 IB 3층을 보는 인터랙티브 지도, 케이블 5,833행 엑셀, 구조 해설 문서를 만들었습니다."
+{{< /flow >}}
 
 1. 서버 CI와 네트워크 CI로 노드와 스위치 목록을 만들었습니다.
 2. 케이블맵 두 종을 합쳐 노드 포트와 스위치 포트를 하나씩 연결했습니다.
@@ -43,17 +50,18 @@ flowchart LR
 | 확장 단위 | SU 32노드, spine 증설 여유 있음 | 해당 없음 |
 | 용도 | 학습 | KVM 멀티테넌트 |
 
-```mermaid
-flowchart LR
-  subgraph TR["학습 클러스터 · GPU:NIC 1:1"]
-    direction TB
-    TG["GPU 8 · NIC 8"] --> TL["Rail별 Leaf"] --> TS["Spine (증설 여유)"]
-  end
-  subgraph CL["클라우드 클러스터 · GPU:NIC 2:1"]
-    direction TB
-    CG["GPU 8 · NIC 4"] --> CLF["Leaf"] --> CS["Spine (포트 여유 없음)"]
-  end
-```
+{{< tabs >}}
+title: "두 클러스터 비교 · 탭을 바꿔 보세요"
+items:
+  - label: "학습 · GPU:NIC 1:1"
+    tone: "ok"
+    steps: ["GPU 8 · NIC 8", "Rail별 Leaf", "Spine (증설 여유)"]
+    text: "GPU마다 NIC가 하나씩 붙고, 같은 번호 GPU끼리 같은 Leaf로 모입니다. Spine에는 증설 여유가 있습니다."
+  - label: "클라우드 · GPU:NIC 2:1"
+    tone: "warn"
+    steps: ["GPU 8 · NIC 4", "Leaf", "Spine (포트 여유 없음)"]
+    text: "NIC 하나를 GPU 두 개가 나눠 씁니다. Spine 포트에 여유가 없습니다."
+{{< /tabs >}}
 
 두 클러스터 모두 NDR 400G InfiniBand fat-tree, UFM, compute와 storage 네트워크 분리, Kubernetes와 Run:AI를 사용합니다.
 

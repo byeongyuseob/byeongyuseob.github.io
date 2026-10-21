@@ -27,40 +27,7 @@ stack: ["H200 (HGX)", "InfiniBand NDR 400G", "Rail-optimized Fat-tree", "UPS", "
 
 각 노드의 GPU 0번은 rail 0 leaf로, GPU 1번은 rail 1 leaf로 가는 식으로 같은 번호끼리 묶입니다. 노드 사이 같은 번호 GPU 통신이 leaf 하나 안에서 끝나기 때문에, 학습 중 집단 통신(all-reduce 등)의 경로가 짧고 일정합니다.
 
-```mermaid
-flowchart TB
-  subgraph SPINE["Spine 계층"]
-    S1["Spine"]
-    S2["Spine"]
-  end
-  subgraph LEAF["Leaf 계층 (SU 32노드 단위)"]
-    L0["Rail 0 Leaf"]
-    L1["Rail 1 Leaf"]
-    L7["Rail 7 Leaf"]
-  end
-  subgraph NA["노드 A"]
-    A0["GPU0 · NIC0"]
-    A1["GPU1 · NIC1"]
-    A7["GPU7 · NIC7"]
-  end
-  subgraph NB["노드 B"]
-    B0["GPU0 · NIC0"]
-    B1["GPU1 · NIC1"]
-    B7["GPU7 · NIC7"]
-  end
-  A0 --> L0
-  B0 --> L0
-  A1 --> L1
-  B1 --> L1
-  A7 --> L7
-  B7 --> L7
-  L0 --> S1
-  L0 --> S2
-  L1 --> S1
-  L1 --> S2
-  L7 --> S1
-  L7 --> S2
-```
+{{< rail >}}
 
 ## 맡은 일
 
@@ -88,13 +55,6 @@ NDR 400G InfiniBand 네트워크에 쓰이던 서드파티 광모듈을 NVIDIA �
 
 예비 노드를 빈 포트에 바로 연결하면 빠르지만, 그 노드의 GPU들이 원래와 다른 rail leaf에 붙게 됩니다. 그러면 그 노드가 들어간 작업은 통신 경로가 달라집니다.
 
-```mermaid
-flowchart LR
-  F["고장 노드 발생"] --> Q{"복구 방법"}
-  Q -->|"빈 포트에 예비 노드 연결"| X["rail 배치 어긋남<br/>통신 경로 달라짐"]
-  Q -->|"고장 노드 자리로 예비 노드 이전"| O["rail 배치 유지"]
-  O --> W["재마운트 → 전원 → 광 케이블 재결선"]
-```
 
 그래서 고장 노드를 빼고 그 자리에 예비 노드를 옮겨 설치했습니다. 재마운트, 전원, 광 케이블 재결선까지 직접 했고, 두 달 동안 9번 진행했습니다. 작업 1건당 정지 시간은 기록이 남아 있지 않습니다.
 

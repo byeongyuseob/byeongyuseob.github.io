@@ -1,0 +1,36 @@
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz rail" data-rail data-mode="normal">
+<figcaption class="viz-title">Rail-optimized 구조 · GPU나 leaf를 눌러 보세요</figcaption>
+<div class="tab-list" role="group" aria-label="노드 배치">
+<button type="button" class="tab-btn" data-mode-btn="normal" aria-pressed="true">정상 배치</button>
+<button type="button" class="tab-btn tone-bad" data-mode-btn="mis" aria-pressed="false">빈 포트에 예비 노드 연결</button>
+<button type="button" class="tab-btn tone-ok" data-mode-btn="moved" aria-pressed="false">고장 자리로 예비 노드 이전</button>
+</div>
+<svg viewBox="0 0 760 330" role="img" aria-label="두 노드의 GPU가 같은 번호의 rail leaf로 연결된 구조">
+<g class="sp">
+<rect x="190" y="14" width="140" height="30" rx="6"/><text x="260" y="34">Spine</text>
+<rect x="430" y="14" width="140" height="30" rx="6"/><text x="500" y="34">Spine</text>
+</g>
+{{ range $i := seq 0 7 }}{{ $cx := add 58 (mul $i 92) }}
+<line class="up" data-leaf="{{ $i }}" x1="{{ $cx }}" y1="118" x2="260" y2="44"/>
+<line class="up" data-leaf="{{ $i }}" x1="{{ $cx }}" y1="118" x2="500" y2="44"/>
+{{ end }}
+{{ range $j := seq 0 7 }}
+{{ $ax := add 38 (mul $j 41) }}{{ $bx := add 410 (mul $j 41) }}{{ $lx := add 58 (mul $j 92) }}{{ $m := mod (add $j 3) 8 }}{{ $mx := add 58 (mul $m 92) }}
+<line class="dn a" data-leaf="{{ $j }}" x1="{{ add $ax 15 }}" y1="250" x2="{{ $lx }}" y2="148"/>
+<line class="dn b-norm" data-leaf="{{ $j }}" x1="{{ add $bx 15 }}" y1="250" x2="{{ $lx }}" y2="148"/>
+<line class="dn b-mis" data-leaf="{{ $m }}" x1="{{ add $bx 15 }}" y1="250" x2="{{ $mx }}" y2="148"/>
+{{ end }}
+{{ range $i := seq 0 7 }}{{ $x := add 20 (mul $i 92) }}
+<g class="leaf" data-leaf="{{ $i }}" tabindex="0" role="button" aria-label="Rail {{ $i }} leaf"><rect x="{{ $x }}" y="118" width="76" height="30" rx="6"/><text x="{{ add $x 38 }}" y="138">Rail {{ $i }}</text></g>
+{{ end }}
+<rect class="node" x="22" y="240" width="340" height="74" rx="10"/><text class="node-t" x="192" y="304">노드 A</text>
+<rect class="node nb" x="394" y="240" width="340" height="74" rx="10"/><text class="node-t nb-t" x="564" y="304">노드 B</text>
+{{ range $j := seq 0 7 }}
+{{ $ax := add 38 (mul $j 41) }}{{ $bx := add 410 (mul $j 41) }}
+<g class="gpu" data-leaf="{{ $j }}" tabindex="0" role="button" aria-label="노드 A GPU {{ $j }}"><rect x="{{ $ax }}" y="250" width="30" height="30" rx="5"/><text x="{{ add $ax 15 }}" y="270">{{ $j }}</text></g>
+<g class="gpu gb" data-leaf="{{ $j }}" data-leaf-mis="{{ mod (add $j 3) 8 }}" tabindex="0" role="button" aria-label="노드 B GPU {{ $j }}"><rect x="{{ $bx }}" y="250" width="30" height="30" rx="5"/><text x="{{ add $bx 15 }}" y="270">{{ $j }}</text></g>
+{{ end }}
+</svg>
+<p class="viz-detail" aria-live="polite" data-rail-text>정상 배치: 두 노드의 같은 번호 GPU가 같은 rail leaf로 갑니다. 노드 사이 같은 번호 GPU 통신이 leaf 하나 안에서 끝납니다.</p>
+</figure>

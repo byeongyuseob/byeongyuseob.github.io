@@ -1,0 +1,14 @@
+{{- $d := .Inner | transform.Unmarshal -}}
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz arch">
+{{ with $d.title }}<figcaption class="viz-title">{{ . }}</figcaption>{{ end }}
+<div class="arch-layers">
+{{ range $d.layers }}
+<div class="arch-layer">
+<div class="arch-label"><span class="arch-name">{{ .name }}</span>{{ with .tool }}<span class="arch-tool">{{ . }}</span>{{ end }}</div>
+<div class="arch-items">{{ range .items }}<button type="button" class="arch-item{{ with .tone }} tone-{{ . }}{{ end }}" data-detail="{{ .detail }}" aria-pressed="false">{{ .name }}</button>{{ end }}</div>
+</div>
+{{ end }}
+</div>
+<p class="viz-detail" aria-live="polite">{{ $d.hint | default "구성 요소를 누르면 역할이 나옵니다." }}</p>
+</figure>
