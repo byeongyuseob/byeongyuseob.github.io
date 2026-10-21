@@ -46,7 +46,20 @@ flowchart LR
 
 아래는 일반적인 내용입니다.
 
-- GPU는 온도가 올라가면 clock을 스스로 낮춥니다(thermal throttling). 장애가 아니라 성능 저하로 나타나서 놓치기 쉽습니다.
-- `nvidia-smi -q -d PERFORMANCE`의 Clocks Throttle Reasons(최근 드라이버는 Clocks Event Reasons)에서 Thermal Slowdown 항목을 확인합니다.
-- DCGM으로 GPU 온도와 throttle 사유를 계속 수집하면 특정 랙이나 모델에서만 느린 노드를 찾을 수 있습니다.
-- CPU 사례처럼 BMC와 firmware 설정이 팬 제어에 영향을 주므로 firmware 버전도 함께 관리합니다.
+GPU는 온도가 올라가면 clock을 스스로 낮춥니다(thermal throttling). 장애로 잡히지 않고 학습 속도 저하로만 나타나서 놓치기 쉽습니다. 이번 사례처럼 BMC와 firmware 설정이 팬 제어에 영향을 주는 것도 같습니다.
+
+| 확인할 것 | 방법 |
+|---|---|
+| 현재 온도와 clock | `nvidia-smi -q -d TEMPERATURE,CLOCK` |
+| clock이 낮아진 이유 | `nvidia-smi -q -d PERFORMANCE`의 Clocks Throttle Reasons(최근 드라이버는 Clocks Event Reasons)에서 Thermal Slowdown 항목 |
+| 노드 간 비교 | DCGM으로 GPU 온도와 throttle 사유를 계속 수집해 같은 랙·모델끼리 비교 |
+| 펌웨어 | BMC와 GPU 관련 firmware 버전을 노드별로 수집해 같은 조합끼리 묶어 보기 |
+
+```mermaid
+flowchart LR
+  S["학습 속도 저하"] --> T{"throttle 사유"}
+  T -->|"Thermal"| R["랙 · 노드 온도 비교"]
+  R --> F["팬 정책 · BMC firmware 확인"]
+  T -->|"Power"| P["전력 캡 · 랙 급전 확인"]
+  T -->|"없음"| N["통신 · 다른 원인 확인"]
+```

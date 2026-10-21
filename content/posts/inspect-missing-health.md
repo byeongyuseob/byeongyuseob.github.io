@@ -1,6 +1,6 @@
 ---
 title: "docker inspect에서 Health 필드 오류"
-description: "healthcheck가 없는 컨테이너에서 docker inspect 템플릿이 멈출 때 index와 with로 피하는 방법"
+description: "healthcheck가 없는 컨테이너에서 docker inspect 템플릿이 멈출 때 index와 with로 피하는 방법과 다른 확인 방법"
 date: 2026-10-21
 categories: ["docker"]
 ---
@@ -15,6 +15,21 @@ docker inspect -f '{{.Name}} {{if .State.Health}}{{.State.Health.Status}}{{end}}
 
 healthcheck가 없는 컨테이너에서 `Health` 키가 없다는 오류가 나며 멈췄습니다. `if`로 감쌌는데도 키에 접근하는 순간 오류가 났습니다.
 
+## 원인
+
+healthcheck가 없는 컨테이너는 `State` 안에 `Health` 항목 자체가 없습니다. `.State.Health`처럼 필드로 접근하면 값을 꺼내는 단계에서 오류가 나기 때문에, 그 결과를 검사하는 `if`까지 가지 못합니다.
+
+```mermaid
+flowchart TB
+  subgraph A["if .State.Health"]
+    A1["필드 접근 .State.Health"] --> A2["키가 없으면 오류<br/>if 검사 전에 멈춤"]
+  end
+  subgraph B["with index .State Health"]
+    B1["index로 값 꺼내기"] --> B2["키가 없으면 빈 값"]
+    B2 --> B3["with가 빈 값이면 건너뜀"]
+  end
+```
+
 ## 해결
 
 필드 접근 대신 `index`로 값을 꺼내고 `with`로 감쌌습니다.
@@ -25,6 +40,20 @@ docker inspect -f '{{.Name}} {{with index .State "Health"}}{{.Status}}{{end}}' $
 
 - `index`는 키가 없으면 빈 값을 돌려줍니다.
 - `with`는 값이 비어 있으면 안쪽을 건너뜁니다. 안쪽에서 `.`은 Health 값 자체를 가리킵니다.
+
+healthcheck가 없는 컨테이너도 표시하고 싶으면 `else`를 씁니다.
+
+```bash
+docker inspect -f '{{.Name}} {{with index .State "Health"}}{{.Status}}{{else}}no-healthcheck{{end}}' $(docker ps -q)
+```
+
+## 다른 확인 방법
+
+| 방법 | 명령 | 특징 |
+|---|---|---|
+| 템플릿 (`index` + `with`) | 위 명령 | 추가 도구 없이 동작 |
+| `docker ps` 상태 | `docker ps --format '{{.Names}} {{.Status}}'` | healthcheck가 있으면 상태 끝에 `(healthy)` 등이 붙음 |
+| jq | `docker inspect $(docker ps -q) \| jq -r '.[] \| "\(.Name) \(.State.Health.Status // "none")"'` | 없는 값을 `// "none"`으로 기본값 처리 |
 
 ## 메모
 
