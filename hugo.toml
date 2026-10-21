@@ -50,7 +50,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2023 – 2024"
   title = "사내 개발 서버 운영, 플랫폼 엔지니어링"
-  desc = "사내 개발 서버 운영, 컨테이너 기반 통합 배포 시스템 구축(PM), Kubernetes와 ArgoCD 도입, CKA와 CKAD 취득"
+  desc = "사내 개발 서버 운영, 컨테이너 기반 통합 배포 시스템 구축(PM), CKA와 CKAD 취득"
 
   [[params.career.phases]]
   period = "2019 – 2022"
