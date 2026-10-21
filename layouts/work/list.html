@@ -5,7 +5,7 @@
 {{ with .Params.summary }}<p class="lead muted">{{ . }}</p>{{ end }}
 </header>
 <div class="bento">
-{{ range .Pages.ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
+{{ range .Pages.ByWeight }}{{ partial "work-card.html" . }}{{ end }}
 </div>
 </section>
 {{ end }}
