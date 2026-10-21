@@ -33,7 +33,7 @@ resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호
 
 [[params.career]]
 period = "2016.04 – 현재"
-org = "데이터센터 운영 전문기업"
+org = "NIT Service"
 role = "서버·GPU 인프라 운영 — 운영 대상: 국내 대형 IT · 클라우드 사업자 데이터센터"
 highlights = [
   "CPU · GPU 상면 함께 운영 — H200 학습 클러스터 구축·운영 현장, B200 입고 전 전력 검증",
