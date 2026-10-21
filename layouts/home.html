@@ -9,6 +9,7 @@
 </div>
 <div class="buttons">
 {{ with $p.github }}<a class="btn btn-primary" href="{{ . }}">GitHub {{ partial "icon.html" "arrow-up-right" }}</a>{{ end }}
+{{ with $p.linkedin }}<a class="btn" href="{{ . }}">LinkedIn {{ partial "icon.html" "arrow-up-right" }}</a>{{ end }}
 {{ with $p.email }}<a class="btn" href="mailto:{{ . }}">{{ partial "icon.html" "mail" }} 이메일</a>{{ end }}
 {{ with $p.resume }}<a class="btn" href="{{ . | relURL }}">{{ partial "icon.html" "file" }} 이력서 PDF</a>{{ end }}
 </div>
@@ -24,6 +25,7 @@
 <span class="period">{{ .period }}</span>
 <span class="org">{{ .org }}</span>
 <span class="role">{{ .role }}</span>
+{{ with .highlights }}<ul class="bullets">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
 </li>
 {{ end }}
 </ol>
@@ -35,6 +37,17 @@
 <span class="date">{{ .date }}</span>
 <span class="name">{{ .name }}</span>
 <span class="issuer">{{ .issuer }}</span>
+</li>
+{{ end }}
+</ul>
+{{ end }}
+{{ with $p.education }}
+<span class="label">학력</span>
+<ul class="career">
+{{ range . }}
+<li>
+<span class="period">{{ .period }}</span>
+<span class="org">{{ .school }} · {{ .degree }}</span>
 </li>
 {{ end }}
 </ul>
@@ -53,9 +66,18 @@
 </div>
 </section>
 
+{{ with where site.RegularPages "Section" "work" }}
+<section aria-labelledby="work-h">
+<h2 id="work-h" class="title">주요 프로젝트</h2>
+<div class="bento">
+{{ range .ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
+</div>
+</section>
+{{ end }}
+
 {{ with site.Taxonomies.projects }}
 <section aria-labelledby="projects-h">
-<h2 id="projects-h" class="title">프로젝트</h2>
+<h2 id="projects-h" class="title">진행 중인 프로젝트</h2>
 <div class="bento">
 {{ range .ByCount }}
 {{ $term := .Page }}
