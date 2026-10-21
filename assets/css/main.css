@@ -70,7 +70,7 @@ a:hover { color: #FFFFFF; }
 .career .bullets { flex: 1 1 100%; margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--soft); }
 .career .bullets li { display: list-item; }
 .work { flex: 1 1 320px; justify-content: space-between; text-decoration: none; }
-.work h3 { margin: 0; font-size: 19px; line-height: 1.4; }
+.work h3 { margin: 0; font-size: 19px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .work p { margin: 0; }
 .work:hover h3 { color: var(--accent); }
 .result { margin: 0; font-size: 14px; font-weight: 500; color: var(--text); }
