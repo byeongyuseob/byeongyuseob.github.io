@@ -50,6 +50,20 @@ flowchart LR
 
 아래는 일반적인 내용입니다.
 
-- GPU도 전력 상태(P-state)와 clock 설정이 성능에 영향을 줍니다. 노드마다 persistence mode, 전력 제한, clock 설정이 다르면 같은 작업도 속도가 달라집니다.
-- driver, VBIOS, NVSwitch·NIC firmware 버전이 노드마다 다르면 원인을 알기 어려운 성능 차이가 생길 수 있어, 노드별 버전을 수집해 비교합니다.
-- 부품 교체나 firmware 변경 후에는 `dcgmi diag`와 `nccl-tests`로 성능을 다시 확인합니다.
+GPU도 전력 상태(P-state)와 clock 설정이 성능에 영향을 줍니다. 노드마다 설정이나 버전이 다르면 같은 작업도 노드에 따라 속도가 달라지고, 학습에서는 가장 느린 노드에 전체 속도가 맞춰집니다.
+
+| 확인할 것 | 방법 |
+|---|---|
+| driver · VBIOS 버전 | `nvidia-smi --query-gpu=driver_version,vbios_version --format=csv` |
+| persistence mode | `nvidia-smi -q`의 Persistence Mode 항목, 필요하면 `nvidia-smi -pm 1` |
+| 전력 제한과 P-state | `nvidia-smi -q -d POWER,PERFORMANCE` |
+| 교체·업데이트 후 확인 | `dcgmi diag`로 진단, `nccl-tests`로 통신 성능 재측정 |
+
+```mermaid
+flowchart LR
+  V["노드별 버전 · 설정 수집"] --> G{"같은 조합끼리 비교"}
+  G -->|"버전 불일치"| U["업데이트 계획"]
+  G -->|"설정 불일치"| S["persistence · 전력 제한 맞추기"]
+  U --> CHK["dcgmi diag · nccl-tests로 재측정"]
+  S --> CHK
+```

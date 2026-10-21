@@ -11,6 +11,23 @@ AI 코딩 에이전트(Claude Code)에게 막연한 질문을 했더니, 작업 
 
 권한 확인 없이 도구를 실행하는 모드(`bypassPermissions`)였고, 에이전트가 막연한 요청을 "알아서 진행하라"는 뜻으로 받아들인 것이 원인이었습니다.
 
+## 무엇이 바뀌었는지
+
+```mermaid
+flowchart LR
+  F["git fetch"] --> R1["remote-tracking branch 갱신<br/>origin/main 이동"]
+  F --> R2["새 remote-tracking branch 생성"]
+  P["git pull --ff-only"] --> W["working tree와 HEAD가<br/>최신 커밋으로 이동"]
+  R1 -.-> X["원격 저장소는 그대로"]
+```
+
+| 바뀐 것 | 위치 | 되돌리는 방법 |
+|---|---|---|
+| HEAD, working tree | 로컬 | `git reset --keep <원래 커밋>` |
+| origin/main | 로컬 `.git` | reflog 파일의 old 값으로 `git update-ref` |
+| 새로 생긴 원격 추적 브랜치 | 로컬 `.git` | `git update-ref -d` |
+| 원격 저장소 | 원격 | 변경 없음 |
+
 ## 되돌리기
 
 ```bash
@@ -27,7 +44,7 @@ git update-ref -d refs/remotes/origin/<새 브랜치>
 
 - `git reflog show`는 한 줄만 보여 줘서 이전 값을 알 수 없었습니다. `.git/logs/...` 파일을 직접 열면 old, new 두 값이 모두 있습니다.
 - 지우기 전에 해당 기록이 모두 그날 실행된 fetch인지 타임스탬프로 확인했습니다. 원래 있던 기록을 지우지 않기 위해서입니다.
-- 원격 저장소는 건드리지 않았습니다. 모두 로컬 기록만 되돌렸습니다.
+- `--hard` 대신 `--keep`을 쓴 이유는, 혹시 모를 로컬 변경이 있으면 덮어쓰지 않고 멈추게 하기 위해서입니다.
 
 ## 막기: ask 규칙
 
@@ -47,13 +64,39 @@ git update-ref -d refs/remotes/origin/<새 브랜치>
 }
 ```
 
+규칙은 아래 순서로 평가됩니다.
+
+```mermaid
+flowchart LR
+  C["도구 실행 요청"] --> D{"deny 규칙에 해당?"}
+  D -->|"예"| BLOCK["차단 (모든 모드)"]
+  D -->|"아니오"| A{"ask 규칙에 해당?"}
+  A -->|"예"| ASK["사용자 확인 (bypassPermissions에서도)"]
+  A -->|"아니오"| M{"권한 모드"}
+  M -->|"bypassPermissions"| RUN["바로 실행"]
+  M -->|"그 외"| AL{"allow 규칙에 해당?"}
+  AL -->|"예"| RUN
+  AL -->|"아니오"| ASK
+```
+
 공식 문서([permissions](https://code.claude.com/docs/en/permissions), [permission modes](https://code.claude.com/docs/en/permission-modes))에서 확인한 내용입니다.
 
 - `Bash(git pull *)`와 `Bash(git pull:*)`는 같은 의미이고, 끝의 `*`는 인자 없는 `git pull`도 포함합니다.
 - 평가 순서는 deny, ask, allow 순이고 먼저 해당하는 규칙이 적용됩니다.
 - `bypassPermissions` 모드에서도 ask 규칙은 확인을 요청하고 deny 규칙은 차단합니다. allow 규칙만 의미가 없어집니다.
-- 규칙은 명령 문자열을 기준으로 맞춰 봅니다. 그래서 `git -C 경로 pull`은 `Bash(git pull *)`에 걸리지 않습니다. 이번에 실행된 형태가 바로 이것이어서 `Bash(git -C *)`도 추가했습니다. 대신 `git -C 경로 log` 같은 읽기 명령도 확인을 요청하게 됩니다.
-- 문서에서도 이 규칙이 완전한 보안 경계는 아니라고 설명합니다. 확실히 막으려면 샌드박스로 쓰기 가능한 경로를 제한해야 합니다.
+
+## 규칙이 걸리는 경우와 안 걸리는 경우
+
+규칙은 명령 문자열을 기준으로 맞춰 봅니다.
+
+| 실행된 명령 | `Bash(git pull *)` | `Bash(git -C *)` |
+|---|---|---|
+| `git pull` | 걸림 | 안 걸림 |
+| `git pull --ff-only` | 걸림 | 안 걸림 |
+| `git -C repo pull --ff-only` | 안 걸림 | 걸림 |
+| `git -C repo log` | 안 걸림 | 걸림 (읽기 명령도 확인 요청) |
+
+이번에 실행된 형태가 `git -C 경로 pull`이어서 `Bash(git -C *)`를 추가했습니다. 대신 읽기 명령도 확인을 요청하게 됩니다. 문서에서도 이 규칙이 완전한 보안 경계는 아니라고 설명합니다. 확실히 막으려면 샌드박스로 쓰기 가능한 경로를 제한해야 합니다.
 
 ## 메모
 
