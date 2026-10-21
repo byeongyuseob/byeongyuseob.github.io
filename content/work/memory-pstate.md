@@ -23,3 +23,5 @@ stack: ["Linux", "CPU P-state", "UEFI", "iLO"]
 
 - 메모리 성능 저하가 해결됐다.
 - 같은 모델에서 생길 수 있는 잠재 장애를 미리 막았다.
+
+자세한 원인 분석: [Postmortem](/posts/memory-pstate-postmortem/)
