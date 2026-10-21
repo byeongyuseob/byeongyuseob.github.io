@@ -4,7 +4,7 @@ description: "원인 불명 성능 저하 두 건을 부하 배제 → 설정 �
 date: 2020-04-01
 period: "2020.04 – 2020.08"
 weight: 3
-role: "Contributor (원인 분석 · 조치)"
+role: "Contributor"
 summary: "약 200대 CPU 온도 이상과 특정 모델의 메모리 성능 저하를 층을 하나씩 걷어내며 추적해, 둘 다 firmware 에서 원인을 찾고 증상 없는 서버까지 선제 조치"
 result: "약 200대 온도 · 성능 정상화 · UEFI v2.31 로 메모리 성능 해결 · 미발생 서버 선제 업데이트"
 stack: ["Linux", "iLO · IMM (BMC)", "UEFI", "Intel MLC", "Vendor Escalation"]

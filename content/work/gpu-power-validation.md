@@ -4,7 +4,7 @@ description: "H200 에서 겪은 동기 부하 전력 스파이크를, 다음 �
 date: 2025-06-01
 period: "2025"
 weight: 2
-role: "현장 계측 담당 (2개 사이트 공동 검증)"
+role: "현장 계측 담당"
 summary: "H200 학습 부하의 전력 스파이크로 UPS 가 바이패스로 밀린 경험을, 다음 세대 B200 입고 전 사전 계측으로 이어 가 PSU 개선 효과까지 확인"
 result: "부하 3종 × 전력 캡 3단계 계측 · 개선 PSU 로 회로 피크 전류 약 절반"
 stack: ["H200", "B200", "UPS", "SPDU", "Power Analyzer", "GPU Power Cap"]

@@ -1,7 +1,7 @@
 <a class="card work" href="{{ .RelPermalink }}">
-<span class="label">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>
 <div class="stack-sm">
 <h3>{{ .Title }}</h3>
+<span class="mono small muted meta">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>
 {{ with .Params.summary }}<p class="small muted">{{ . }}</p>{{ end }}
 </div>
 {{ with .Params.result }}<span class="result">{{ . }}</span>{{ end }}

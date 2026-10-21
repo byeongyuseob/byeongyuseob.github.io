@@ -141,3 +141,4 @@ a:hover { color: #FFFFFF; }
   .certs .date { flex-basis: auto; }
   .prose { font-size: 16px; }
 }
+.work .meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
