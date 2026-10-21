@@ -3,6 +3,7 @@ title: "K3s 플랫폼 검증 환경 구축"
 date: 2026-09-23
 period: "2026.09 – 2026.10"
 weight: 5
+track: "platform"
 role: "구축, 검증"
 summary: "물리 서버 1대에 VM 5대로 K3s와 관측·스토리지·배포 도구를 함께 올리고, 장애 상황에서 관측과 복구가 되는지 검증했습니다."
 result: "K3s 4노드와 외부 관측 노드 1대, smoke·full·chaos 단계 검증"

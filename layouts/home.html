@@ -86,7 +86,16 @@
 <div class="bento">
 {{ range first 3 .ByWeight }}{{ partial "work-card.html" . }}{{ end }}
 </div>
-<a class="more" href="{{ "work/" | relURL }}">전체 프로젝트 {{ len . }}개 보기 {{ partial "icon.html" "arrow-right" }}</a>
+</section>
+{{ end }}
+
+{{ with where (where site.RegularPages "Section" "work") "Params.track" "platform" }}
+<section aria-labelledby="platform-h">
+<h2 id="platform-h" class="title">자동화·플랫폼 엔지니어링</h2>
+<div class="bento two">
+{{ range .ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
+</div>
+<a class="more" href="{{ "work/" | relURL }}">전체 프로젝트 {{ len (where site.RegularPages "Section" "work") }}개 보기 {{ partial "icon.html" "arrow-right" }}</a>
 </section>
 {{ end }}
 

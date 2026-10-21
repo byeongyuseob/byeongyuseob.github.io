@@ -3,7 +3,8 @@ title: "IDC 운영 업무 시스템 개발"
 description: "IDC 근무일지 통합, SLA 대시보드, 온습도 데이터 기반 점검 개선을 기획하고 개발한 경험"
 date: 2026-07-05
 period: "2026.07 – 현재"
-weight: 7
+weight: 8
+track: "platform"
 role: "기획, 설계, 개발"
 summary: "IDC 14곳의 근무일지를 하나로 합치고, 운영 데이터로 SLA를 계산하는 대시보드와 온습도 데이터 기반 점검 개선 시제품을 만들었습니다."
 result: "일지 3종을 1종으로 통합, IDC 14곳 적용, SLA 대시보드 운영"
