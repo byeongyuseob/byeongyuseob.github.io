@@ -1,5 +1,6 @@
 ---
 title: "1분 cron으로 서버 자원 기록하기 (알림 전 1단계)"
+description: "OOM 흔적이 나온 서버에 알림 없이 기록만 하는 1분 cron 을 넣어, 임계값을 정하기 전에 자원 추세부터 모은 과정"
 date: 2026-10-21
 categories: ["linux"]
 ---

@@ -15,6 +15,10 @@ project = "projects"
 [markup.highlight]
 style = "github-dark"
 
+# 한글 뒤에서 닫는 따옴표가 “...\" 처럼 어긋나서 끈다
+[markup.goldmark.extensions.typographer]
+disable = true
+
 [params]
 name = "변규섭"
 logo = "byeongyuseob.github.io"
