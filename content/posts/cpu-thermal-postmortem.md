@@ -5,7 +5,7 @@ date: 2020-08-31
 categories: ["hardware"]
 ---
 
-> 2020.05 – 2020.08 · Contributor · 관련 프로젝트: [서버 하드웨어 성능 저하 트러블슈팅](/work/hardware-troubleshooting/)
+> 2020.05 – 2020.08 · Contributor · 관련 프로젝트: [서버 하드웨어 트러블슈팅](/work/hardware-troubleshooting/)
 
 ## 요약
 

@@ -1,5 +1,5 @@
 ---
-title: "서버 하드웨어 성능 저하 트러블슈팅 — CPU 온도 · 메모리 P-state"
+title: "서버 하드웨어 트러블슈팅"
 description: "원인 불명 성능 저하 두 건을 부하 배제 → 설정 실험 → 부품 교체 → firmware · 제조사 협업 순으로 좁혀 BMC · UEFI firmware 에서 원인을 찾은 기록"
 date: 2020-04-01
 period: "2020.04 – 2020.08"
