@@ -2,7 +2,7 @@
 title: "인프라 장애 관리 웹 인터페이스 구현"
 date: 2021-12-01
 period: "2021.12 – 2022.10"
-weight: 1
+weight: 5
 role: "PM"
 summary: "하루 30~40건의 서버 장애를 SSO · Ansible Playbook · 웹 콘솔로 표준 처리"
 result: "정형 장애는 Playbook 실행 한 번으로 · 서버 직접 접속 대부분 제거"

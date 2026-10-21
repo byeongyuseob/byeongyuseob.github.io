@@ -2,7 +2,7 @@
 title: "서버 정보 수집 자동화"
 date: 2017-02-01
 period: "2017.02 – 2017.08"
-weight: 4
+weight: 8
 role: "PM"
 summary: "손으로 하던 서버 검수를 Ansible 과 통합 수집 도구로 자동화"
 result: "수작업 검수 → 자동 수집 · 전 서버를 같은 기준으로 전수 검사"

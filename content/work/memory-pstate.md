@@ -2,7 +2,7 @@
 title: "서버 메모리 성능 저하 트러블슈팅"
 date: 2020-04-01
 period: "2020.04 – 2020.07"
-weight: 3
+weight: 7
 role: "Contributor"
 summary: "특정 서버 모델에서 CPU P-state 와 메모리 성능 사이의 원인 불명 문제 추적"
 result: "UEFI firmware 업데이트로 해결 · iLO 선적용으로 잠재 장애 차단"
