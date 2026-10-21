@@ -25,9 +25,21 @@
 {{ range $p.career }}
 <li>
 <span class="period">{{ .period }}</span>
-<span class="org">{{ .org }}</span>
+<span class="org">{{ .org }}{{ with .start }}{{ $s := time . }}{{ $m := add (mul (sub now.Year $s.Year) 12) (sub (int now.Month) (int $s.Month)) }} <span class="tenure">· {{ div $m 12 }}년{{ with mod $m 12 }} {{ . }}개월{{ end }}</span>{{ end }}</span>
 <span class="role">{{ .role }}</span>
-{{ with .highlights }}<ul class="bullets">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+{{ with .phases }}
+<ol class="phases">
+{{ range . }}
+<li>
+<span class="phase-period">{{ .period }}</span>
+<div class="phase-body">
+<span class="phase-title">{{ .title }}</span>
+<span class="phase-desc">{{ .desc }}</span>
+</div>
+</li>
+{{ end }}
+</ol>
+{{ end }}
 </li>
 {{ end }}
 </ol>
