@@ -1,5 +1,5 @@
 ---
-title: "자료로 복원한 GPU 클러스터 두 개의 네트워크 설계"
+title: "GPU 클러스터 네트워크 설계 복원"
 description: "서버·네트워크 CI, InfiniBand 케이블맵, DCIM 을 읽어 200노드급 학습 클러스터와 250노드급 클라우드 클러스터의 설계를 복원한 분석 기록"
 date: 2026-10-21
 categories: ["gpu-infra"]
