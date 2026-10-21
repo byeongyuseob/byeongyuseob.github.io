@@ -2,7 +2,7 @@
 title: "통합 배포 시스템 구축: CI/CD 자동화와 컨테이너화"
 date: 2023-01-01
 period: "2023.01 – 2024.01"
-weight: 6
+weight: 10
 role: "PM"
 summary: "제각각이던 배포 절차를 표준 스택 · 컨테이너 · GitOps 로 통일"
 result: "수동 배포 → GitOps 자동 배포 · 장애 인지가 시간 단위에서 분 단위로"

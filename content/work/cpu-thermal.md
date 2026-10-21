@@ -2,7 +2,7 @@
 title: "CPU 온도 이상으로 인한 서버 성능 저하 대응"
 date: 2020-05-01
 period: "2020.05 – 2020.08"
-weight: 2
+weight: 6
 role: "Contributor"
 summary: "약 200대 서버에서 CPU 온도가 비정상적으로 올라 생긴 성능 저하·응답 지연 해결"
 result: "약 200대 성능 저하 해소 · iLO firmware 선적용으로 재발 방지"
