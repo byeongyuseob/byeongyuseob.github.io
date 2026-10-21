@@ -23,9 +23,9 @@ disable = true
 name = "변규섭"
 logo = "byeongyuseob.github.io"
 headline = "GPU 클러스터와 데이터센터를 운영합니다."
-description = "10년 동안 데이터센터 서버 6만 대⁠+를 운영했습니다. 최근에는 H200 학습 클러스터 구축과 운영, B200 입고 전 전력 검증을 맡았습니다."
+description = "10년 동안 데이터센터 서버 6만 대⁠+를 운영했습니다. 최근에는 H200 학습 클러스터를 구축·운영하고, GPU 서버 전력 스파이크를 측정해 랙당 배치 대수를 정했습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
-strengths = ["H200 학습 클러스터 운영", "GPU 서버 전력 검증", "사내 운영 플랫폼 개발", "서버 6만 대+ 운영"]
+strengths = ["H200 학습 클러스터 운영", "GPU 서버 전력 측정·랙 배치", "사내 운영 플랫폼 개발", "서버 6만 대+ 운영"]
 github = "https://github.com/byeongyuseob"
 linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
@@ -40,7 +40,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2025 – 현재"
   title = "GPU 인프라"
-  desc = "H200 학습 클러스터(약 200노드) 구축과 운영, InfiniBand 광모듈 교체, B200 입고 전 전력 검증"
+  desc = "H200 학습 클러스터(약 200노드) 구축과 운영, InfiniBand 광모듈 교체, GPU 서버 전력 스파이크 측정과 운영 대수 조정 검토"
 
   [[params.career.phases]]
   period = "2025 – 현재"
