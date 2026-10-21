@@ -84,6 +84,8 @@ a:hover { color: #FFFFFF; }
 .certs .issuer { flex: none; font-size: 13px; color: var(--muted); }
 .tags { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
 .tags li { padding: 6px 12px; border: 1px solid var(--line-3); border-radius: 8px; font-size: 13px; }
+.strengths li { border-color: var(--accent); color: var(--text); font-weight: 500; }
+.intro .label { margin: 0; }
 .tags.learning li { border-style: dashed; border-color: var(--dashed); color: var(--soft); }
 
 .project { flex-basis: 300px; min-height: 220px; justify-content: space-between; text-decoration: none; }

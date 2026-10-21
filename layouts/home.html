@@ -6,6 +6,8 @@
 <div class="stack">
 <h1>안녕하세요, <span class="accent">{{ $p.name }}</span>입니다.<br>{{ $p.headline }}</h1>
 <p class="lead muted">{{ $p.description }}</p>
+{{ with $p.strengths }}<ul class="tags strengths">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+{{ with $p.focus }}<p class="label">{{ . }}</p>{{ end }}
 </div>
 <div class="buttons">
 {{ with $p.github }}<a class="btn btn-primary" href="{{ . }}">GitHub {{ partial "icon.html" "arrow-up-right" }}</a>{{ end }}
@@ -70,8 +72,9 @@
 <section aria-labelledby="work-h">
 <h2 id="work-h" class="title">주요 프로젝트</h2>
 <div class="bento">
-{{ range .ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
+{{ range first 3 .ByWeight }}{{ partial "work-card.html" . }}{{ end }}
 </div>
+<a class="more" href="{{ "work/" | relURL }}">전체 프로젝트 {{ len . }}개 보기 {{ partial "icon.html" "arrow-right" }}</a>
 </section>
 {{ end }}
 
