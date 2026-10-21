@@ -16,7 +16,7 @@
 </section>
 
 <section class="bento" aria-label="경력과 기술">
-<div class="card">
+<div class="card card-wide">
 <span class="label">경력</span>
 <ol class="career">
 {{ range $p.career }}
@@ -29,18 +29,18 @@
 </ol>
 {{ with $p.certs }}
 <span class="label">자격</span>
-<ul class="career">
+<ul class="certs">
 {{ range . }}
 <li>
-<span class="period">{{ .date }}</span>
-<span class="org">{{ .name }}</span>
-<span class="role">{{ .issuer }}</span>
+<span class="date">{{ .date }}</span>
+<span class="name">{{ .name }}</span>
+<span class="issuer">{{ .issuer }}</span>
 </li>
 {{ end }}
 </ul>
 {{ end }}
 </div>
-<div class="card">
+<div class="card card-narrow">
 <span class="label">기술</span>
 <div class="stack-sm">
 <span class="sub">운영 경험</span>
