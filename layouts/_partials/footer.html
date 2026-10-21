@@ -1,7 +1,9 @@
 <footer class="wrap footer">
 <span>© {{ now.Year }} {{ site.Params.name }}</span>
 <div class="links">
-<a href="{{ "index.xml" | relURL }}">RSS</a>
+{{ with site.Params.email }}<a href="mailto:{{ . }}">Email</a>{{ end }}
+{{ with site.Params.linkedin }}<a href="{{ . }}">LinkedIn</a>{{ end }}
 {{ with site.Params.github }}<a href="{{ . }}">GitHub</a>{{ end }}
+<a href="{{ "index.xml" | relURL }}">RSS</a>
 </div>
 </footer>

@@ -3,8 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify | truncate 140 }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+{{ $title := cond .IsHome site.Title (printf "%s · %s" .Title site.Title) }}
+{{ if eq .Kind "404" }}{{ $title = printf "페이지를 찾을 수 없습니다 · %s" site.Title }}{{ end }}
+{{ $desc := site.Params.description }}
+{{ with .Description }}{{ $desc = . }}{{ else }}{{ if .IsPage }}{{ $desc = .Summary | plainify | truncate 140 }}{{ end }}{{ end }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+<meta name="author" content="{{ site.Params.name }}">
+<meta name="theme-color" content="#0E0F11">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -12,8 +28,9 @@
 {{ with site.Home.OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
 </head>
 <body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
 {{ partial "header.html" . }}
-<main class="wrap main">
+<main id="main" class="wrap main">
 {{ block "main" . }}{{ end }}
 </main>
 {{ partial "footer.html" . }}

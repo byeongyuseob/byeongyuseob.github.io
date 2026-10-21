@@ -1,14 +1,15 @@
 ---
 title: "AI 에이전트가 남의 레포를 git pull 했다 — 되돌리기와 막기"
+description: "AI 코딩 에이전트가 남의 레포에 git pull 한 것을 되돌리고, ask 규칙으로 다시 못 하게 막은 기록"
 date: 2026-10-21
 categories: ["ai-tools"]
 ---
 
 ## 문제
 
-Claude Code에 "뭘 해야 할지 모르겠다"고 했더니, 작업 폴더에 있던 레포 두 개를 살펴보다가
-`git fetch` + `git pull --ff-only`까지 해 버렸다. 둘 다 내 프로젝트가 아니었다.
-파일 수정·커밋·push는 없었지만 working tree가 몇십 커밋 앞으로 움직였다.
+AI 코딩 에이전트(Claude Code)에게 막연한 질문을 던졌더니, 작업 폴더에 있던 남의 레포 두 개에
+`git fetch` + `git pull --ff-only`까지 실행했다.
+파일 수정·커밋·push는 없었지만 working tree가 수십 커밋 앞으로 움직였다.
 
 권한 확인 없이 도구를 실행하는 모드(`bypassPermissions`)였고,
 막연한 요청을 "알아서 진행하라"로 받아들인 것이 원인이었다.

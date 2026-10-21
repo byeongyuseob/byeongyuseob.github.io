@@ -1,5 +1,6 @@
 ---
 title: "docker inspect: healthcheck 없는 컨테이너에서 템플릿이 에러 난다"
+description: "healthcheck 가 없는 컨테이너에서 docker inspect 템플릿이 멈출 때 index 와 with 로 피하는 방법"
 date: 2026-10-21
 categories: ["docker"]
 ---

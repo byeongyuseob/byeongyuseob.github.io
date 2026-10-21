@@ -5,5 +5,5 @@
 {{ with .Params.summary }}<p class="small muted">{{ . }}</p>{{ end }}
 </div>
 {{ with .Params.result }}<span class="result">{{ . }}</span>{{ end }}
-{{ with .Params.stack }}<ul class="tags tags-sm">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+{{ with .Params.stack }}<ul class="tags tags-sm">{{ range first 4 . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
 </a>
