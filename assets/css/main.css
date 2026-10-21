@@ -153,3 +153,5 @@ a:hover { color: #FFFFFF; }
   .career .phases li { flex-direction: column; gap: 4px; }
   .phase-period { flex-basis: auto; }
 }
+.bento.two > .card { flex: 1 1 calc(50% - 8px); }
+@media (max-width: 640px) { .bento.two > .card { flex-basis: 100%; } }
