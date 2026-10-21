@@ -10,10 +10,59 @@ result: "수동 배포를 자동 배포로 전환, 장애 인지 시간 단축"
 stack: ["Python/Django", "React", "Docker", "GitHub Actions", "Prometheus", "Grafana"]
 ---
 
+## 요약
+
+사내 서비스마다 언어와 배포 방식이 달라 관리가 어려웠고, 사람이 직접 배포하다 생긴 서비스 중단과 오류가 1년에 10회 이상 있었습니다. PM으로 개발 스택과 코드 규칙을 먼저 표준화하고, 환경별 Docker 이미지와 GitHub Actions 파이프라인으로 배포를 하나로 정리한 뒤, 모니터링과 메신저 배포 채널 알림을 붙였습니다.
+
 ## 배경
 
-- 서비스마다 언어와 배포 방식이 달라 업데이트와 관리가 어려웠고, 새 서비스를 추가하기도 쉽지 않았습니다.
-- 배포를 사람이 직접 하다 보니 시간이 오래 걸렸고, 배포 실수로 인한 서비스 중단과 오류가 1년에 10회 이상 있었습니다.
+| 문제 | 영향 |
+|---|---|
+| 서비스마다 다른 언어와 배포 방식 | 업데이트와 관리가 어렵고, 새 서비스를 추가하거나 늘리기 어려움 |
+| 사람이 직접 하는 배포 | 배포 시간이 길고, 배포 실수로 서비스 중단과 오류가 1년에 10회 이상 |
+| 문제를 늦게 알아챔 | 알아채고 원인을 찾는 데 몇 시간씩 걸림 |
+
+## 목표
+
+- 언어와 기술 스택을 표준화해 유지보수와 관리 부담을 줄이기
+- 컨테이너 기반 환경으로 배포 환경을 안정적으로 만들기
+- CI/CD 자동화와 표준화로 배포 과정을 안정화하기
+- 서비스가 늘어나도 같은 방식으로 추가할 수 있는 구조 만들기
+
+## 진행 순서
+
+{{< flow >}}
+title: "진행 순서 · 단계를 눌러 보세요"
+steps:
+  - title: "스택 표준화"
+    sub: "2023.01 –"
+    detail: "Python, Django, PHP, Spring, React를 표준 스택으로 정하고, PEP8과 Airbnb JavaScript Style Guide로 코드 규칙을 맞췄습니다."
+  - title: "컨테이너화"
+    sub: "환경별 Dockerfile"
+    detail: "표준 스택마다 환경별 Dockerfile을 만들어 이미지 빌드를 자동화했습니다."
+  - title: "빌드 최적화"
+    sub: "Alpine · 빌드 캐시"
+    detail: "배포가 지나치게 오래 걸리던 원인을 찾아 빌드 과정과 캐시 전략을 고쳤습니다. Alpine Linux 기반 이미지로 크기도 줄였습니다."
+  - title: "파이프라인"
+    sub: "GitHub Actions"
+    detail: "변경 감지, 테스트, 이미지 빌드, 배포를 하나의 흐름으로 묶었습니다."
+  - title: "모니터링 · 알림"
+    sub: "– 2024.01"
+    tone: "ok"
+    detail: "Prometheus와 Grafana로 시스템과 애플리케이션을 모니터링하고, 이벤트를 메신저 배포 채널로 보냈습니다."
+{{< /flow >}}
+
+스택을 먼저 맞춘 이유는 기록 글 [배포 자동화 전에 스택부터 맞춘 이유](/posts/deploy-standardization-kickoff/)에 따로 적었습니다.
+
+## 표준 스택과 규칙
+
+| 영역 | 기준 | 이유 |
+|---|---|---|
+| 백엔드 | Python, Django, PHP, Spring | 서비스마다 제각각이던 언어를 몇 가지로 줄여 빌드·배포 방식을 맞추기 위해 |
+| 프론트엔드 | React | 같은 이유 |
+| Python 코드 규칙 | PEP8 | 개발자 사이 협업과 코드 일관성 |
+| JavaScript 코드 규칙 | Airbnb JavaScript Style Guide | 같은 이유 |
+| 이미지 | 환경별 Dockerfile, Alpine Linux, 빌드 캐시 | 이미지 크기와 빌드 시간을 줄이기 위해 |
 
 ## 배포 흐름
 
@@ -21,7 +70,7 @@ stack: ["Python/Django", "React", "Docker", "GitHub Actions", "Prometheus", "Gra
 title: "배포 파이프라인 · 단계를 눌러 보세요"
 steps:
   - title: "코드 push"
-    detail: "표준 스택과 코드 규칙(PEP8, Airbnb JavaScript Style Guide)에 맞춘 코드를 push합니다."
+    detail: "표준 스택과 코드 규칙에 맞춘 코드를 push합니다."
   - title: "GitHub Actions"
     sub: "변경 감지 · 테스트"
     detail: "변경을 감지해 테스트를 자동으로 돌립니다."
@@ -32,20 +81,49 @@ steps:
     tone: "ok"
     detail: "사람이 서비스마다 다른 방식으로 배포하던 것을 하나의 파이프라인으로 바꿨습니다."
   - title: "모니터링 · 알림"
-    detail: "Prometheus와 Grafana로 보고, GitHub Actions·Prometheus·Grafana 이벤트를 메신저 배포 채널로 보냅니다."
+    detail: "Prometheus와 Grafana로 보고, 이벤트를 메신저 배포 채널로 보냅니다."
 {{< /flow >}}
 
-## 한 일
+## 모니터링과 알림
 
-- 개발 스택을 Python, Django, PHP, Spring, React 기준으로 정리하고, PEP8과 Airbnb JavaScript Style Guide로 코드 규칙을 맞췄습니다.
-- 환경별로 Dockerfile을 만들어 이미지 빌드를 자동화하고, Alpine Linux 기반 이미지와 빌드 캐시로 이미지 크기와 빌드 시간을 줄였습니다.
-- GitHub Actions로 변경 감지, 테스트, 이미지 빌드, 배포까지 이어지는 파이프라인을 만들었습니다.
-- Prometheus와 Grafana로 모니터링을 구성하고, GitHub Actions, Prometheus, Grafana 이벤트를 메신저 배포 채널로 보냈습니다.
+{{< arch >}}
+title: "알림이 모이는 곳 · 구성 요소를 눌러 보세요"
+layers:
+  - name: "이벤트 출처"
+    items:
+      - name: "GitHub Actions"
+        detail: "빌드, 테스트, 배포 결과를 보냅니다."
+      - name: "Prometheus"
+        detail: "시스템과 애플리케이션 지표를 수집하고 임계값 알림을 보냅니다."
+      - name: "Grafana"
+        detail: "대시보드와 알림 규칙을 둡니다."
+  - name: "받는 곳"
+    items:
+      - name: "메신저 배포 채널"
+        tone: "ok"
+        detail: "배포와 장애 이벤트가 한 채널로 모입니다. 팀이 같은 채널에서 바로 확인하고 대응합니다."
+{{< /arch >}}
+
+배포 이벤트와 모니터링 알림을 한 채널에 모은 덕분에, 배포 직후 생긴 문제를 그 배포와 바로 연결해 볼 수 있었습니다.
+
+## 설계에서 내린 판단
+
+| 판단 | 대안 | 고른 이유 |
+|---|---|---|
+| 자동화보다 스택 표준화를 먼저 | 지금 방식 그대로 서비스별 파이프라인 | 서비스 수만큼 파이프라인이 생기면 관리 대상만 늘어납니다. |
+| 컨테이너 이미지로 배포 단위 통일 | 서버마다 직접 설치 | 환경 차이로 생기는 배포 실수를 줄이고, 같은 이미지를 어디서나 씁니다. |
+| Alpine 기반 이미지와 빌드 캐시 | 기본 이미지, 매번 전체 빌드 | 배포가 오래 걸리던 원인이 빌드 과정이어서, 이미지 크기와 빌드 시간을 함께 줄였습니다. |
+| 알림을 메신저 배포 채널 하나로 | 도구마다 따로 알림 | 문제를 알아채는 시간을 줄이고, 배포와 장애를 같은 곳에서 보기 위해 |
 
 ## 결과
 
 - push하면 빌드와 테스트를 거쳐 자동으로 배포되도록 바꿨습니다.
 - 배포 절차가 하나로 정리되면서 배포 실수로 인한 장애가 줄었습니다.
-- 알림이 배포 채널로 바로 오면서 문제를 알아채고 원인을 찾는 데 걸리던 시간이 몇 시간에서 몇십 분으로 줄었습니다.
+- 빌드 과정과 캐시를 고쳐 배포에 걸리던 시간을 줄였습니다.
+- 알림이 배포 채널로 바로 오면서 문제를 알아채고 원인을 찾는 시간이 몇 시간에서 몇십 분으로 줄었습니다.
 
-Kubernetes 클러스터 구성과 ArgoCD GitOps 배포는 이후 [K3s 플랫폼 검증 환경](/work/k3s-platform-lab/)에서 직접 구축했습니다.
+과정과 결과는 기록 글 [사내 배포를 하나의 파이프라인으로 정리하기](/posts/deploy-pipeline/)에도 정리했습니다.
+
+## 이후
+
+Kubernetes 클러스터 구성과 ArgoCD GitOps 배포는 이후 [K3s 플랫폼 검증 환경](/work/k3s-platform-lab/)에서 직접 구축했습니다. 이 프로젝트에서 정한 이미지 기준과 배포 알림은 그 환경의 IssueOps 배포 창구와 배포 확인 스크립트로 이어졌습니다.
