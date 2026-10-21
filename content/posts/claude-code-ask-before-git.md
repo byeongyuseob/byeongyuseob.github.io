@@ -13,13 +13,29 @@ AI 코딩 에이전트(Claude Code)에게 막연한 질문을 했더니, 작업 
 
 ## 무엇이 바뀌었는지
 
-```mermaid
-flowchart LR
-  F["git fetch"] --> R1["remote-tracking branch 갱신<br/>origin/main 이동"]
-  F --> R2["새 remote-tracking branch 생성"]
-  P["git pull --ff-only"] --> W["working tree와 HEAD가<br/>최신 커밋으로 이동"]
-  R1 -.-> X["원격 저장소는 그대로"]
-```
+{{< arch >}}
+title: "명령마다 바뀌는 곳 · 구성 요소를 눌러 보세요"
+layers:
+  - name: "원격"
+    items:
+      - name: "원격 저장소"
+        detail: "git fetch와 git pull 모두 원격 저장소는 바꾸지 않습니다. 그래서 남의 저장소에서도 안전하다고 착각하기 쉽습니다."
+  - name: "로컬 .git"
+    tool: "git fetch"
+    items:
+      - name: "origin/main 이동"
+        tone: "warn"
+        detail: "git fetch는 remote-tracking branch를 최신 원격 커밋으로 옮깁니다. 작업 파일은 그대로지만 로컬 저장소 상태는 바뀝니다."
+      - name: "새 remote-tracking branch"
+        tone: "warn"
+        detail: "원격에 새로 생긴 branch도 로컬에 remote-tracking branch로 만들어집니다."
+  - name: "working tree"
+    tool: "git pull --ff-only"
+    items:
+      - name: "HEAD · 작업 파일 이동"
+        tone: "bad"
+        detail: "git pull --ff-only는 fetch에 더해 HEAD와 working tree를 최신 커밋으로 옮깁니다. 주인이 보던 파일 내용이 바뀝니다."
+{{< /arch >}}
 
 | 바뀐 것 | 위치 | 되돌리는 방법 |
 |---|---|---|
@@ -66,18 +82,7 @@ git update-ref -d refs/remotes/origin/<새 브랜치>
 
 규칙은 아래 순서로 평가됩니다.
 
-```mermaid
-flowchart LR
-  C["도구 실행 요청"] --> D{"deny 규칙에 해당?"}
-  D -->|"예"| BLOCK["차단 (모든 모드)"]
-  D -->|"아니오"| A{"ask 규칙에 해당?"}
-  A -->|"예"| ASK["사용자 확인 (bypassPermissions에서도)"]
-  A -->|"아니오"| M{"권한 모드"}
-  M -->|"bypassPermissions"| RUN["바로 실행"]
-  M -->|"그 외"| AL{"allow 규칙에 해당?"}
-  AL -->|"예"| RUN
-  AL -->|"아니오"| ASK
-```
+{{< permsim >}}
 
 공식 문서([permissions](https://code.claude.com/docs/en/permissions), [permission modes](https://code.claude.com/docs/en/permission-modes))에서 확인한 내용입니다.
 

@@ -17,16 +17,40 @@ stack: ["Node.js", "Express", "EJS", "MariaDB", "Redis", "TipTap", "Docker", "LL
 
 ## 구조
 
-```mermaid
-flowchart LR
-  B["브라우저"] --> GW["사내 게이트웨이<br/>사번 헤더로 로그인"]
-  GW --> APP["포털 앱<br/>Express · EJS"]
-  APP --> DB["MariaDB<br/>글 · 댓글 · 태그 · AI 색인"]
-  APP --> RD["Redis 세션"]
-  APP --> FS["첨부 · 이미지 볼륨"]
-  APP --> MAIL["사내 메일<br/>태그 알림 · 공지"]
-  APP --> AIGW["사내 LLM 게이트웨이"]
-```
+{{< arch >}}
+title: "포털 구조 · 구성 요소를 눌러 보세요"
+layers:
+  - name: "사용자"
+    items:
+      - name: "브라우저"
+        detail: "IDC 운영 조직이 사용합니다."
+      - name: "사내 게이트웨이"
+        detail: "게이트웨이가 넣어 주는 사번 헤더로 사원 정보를 조회해 로그인합니다."
+  - name: "애플리케이션"
+    tool: "Express · EJS"
+    items:
+      - name: "게시판 · 검색"
+        detail: "News·Tech 게시판, 예약 게시, 태그, 북마크, 초성 검색을 포함한 통합 검색입니다."
+      - name: "TipTap 에디터"
+        detail: "웹 에디터를 직접 구성하고 첨부 파일과 본문 이미지 업로드를 관리합니다."
+      - name: "AI 도우미"
+        tone: "ok"
+        detail: "포털의 글과 첨부 파일을 근거로 답하는 RAG 챗봇입니다."
+  - name: "저장"
+    items:
+      - name: "MariaDB"
+        detail: "글, 댓글, 태그, AI 색인을 저장합니다."
+      - name: "Redis"
+        detail: "세션 저장소입니다."
+      - name: "첨부 볼륨"
+        detail: "재배포해도 첨부와 이미지가 남도록 볼륨에 둡니다."
+  - name: "외부"
+    items:
+      - name: "사내 메일"
+        detail: "태그 구독 알림과 공지 메일을 보냅니다."
+      - name: "사내 LLM 게이트웨이"
+        detail: "임베딩과 답변 생성에 씁니다."
+{{< /arch >}}
 
 ## 기능
 
@@ -43,20 +67,20 @@ flowchart LR
 
 포털에 쌓인 글과 첨부 파일을 근거로 답하는 챗봇입니다.
 
-```mermaid
-flowchart TB
-  subgraph IDX["색인"]
-    P["공개 글 · 댓글"] --> CH["600자 단위로 나누기"]
-    A["첨부 파일<br/>PDF · PPTX · XLSX · DOCX"] --> CH
-    CH --> EMB["임베딩"] --> STORE["AI 색인 테이블"]
-  end
-  subgraph ASK["질문"]
-    Q["질문"] --> RET["관련 조각 검색"]
-    STORE --> RET
-    RET --> GEN["사내 LLM으로 답 생성"]
-    GEN --> ANS["답 + 근거 글 · 바로가기 링크"]
-  end
-```
+{{< tabs >}}
+title: "AI 도우미 동작 · 탭을 바꿔 보세요"
+items:
+  - label: "색인"
+    steps: ["공개 글 · 댓글 · 첨부 파일", "600자 단위로 나누기", "임베딩", "AI 색인 테이블"]
+    text: "첨부 파일(PDF, PPTX, XLSX, DOCX)은 파일당 앞부분 5만 자까지 색인합니다."
+  - label: "질문"
+    tone: "ok"
+    steps: ["질문", "관련 조각 검색", "사내 LLM으로 답 생성", "답 + 근거 글 · 바로가기"]
+    text: "포털 데이터에 없는 내용은 답하지 않습니다. 목록·개수 질문은 집계 데이터로 답합니다."
+  - label: "피드백"
+    steps: ["좋지 않음 표시", "저장된 답 삭제", "못 찾은 질문 모아 보기"]
+    text: "대화는 서버에 저장하지 않고 브라우저 탭에만 둡니다. 통계는 질문 내용 없이 횟수만 남깁니다."
+{{< /tabs >}}
 
 - 공개된 글 본문, 댓글, 첨부 파일을 600자 단위로 나눠 임베딩해 저장합니다. 첨부 파일은 파일당 앞부분 5만 자까지 색인합니다.
 - 질문이 들어오면 관련 조각을 찾아 사내 LLM 게이트웨이로 답을 만들고, 근거가 된 글과 바로가기를 링크로 함께 보여 줍니다.

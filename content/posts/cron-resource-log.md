@@ -13,20 +13,25 @@ categories: ["linux"]
 
 ## 전체 구성
 
-```mermaid
-flowchart LR
-  CRON["cron (1분)"] --> SH["collect.sh"]
-  SH --> H["host-YYYYMMDD.csv<br/>load · 메모리 · 디스크"]
-  SH --> C["ctr-YYYYMMDD.csv<br/>컨테이너별 CPU · 메모리"]
-  SH --> D["dockerdf-YYYYMMDD.csv<br/>이미지 · 볼륨 · 캐시 용량"]
-  H --> RM["7일 지난 파일 삭제"]
-  C --> RM
-  D --> RM
-  H --> AN["2단계: 추세 확인 · 임계값"]
-  C --> AN
-  AN --> AL["CPU · load 알림 메일"]
-  AN --> RP["매일 18:30 리포트 메일"]
-```
+{{< flow >}}
+title: "수집과 정리 흐름 · 단계를 눌러 보세요"
+note: "2단계로 추세 확인과 임계값 알림, 매일 18:30 리포트 메일을 붙였습니다."
+steps:
+  - title: "cron"
+    sub: "1분 간격"
+    detail: "cron이 1분마다 collect.sh를 실행합니다."
+  - title: "collect.sh"
+    detail: "호스트와 컨테이너 자원을 한 번에 읽어 날짜별 CSV에 한 줄씩 붙입니다."
+  - title: "CSV 3종"
+    sub: "host · ctr · dockerdf"
+    detail: "host CSV에는 load·메모리·디스크, ctr CSV에는 컨테이너별 CPU·메모리, dockerdf CSV에는 이미지·볼륨·캐시 용량을 남깁니다."
+  - title: "7일 보관"
+    detail: "7일이 지난 파일은 지워 디스크를 채우지 않게 했습니다."
+  - title: "알림 · 리포트"
+    tone: "ok"
+    sub: "2단계"
+    detail: "추세와 임계값을 보고 CPU·load 알림 메일을 보내고, 매일 18:30 리포트 메일을 보냅니다."
+{{< /flow >}}
 
 | 단계 | 내용 |
 |---|---|

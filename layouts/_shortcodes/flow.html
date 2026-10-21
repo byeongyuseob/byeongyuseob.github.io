@@ -1,0 +1,16 @@
+{{- $d := .Inner | transform.Unmarshal -}}
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz flow">
+{{ with $d.title }}<figcaption class="viz-title">{{ . }}</figcaption>{{ end }}
+<ol class="flow-steps">
+{{ range $i, $s := $d.steps }}
+<li><button type="button" class="flow-step{{ if eq $i 0 }} is-active{{ end }}{{ with $s.tone }} tone-{{ . }}{{ end }}" data-detail="{{ $s.detail }}" aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">
+<span class="flow-num">{{ printf "%02d" (add $i 1) }}</span>
+<span class="flow-name">{{ $s.title }}</span>
+{{ with $s.sub }}<span class="flow-sub">{{ . }}</span>{{ end }}
+</button></li>
+{{ end }}
+</ol>
+<p class="viz-detail" aria-live="polite">{{ (index $d.steps 0).detail }}</p>
+{{ with $d.note }}<p class="viz-note">{{ . }}</p>{{ end }}
+</figure>

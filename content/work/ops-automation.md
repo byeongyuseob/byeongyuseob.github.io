@@ -12,13 +12,20 @@ stack: ["Ansible", "Dynamic Inventory", "SSO", "Flask", "Vue.js", "Elasticsearch
 
 ## 진행 순서
 
-```mermaid
-flowchart LR
-  A["2017<br/>서버 정보 수집 자동화"] --> B["2019<br/>장애 대응 표준 절차"]
-  B --> C["2021–22<br/>장애 관리 웹 콘솔"]
-  A -. "수집 도구 · CMDB 연동" .-> C
-  B -. "장애 유형 · 대응 절차" .-> C
-```
+{{< flow >}}
+title: "자동화 단계 · 단계를 눌러 보세요"
+steps:
+  - title: "서버 정보 수집 자동화"
+    sub: "2017 · PM"
+    detail: "티켓 시스템과 CMDB 연동, 제조사별 수집 도구 통합, Ansible 병렬 수집으로 수작업 검수를 자동화했습니다. 이때 만든 수집 도구가 이후 단계의 기반이 됐습니다."
+  - title: "장애 대응 표준 절차"
+    sub: "2019 · PM"
+    detail: "과거 장애 기록을 분석해 유형을 정리하고, 허용 명령어 목록과 유형별 매뉴얼을 만들었습니다. 이 유형 분류가 Playbook의 단위가 됐습니다."
+  - title: "장애 관리 웹 콘솔"
+    sub: "2021–22 · PM"
+    tone: "ok"
+    detail: "SSO와 proxy로 접근을 모으고, 유형별 Ansible Playbook을 웹 콘솔에서 실행하게 했습니다. 정형화된 장애는 실행 한 번으로 수십 초 안에 처리합니다."
+{{< /flow >}}
 
 | 시기 | 프로젝트 | 바뀐 점 |
 |---|---|---|
@@ -52,16 +59,40 @@ flowchart LR
 
 배경: 서버 6만 대+에서 하드웨어·OS 장애가 하루 30~40건 발생했습니다. 여러 사람이 서버에 직접 접속해 처리하다 보니 보안 위험이 있었고, 경험이 적은 엔지니어는 처리가 늦었습니다.
 
-```mermaid
-flowchart LR
-  E["엔지니어"] --> SSO["SSO + Proxy<br/>로그인 한 번으로 접근"]
-  SSO --> W["장애 관리 웹 콘솔<br/>Flask · Vue.js"]
-  W --> AN["Ansible<br/>Dynamic Inventory · 유형별 Playbook"]
-  CMDB["CMDB · 서버 정보"] --> AN
-  AN --> S["서버 6만 대+"]
-  W --> ES["Elasticsearch"]
-  ES --> KB["Kibana<br/>장애 추세 시각화"]
-```
+{{< arch >}}
+title: "장애 관리 웹 구조 · 구성 요소를 눌러 보세요"
+layers:
+  - name: "접근"
+    items:
+      - name: "엔지니어"
+        detail: "서버에 직접 접속하지 않고 웹 콘솔에서 장애를 처리합니다."
+      - name: "SSO + Proxy"
+        detail: "SSO를 proxy와 연동해 한 번 로그인으로 여러 서비스와 서버 작업에 접근하고, 서버 직접 접속은 막았습니다."
+  - name: "애플리케이션"
+    tool: "Flask · Vue.js"
+    items:
+      - name: "장애 관리 웹 콘솔"
+        detail: "장애 유형을 고르고 Playbook을 실행하는 화면입니다. 경험이 적은 엔지니어도 같은 절차로 처리할 수 있습니다."
+  - name: "실행"
+    tool: "Ansible"
+    items:
+      - name: "Dynamic Inventory"
+        detail: "사용자가 입력한 대상의 서버 정보를 실시간으로 모아 작업 대상으로 씁니다."
+      - name: "유형별 Playbook"
+        detail: "하드웨어와 OS 장애를 유형별로 나누고, 유형마다 조치를 Playbook으로 만들었습니다."
+      - name: "CMDB"
+        detail: "서버 정보의 원본입니다. 2017년에 만든 수집 도구와 연동 방식을 그대로 썼습니다."
+  - name: "대상"
+    items:
+      - name: "서버 6만 대+"
+        detail: "하드웨어·OS 장애가 하루 30~40건 발생하는 환경입니다."
+  - name: "분석"
+    items:
+      - name: "Elasticsearch"
+        detail: "장애 처리 데이터를 모아 둡니다."
+      - name: "Kibana"
+        detail: "IDC 장애 추세를 시각화해 늘어나는 유형을 미리 볼 수 있게 했습니다."
+{{< /arch >}}
 
 - SSO를 proxy 서버와 연동해, 한 번 로그인으로 여러 서비스와 서버 작업을 처리하고 서버 직접 접속은 막았습니다.
 - Ansible Dynamic Inventory로 사용자가 입력한 대상의 서버 정보를 실시간으로 모아 작업 대상으로 썼습니다.

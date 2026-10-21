@@ -23,14 +23,27 @@ categories: ["hardware"]
 3. 제조사와 함께 상세 로그를 분석해 iLO firmware 버그를 확인했습니다.
 4. iLO firmware를 최신 버전으로 업데이트해 CPU 온도와 성능을 정상화했습니다.
 
-```mermaid
-flowchart LR
-  A["온도 상승 · 응답 지연"] --> B["부하 · 외부 요인<br/>이상 없음"]
-  B --> C["냉각 모드 · 팬 속도 조정<br/>증상 완화"]
-  C --> D["제조사와 로그 분석"]
-  D --> E["iLO firmware 버그 확인"]
-  E --> F["최신 firmware 적용<br/>같은 조합 서버까지"]
-```
+{{< flow >}}
+title: "원인을 좁힌 순서 · 단계를 눌러 보세요"
+steps:
+  - title: "온도 상승 · 응답 지연"
+    tone: "bad"
+    detail: "CPU 온도가 올라가면서 서버 응답이 느려지는 증상이 나타났습니다."
+  - title: "부하 · 외부 요인"
+    sub: "이상 없음"
+    detail: "서버 부하와 주변 환경을 확인했지만 원인이 될 만한 것은 없었습니다."
+  - title: "냉각 모드 · 팬 속도"
+    sub: "증상 완화"
+    detail: "Enhanced Cooling Mode와 팬 속도 조정으로 증상을 줄였지만 근본 원인은 아니었습니다."
+  - title: "제조사와 로그 분석"
+    detail: "제조사와 함께 로그를 분석했습니다."
+  - title: "iLO firmware 버그"
+    tone: "ok"
+    detail: "iLO firmware 버그가 원인으로 확인됐습니다."
+  - title: "최신 firmware 적용"
+    sub: "같은 조합 서버까지"
+    detail: "증상이 난 서버뿐 아니라 같은 모델과 firmware 조합의 서버에 미리 적용했습니다."
+{{< /flow >}}
 
 ## 재발 방지
 
@@ -55,11 +68,18 @@ GPU는 온도가 올라가면 clock을 스스로 낮춥니다(thermal throttling
 | 노드 간 비교 | DCGM으로 GPU 온도와 throttle 사유를 계속 수집해 같은 랙·모델끼리 비교 |
 | 펌웨어 | BMC와 GPU 관련 firmware 버전을 노드별로 수집해 같은 조합끼리 묶어 보기 |
 
-```mermaid
-flowchart LR
-  S["학습 속도 저하"] --> T{"throttle 사유"}
-  T -->|"Thermal"| R["랙 · 노드 온도 비교"]
-  R --> F["팬 정책 · BMC firmware 확인"]
-  T -->|"Power"| P["전력 캡 · 랙 급전 확인"]
-  T -->|"없음"| N["통신 · 다른 원인 확인"]
-```
+{{< tabs >}}
+title: "GPU 서버라면 · throttle 사유를 골라 보세요"
+items:
+  - label: "Thermal"
+    tone: "bad"
+    steps: ["학습 속도 저하", "throttle 사유: Thermal", "랙 · 노드 온도 비교", "팬 정책 · BMC firmware 확인"]
+    text: "같은 랙의 다른 노드와 온도를 비교하고, 팬 정책과 BMC firmware 버전 차이를 확인합니다. CPU 사례에서 배운 순서 그대로입니다."
+  - label: "Power"
+    tone: "warn"
+    steps: ["학습 속도 저하", "throttle 사유: Power", "전력 캡 · 랙 급전 확인"]
+    text: "GPU 전력 캡 설정과 랙 급전 상태를 확인합니다."
+  - label: "없음"
+    steps: ["학습 속도 저하", "throttle 사유 없음", "통신 · 다른 원인 확인"]
+    text: "throttle이 없으면 GPU 자체보다 노드 간 통신이나 다른 원인을 먼저 봅니다."
+{{< /tabs >}}

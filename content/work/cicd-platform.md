@@ -16,18 +16,26 @@ stack: ["Python/Django", "React", "Docker", "GitHub Actions", "Kubernetes (kubea
 
 ## 배포 흐름
 
-```mermaid
-flowchart LR
-  DEV["코드 push"] --> GA["GitHub Actions<br/>변경 감지 · 테스트 · 이미지 빌드"]
-  GA --> REG["컨테이너 이미지"]
-  GA --> GIT["배포 정의 저장소"]
-  GIT --> ARGO["ArgoCD<br/>GitOps 동기화"]
-  REG --> K8S["Kubernetes<br/>kubeadm 3노드"]
-  ARGO --> K8S
-  K8S --> MON["Prometheus · Grafana"]
-  MON --> MSG["메신저 알림"]
-  GA --> MSG
-```
+{{< flow >}}
+title: "배포 파이프라인 · 단계를 눌러 보세요"
+steps:
+  - title: "코드 push"
+    detail: "표준 스택과 코드 규칙(PEP8, Airbnb JavaScript Style Guide)에 맞춘 코드를 push합니다."
+  - title: "GitHub Actions"
+    sub: "테스트 · 이미지 빌드"
+    detail: "변경을 감지해 테스트하고, Alpine 기반 이미지를 빌드 캐시와 함께 만듭니다."
+  - title: "배포 정의 저장소"
+    detail: "배포에 쓸 매니페스트를 저장소에서 관리합니다."
+  - title: "ArgoCD"
+    sub: "GitOps 동기화"
+    detail: "저장소의 정의를 보고 클러스터 상태를 맞춥니다."
+  - title: "Kubernetes"
+    sub: "kubeadm 3노드"
+    detail: "직접 구축한 3노드 클러스터에서 워크로드를 나눠 운영합니다."
+  - title: "모니터링 · 알림"
+    tone: "ok"
+    detail: "Prometheus와 Grafana로 보고, GitHub Actions·Kubernetes·Prometheus·Grafana 이벤트를 메신저 배포 채널로 보냅니다."
+{{< /flow >}}
 
 ## 한 일
 

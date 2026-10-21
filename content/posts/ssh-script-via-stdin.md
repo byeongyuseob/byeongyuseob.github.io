@@ -15,11 +15,18 @@ ssh jump "ssh target 'awk \"{print \$1}\" /proc/loadavg'"   # 중간 csh에서 �
 
 명령 문자열은 로컬 셸, 점프 서버의 csh, 대상 서버의 셸을 차례로 거치면서 매번 따옴표와 `$`가 다시 해석됩니다. csh는 `!`, `$`, 따옴표 처리 규칙이 bash와 달라서 세 번의 해석을 모두 맞추기가 매우 어렵습니다.
 
-```mermaid
-flowchart LR
-  L["로컬 bash<br/>1차 해석"] --> J["점프 서버 csh<br/>2차 해석 (여기서 깨짐)"]
-  J --> T["대상 서버 셸<br/>3차 해석"]
-```
+{{< tabs >}}
+title: "명령이 해석되는 곳 · 탭을 바꿔 보세요"
+items:
+  - label: "인자로 넘길 때"
+    tone: "bad"
+    steps: ["로컬 bash · 1차 해석", "점프 서버 csh · 2차 해석", "대상 서버 셸 · 3차 해석"]
+    text: "명령을 인자로 넘기면 세 번 해석됩니다. 점프 서버의 csh에서 따옴표와 변수가 깨집니다."
+  - label: "stdin으로 넘길 때"
+    tone: "ok"
+    steps: ["script.sh (평범한 bash)", "로컬 ssh · stdin", "점프 서버 csh · ssh target bash만", "대상 서버 bash가 실행"]
+    text: "점프 서버의 csh는 ssh target bash 한 줄만 해석하고, 스크립트 본문은 stdin으로 대상 서버 bash에 그대로 전달됩니다."
+{{< /tabs >}}
 
 ## 해결: 스크립트를 stdin으로 넘기기
 
@@ -29,12 +36,6 @@ flowchart LR
 ssh jump ssh target bash < script.sh
 ```
 
-```mermaid
-flowchart LR
-  F["script.sh<br/>(평범한 bash 문법)"] -->|"stdin"| L["로컬 ssh"]
-  L --> J["점프 서버 csh<br/>'ssh target bash'만 해석"]
-  J --> T["대상 서버 bash<br/>stdin에서 스크립트를 읽어 실행"]
-```
 
 - 중간 셸은 `ssh target bash`라는 단순한 문자열만 해석합니다.
 - 스크립트 내용은 stdin으로 그대로 전달되고 대상 서버의 bash가 읽습니다.

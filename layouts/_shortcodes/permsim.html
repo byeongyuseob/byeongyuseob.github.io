@@ -1,0 +1,27 @@
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz permsim" data-permsim data-rules='["git pull *","git fetch *","git reset *","git push *","git -C *"]'>
+<figcaption class="viz-title">규칙 시뮬레이터 · 명령과 모드를 골라 보세요</figcaption>
+<div class="sim-controls">
+<label>명령
+<select data-cmd>
+<option>git status</option>
+<option>git pull</option>
+<option selected>git -C repo pull --ff-only</option>
+<option>git -C repo log</option>
+<option>git fetch origin</option>
+<option>git push origin main</option>
+<option>ls -la</option>
+</select></label>
+<label>권한 모드
+<select data-mode>
+<option value="default">default</option>
+<option value="bypass" selected>bypassPermissions</option>
+</select></label>
+</div>
+<ol class="sim-steps">
+<li data-s="deny"><span class="sim-k">deny</span><span class="sim-v"></span></li>
+<li data-s="ask"><span class="sim-k">ask</span><span class="sim-v"></span></li>
+<li data-s="allow"><span class="sim-k">allow · 모드</span><span class="sim-v"></span></li>
+</ol>
+<p class="viz-detail sim-result" aria-live="polite"></p>
+</figure>

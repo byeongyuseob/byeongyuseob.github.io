@@ -17,20 +17,56 @@ stack: ["K3s", "Cilium", "ArgoCD", "Longhorn", "MinIO", "Grafana LGTM", "Harbor"
 
 ## 전체 구조
 
-```mermaid
-flowchart TB
-  subgraph PM["물리 서버 1대 · libvirt"]
-    HA["HAProxy (사내망 입구)"]
-    subgraph CP["Control plane × 3"]
-      C1["K3s server · etcd"]
-    end
-    subgraph WK["Worker × 3"]
-      W1["앱 · 플랫폼 부품<br/>Longhorn · MinIO 디스크"]
-    end
-    OBS["관측 노드 × 1<br/>(클러스터 밖)"]
-  end
-  HA --> LB["Cilium LB-IPAM"] --> GW["Gateway API"] --> APP["Service → Pod"]
-```
+{{< arch >}}
+title: "K3s 검증 환경 구조 · 구성 요소를 눌러 보세요"
+layers:
+  - name: "진입"
+    items:
+      - name: "HAProxy"
+        detail: "물리 서버에서 사내망 입구 역할을 합니다."
+      - name: "Cilium LB-IPAM"
+        detail: "LoadBalancer IP를 나눠 주고 서비스로 연결합니다."
+      - name: "Gateway API"
+        detail: "앱 공용 입구입니다. dev와 prod 경로를 나눠 받습니다."
+  - name: "워크로드"
+    tool: "apps-workload"
+    items:
+      - name: "vLLM 추론"
+        detail: "SmolLM2-135M 모델을 CPU로 서빙합니다. 모델 파일은 MinIO에서 받습니다."
+      - name: "LoRA 학습 Job"
+        detail: "train namespace에서 LoRA 학습 Job을 실행합니다. 자리와 한도는 ArgoCD로 관리합니다."
+      - name: "개발자 앱"
+        detail: "IssueOps로 요청받아 dev와 prod에 배포합니다."
+  - name: "플랫폼"
+    tool: "ArgoCD · 23개"
+    items:
+      - name: "ArgoCD"
+        detail: "저장소의 정의를 보고 나머지 플랫폼 부품을 설치합니다. Application 23개입니다."
+      - name: "Harbor"
+        detail: "앱 이미지 저장소입니다."
+      - name: "Grafana LGTM"
+        detail: "메트릭은 Mimir, 로그는 Loki, 트레이스는 Tempo로 모아 Grafana에서 함께 봅니다."
+      - name: "Longhorn"
+        detail: "앱 PVC용 저장소입니다. 복제 3, MinIO로 매일 백업합니다."
+      - name: "MinIO"
+        detail: "관측 데이터 장기 보관, 이미지, 백업, 모델, 학습 데이터를 S3 하나로 모읍니다."
+  - name: "노드"
+    tool: "K3s · Cilium"
+    items:
+      - name: "Control plane × 3"
+        detail: "K3s server와 etcd 3대 정족수입니다. 앱은 올리지 않습니다."
+      - name: "Worker × 3"
+        detail: "앱과 플랫폼 부품이 올라가고 Longhorn, MinIO 디스크를 가집니다."
+      - name: "관측 노드 × 1"
+        detail: "클러스터 밖에서 바라보는 관측점입니다."
+  - name: "기반"
+    tool: "Terraform · Ansible"
+    items:
+      - name: "물리 서버 1대"
+        detail: "libvirt로 VM 7대를 띄웁니다. VM, 네트워크, 디스크는 Terraform으로 만듭니다."
+      - name: "Ansible"
+        detail: "노드 OS, K3s, Cilium, ArgoCD 첫 설치, 비밀값을 맡습니다. Cilium은 GitOps 밖에 둡니다."
+{{< /arch >}}
 
 | 층 | 내용 | 도구 |
 |---|---|---|
@@ -61,14 +97,24 @@ Cilium은 GitOps 밖에 두었습니다. ArgoCD가 CNI를 잘못 반영하면 �
 
 ## 앱 배포 창구 (IssueOps)
 
-```mermaid
-flowchart LR
-  I["배포 요청 이슈<br/>(새 앱 · dev 배포 · 운영 승격 · 되돌리기)"] --> R["self-hosted runner"]
-  R --> D["배포 값 저장소<br/>dev는 자동 merge · prod는 담당자 승인"]
-  D --> A["ArgoCD ApplicationSet"]
-  A --> K["dev / prod 반영"]
-  K --> C["반영 확인<br/>커밋 · 이미지 · rollout · HTTP 200"]
-```
+{{< flow >}}
+title: "IssueOps 배포 흐름 · 단계를 눌러 보세요"
+steps:
+  - title: "요청 이슈"
+    sub: "새 앱 · 배포 · 승격 · 되돌리기"
+    detail: "개발자는 저장소 이슈 양식으로 새 앱, dev 배포, 운영 승격, 되돌리기, 삭제를 요청합니다."
+  - title: "self-hosted runner"
+    detail: "자동화가 요청을 읽고 배포 값을 만듭니다. 권한은 GitHub App 두 개로 나눴습니다."
+  - title: "배포 값 저장소"
+    sub: "dev 자동 · prod 승인"
+    detail: "dev 변경은 바로 merge되고, prod 변경은 담당자 승인을 거칩니다."
+  - title: "ArgoCD ApplicationSet"
+    detail: "배포 값 저장소의 dev와 prod 경로를 읽어 앱을 만듭니다. 값을 지우면 앱도 내려갑니다."
+  - title: "반영 확인"
+    tone: "ok"
+    sub: "커밋 · 이미지 · rollout · HTTP 200"
+    detail: "ArgoCD가 그 커밋을 실제로 반영했는지, 이미지와 rollout, HTTP 200까지 스크립트로 확인합니다."
+{{< /flow >}}
 
 - 저장소를 플랫폼, 배포 값, 앱 코드로 나누고 권한은 GitHub App 두 개로 분리했습니다.
 - 배포 후에는 ArgoCD가 해당 커밋을 실제로 반영했는지, 이미지와 rollout, HTTP 200까지 스크립트로 확인합니다.

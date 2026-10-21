@@ -19,16 +19,18 @@ healthcheck가 없는 컨테이너에서 `Health` 키가 없다는 오류가 나
 
 healthcheck가 없는 컨테이너는 `State` 안에 `Health` 항목 자체가 없습니다. `.State.Health`처럼 필드로 접근하면 값을 꺼내는 단계에서 오류가 나기 때문에, 그 결과를 검사하는 `if`까지 가지 못합니다.
 
-```mermaid
-flowchart TB
-  subgraph A["if .State.Health"]
-    A1["필드 접근 .State.Health"] --> A2["키가 없으면 오류<br/>if 검사 전에 멈춤"]
-  end
-  subgraph B["with index .State Health"]
-    B1["index로 값 꺼내기"] --> B2["키가 없으면 빈 값"]
-    B2 --> B3["with가 빈 값이면 건너뜀"]
-  end
-```
+{{< tabs >}}
+title: "두 방식 비교 · 탭을 바꿔 보세요"
+items:
+  - label: "if .State.Health"
+    tone: "bad"
+    steps: ["필드 접근 .State.Health", "키가 없으면 오류", "if 검사 전에 멈춤"]
+    text: "healthcheck가 없는 컨테이너는 Health 키가 없어서, if가 값을 보기 전에 필드 접근에서 멈춥니다."
+  - label: "with index .State \"Health\""
+    tone: "ok"
+    steps: ["index로 값 꺼내기", "키가 없으면 빈 값", "with가 건너뜀"]
+    text: "index는 키가 없으면 빈 값을 돌려주고, with는 빈 값이면 블록을 건너뜁니다."
+{{< /tabs >}}
 
 ## 해결
 
