@@ -232,3 +232,22 @@ a:hover { color: #FFFFFF; }
   .arch-layer { flex-direction: column; gap: 4px; }
   .arch-label { flex-basis: auto; }
 }
+
+/* spike */
+.spike svg { width: 100%; height: auto; display: block; margin-top: 12px; }
+.spike .grid { stroke: var(--line); }
+.spike .ax { fill: var(--muted); font-family: var(--mono); font-size: 12px; text-anchor: end; }
+.spike text.ax:nth-last-child(-n+2) { text-anchor: middle; }
+.spike .wave { fill: none; stroke: var(--soft); stroke-width: 2; stroke-linejoin: round; }
+.spike .lv { stroke-width: 1.5; stroke-dasharray: 6 5; }
+.spike .lv.spike { stroke: var(--bad); } .spike .lv.mount { stroke: var(--accent); } .spike .lv.load { stroke: var(--warn); }
+.spike .lv-t { font-size: 13px; text-anchor: end; paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.spike .lv-t.spike { fill: var(--bad); } .spike .lv-t.mount { fill: var(--accent); } .spike .lv-t.load { fill: var(--warn); }
+.spike-calc { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.spike-calc label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 14px; color: var(--muted); }
+.spike-calc output { font-family: var(--mono); color: var(--text); }
+.spike-calc input[type=range] { flex: 1 1 100%; accent-color: var(--accent); }
+.spike-rows { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.spike-rows li { margin: 0; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--muted); }
+.spike-rows b { font-size: 20px; color: var(--text); font-weight: 600; }
+@media (max-width: 640px) { .spike-rows li { padding: 8px 10px; font-size: 13px; } .spike-rows b { font-size: 18px; } }
