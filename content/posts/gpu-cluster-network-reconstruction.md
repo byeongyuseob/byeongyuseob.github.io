@@ -26,6 +26,18 @@ categories: ["gpu-infra"]
 | 확장 단위 | SU 32노드, spine 증설 여유 있음 | 해당 없음 |
 | 용도 | 학습 | KVM 멀티테넌트 |
 
+```mermaid
+flowchart LR
+  subgraph TR["학습 클러스터 · GPU:NIC 1:1"]
+    direction TB
+    TG["GPU 8 · NIC 8"] --> TL["Rail별 Leaf"] --> TS["Spine (증설 여유)"]
+  end
+  subgraph CL["클라우드 클러스터 · GPU:NIC 2:1"]
+    direction TB
+    CG["GPU 8 · NIC 4"] --> CLF["Leaf"] --> CS["Spine (포트 여유 없음)"]
+  end
+```
+
 두 클러스터 모두 NDR 400G InfiniBand fat-tree, UFM, compute와 storage 네트워크 분리, Kubernetes와 Run:AI를 사용합니다.
 
 정리해 보면 DGX가 아닌 HGX 서버로 NVIDIA SuperPOD 레퍼런스 네트워크 구성을 따른 구조였습니다.

@@ -155,3 +155,5 @@ a:hover { color: #FFFFFF; }
 }
 .bento.two > .card { flex: 1 1 calc(50% - 8px); }
 @media (max-width: 640px) { .bento.two > .card { flex-basis: 100%; } }
+.prose pre.mermaid { margin: 8px 0 24px; padding: 24px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-align: center; overflow-x: auto; font-family: var(--sans); color: var(--muted); }
+.prose pre.mermaid svg { max-width: 100%; height: auto; }

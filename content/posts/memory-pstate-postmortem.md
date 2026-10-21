@@ -25,6 +25,16 @@ categories: ["hardware"]
 5. 제조사 글로벌 기술지원팀과 자료를 주고받으며 해결 시점을 앞당겼습니다.
 6. UEFI v2.31 firmware 적용 후 메모리 성능 문제가 해결됐습니다.
 
+```mermaid
+flowchart LR
+  A["메모리 성능 저하"] --> B["부품 교체 + MLC 측정<br/>같은 증상"]
+  B --> C["메모리 구성 최소화 실험"]
+  C --> D["UEFI 설정 재조정"]
+  D --> E["UEFI · BMC firmware · 로그 분석"]
+  E --> F["제조사 기술지원 협업"]
+  F --> G["UEFI v2.31로 해결"]
+```
+
 ## 재발 방지
 
 - 증상이 없던 서버 그룹에도 BMC firmware를 미리 적용했습니다.

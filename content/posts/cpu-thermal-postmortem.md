@@ -23,6 +23,15 @@ categories: ["hardware"]
 3. 제조사와 함께 상세 로그를 분석해 iLO firmware 버그를 확인했습니다.
 4. iLO firmware를 최신 버전으로 업데이트해 CPU 온도와 성능을 정상화했습니다.
 
+```mermaid
+flowchart LR
+  A["온도 상승 · 응답 지연"] --> B["부하 · 외부 요인<br/>이상 없음"]
+  B --> C["냉각 모드 · 팬 속도 조정<br/>증상 완화"]
+  C --> D["제조사와 로그 분석"]
+  D --> E["iLO firmware 버그 확인"]
+  E --> F["최신 firmware 적용<br/>같은 조합 서버까지"]
+```
+
 ## 재발 방지
 
 - 같은 모델과 firmware 조합을 쓰는 서버에 업데이트를 미리 적용했습니다.
