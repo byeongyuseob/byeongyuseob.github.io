@@ -27,6 +27,18 @@
 </li>
 {{ end }}
 </ol>
+{{ with $p.certs }}
+<span class="label">자격</span>
+<ul class="career">
+{{ range . }}
+<li>
+<span class="period">{{ .date }}</span>
+<span class="org">{{ .name }}</span>
+<span class="role">{{ .issuer }}</span>
+</li>
+{{ end }}
+</ul>
+{{ end }}
 </div>
 <div class="card">
 <span class="label">기술</span>

@@ -2,7 +2,7 @@
 baseURL = "https://byeongyuseob.github.io/"
 locale = "ko-KR"
 defaultContentLanguage = "ko"
-title = "[이름] · 기록"
+title = "변규섭 · 기록"
 timeZone = "Asia/Seoul"
 hasCJKLanguage = true
 capitalizeListTitles = false
@@ -16,7 +16,7 @@ project = "projects"
 style = "github-dark"
 
 [params]
-name = "[이름]"
+name = "변규섭"
 logo = "byeongyuseob.github.io"
 headline = "데이터센터 운영 10년, 이제 GPU 클러스터로."
 description = "전력·냉각·하드웨어·장애 대응을 다뤄 온 경험 위에 GPU 클러스터와 AI 인프라를 쌓고 있습니다. 해 온 일과 배운 것을 날짜순으로 남깁니다."
@@ -25,9 +25,30 @@ email = ""   # 예: "me@example.com"
 resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 파일을 둔다
 
 [[params.career]]
-period = "[YYYY.MM] – 현재"
-org = "[회사 · 팀]"
-role = "IDC 운영 — 전력·냉각·하드웨어 수명주기·장애 대응"
+period = "2016.04 – 현재"
+org = "엔아이티서비스 · IDC 운영"
+role = "데이터센터 운영 — 전력·냉각·하드웨어 수명주기·장애 대응"
+
+# 자격: 최신순. 만료된 것은 넣지 않는다.
+[[params.certs]]
+date = "2025.11"
+name = "RHCSA · Red Hat Certified System Administrator"
+issuer = "Red Hat"
+
+[[params.certs]]
+date = "2024.05"
+name = "NAVER Cloud Platform Certified Expert"
+issuer = "NAVER Cloud"
+
+[[params.certs]]
+date = "2024.03"
+name = "CKAD · Certified Kubernetes Application Developer"
+issuer = "The Linux Foundation"
+
+[[params.certs]]
+date = "2024.02"
+name = "CKA · Certified Kubernetes Administrator"
+issuer = "The Linux Foundation"
 
 [params.skills]
 have = ["데이터센터 운영", "전력 · 냉각", "하드웨어 수명주기", "장애 대응", "Linux", "Kubernetes", "Docker", "Terraform", "Bash · Python"]
