@@ -44,5 +44,5 @@ categories: ["gpu-infra"]
 
 ## 배운 것
 
-- 학습용은 **GPU 하나당 NIC 하나, rail 정렬, non-blocking** 이 기본이다. 그래서 예비 노드도 [원래 자리로 옮겨야](/work/gpu-spare-node-swap/) 했다.
+- 학습용은 **GPU 하나당 NIC 하나, rail 정렬, non-blocking** 이 기본이다. 그래서 예비 노드도 [원래 자리로 옮겨야](/work/h200-training-cluster/) 했다.
 - 클라우드용은 GPU 두 개가 NIC 하나를 나눠 쓰고 spine 에 여유가 없다. 같은 세대 GPU 라도 **용도가 네트워크를 정한다.**

@@ -5,7 +5,7 @@ date: 2020-07-31
 categories: ["hardware"]
 ---
 
-> 2020.04 – 2020.07 · Contributor · 관련 프로젝트: [서버 메모리 성능 저하 트러블슈팅](/work/memory-pstate/)
+> 2020.04 – 2020.07 · Contributor · 관련 프로젝트: [서버 하드웨어 성능 저하 트러블슈팅](/work/hardware-troubleshooting/)
 
 ## 요약
 
