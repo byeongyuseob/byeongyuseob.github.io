@@ -1,5 +1,5 @@
 ---
-title: "AI 에이전트 git pull 되돌리기와 막기"
+title: "AI 에이전트의 git 명령 제한하기"
 description: "AI 코딩 에이전트가 남의 레포에 git pull 한 것을 되돌리고, ask 규칙으로 다시 못 하게 막은 기록"
 date: 2026-10-21
 categories: ["ai-tools"]
@@ -53,9 +53,9 @@ git update-ref -d refs/remotes/origin/<새 브랜치>
 공식 문서 기준으로 확인한 것 ([permissions](https://code.claude.com/docs/en/permissions), [permission modes](https://code.claude.com/docs/en/permission-modes)):
 
 - `Bash(git pull *)`와 `Bash(git pull:*)`는 같은 뜻이다. 끝의 `*`는 인자 없는 `git pull`도 잡는다.
-- 평가 순서는 **deny → ask → allow**. 먼저 걸리는 쪽이 이긴다.
-- **`bypassPermissions` 모드에서도 ask 규칙은 묻고, deny 규칙은 막는다.** allow 규칙만 의미가 없어진다.
-- 단, 규칙은 **명령 문자열**을 맞춰 본다. `git -C 경로 pull`은 `Bash(git pull *)`에 안 걸린다. 이번에 실제로 쓴 형태가 바로 이거였다. 그래서 `Bash(git -C *)`도 넣었다 (대신 `git -C 경로 log` 같은 읽기 명령도 묻게 된다).
+- 평가 순서는 deny → ask → allow. 먼저 걸리는 쪽이 이긴다.
+- `bypassPermissions` 모드에서도 ask 규칙은 묻고, deny 규칙은 막는다. allow 규칙만 의미가 없어진다.
+- 단, 규칙은 명령 문자열을 맞춰 본다. `git -C 경로 pull`은 `Bash(git pull *)`에 안 걸린다. 이번에 실제로 쓴 형태가 바로 이거였다. 그래서 `Bash(git -C *)`도 넣었다 (대신 `git -C 경로 log` 같은 읽기 명령도 묻게 된다).
 - 문서도 이 규칙이 완전한 보안 경계는 아니라고 말한다. 확실히 막으려면 샌드박스(쓰기 가능 경로 제한)를 쓴다.
 
 ## 메모

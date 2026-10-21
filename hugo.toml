@@ -22,10 +22,10 @@ disable = true
 [params]
 name = "변규섭"
 logo = "byeongyuseob.github.io"
-headline = "데이터센터 운영 10년, GPU 클러스터 현장까지."
-description = "서버 60,000대 이상을 운영해 왔고, H200 학습 클러스터의 구축·운영 현장과 B200 입고 전 전력 검증을 맡았습니다. 설계가 운영에 넘긴 문제를 현장에서 처리하고, 설계는 자료로 복원해 실측으로 검증합니다."
-focus = "관심 분야: GPU 클러스터 운영 · AI 인프라 아키텍처"
-strengths = ["H200 학습 클러스터 현장 운영", "GPU 서버 전력 계측 · 검증", "60,000대 Server Fleet 운영"]
+headline = "GPU 클러스터와 데이터센터를 운영합니다."
+description = "10년 동안 데이터센터 서버 6만여 대를 운영했습니다. 최근에는 H200 학습 클러스터 구축과 운영, B200 입고 전 전력 검증을 맡았습니다."
+focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
+strengths = ["H200 학습 클러스터 운영", "GPU 서버 전력 검증", "서버 6만여 대 운영"]
 github = "https://github.com/byeongyuseob"
 linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
@@ -35,32 +35,32 @@ resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호
 period = "2016.04 – 현재"
 start = "2016-04-01"   # 재직 기간 자동 계산용
 org = "NIT Service"
-role = "서버·GPU 인프라 운영 — 운영 대상: 국내 대형 IT · 클라우드 사업자 데이터센터"
+role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GPU 인프라 운영"
 
   [[params.career.phases]]
   period = "2025 – 현재"
   title = "GPU 인프라"
-  desc = "H200 학습 클러스터(약 200노드) 구축·운영 현장, B200 입고 전 전력 검증, 사내 운영 플랫폼(알림 게이트웨이 · 운영 데이터 MCP) 개발·운영"
+  desc = "H200 학습 클러스터(약 200노드) 구축과 운영, B200 입고 전 전력 검증, 사내 알림 게이트웨이와 운영 데이터 MCP 서버 개발"
 
   [[params.career.phases]]
   period = "2023 – 2024"
-  title = "사내 개발 서버 운영 · 플랫폼 엔지니어링"
-  desc = "사내 개발 서버 운영, CI/CD · 컨테이너 통합 배포 시스템 PM, Kubernetes · ArgoCD 도입, CKA · CKAD 취득"
+  title = "사내 개발 서버 운영, 플랫폼 엔지니어링"
+  desc = "사내 개발 서버 운영, 컨테이너 기반 통합 배포 시스템 구축(PM), Kubernetes와 ArgoCD 도입, CKA와 CKAD 취득"
 
   [[params.career.phases]]
   period = "2019 – 2022"
-  title = "장애 대응 표준화 · 자동화"
-  desc = "장애 대응 표준 프로세스 PM(2019), 하드웨어 성능 저하 원인 분석(2020), SSO · Ansible Playbook 기반 장애 관리 웹 PM(2021–22)"
+  title = "장애 대응 표준화와 자동화"
+  desc = "장애 대응 표준 절차 수립(2019, PM), 하드웨어 성능 저하 원인 분석(2020), Ansible 기반 장애 관리 웹 개발(2021–22, PM)"
 
   [[params.career.phases]]
   period = "2016 – 2018"
   title = "서버 Fleet 운영"
-  desc = "서버 60,000대 이상 Server Lifecycle 관리, Kickstart 설치 표준화, 서버 정보 수집 자동화 PM(2017)"
+  desc = "서버 입고부터 폐기까지 관리, Kickstart로 OS 설치 표준화, 서버 정보 수집 자동화(2017, PM)"
 
   [[params.career.phases]]
   period = "전 기간"
   title = "공통"
-  desc = "SLA 99.9% 기준 운영 · 고객 정기 미팅 · ISMS · SOC · CSP 인증 대응 물리 보안"
+  desc = "SLA 99.9% 기준 운영, 고객사 정기 미팅, ISMS·SOC·CSP 인증 대응 물리 보안"
 
 # 자격: 최신순. 만료된 것은 넣지 않는다.
 [[params.certs]]
