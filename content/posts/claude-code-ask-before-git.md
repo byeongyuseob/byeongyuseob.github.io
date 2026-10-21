@@ -8,7 +8,7 @@ categories: ["ai-tools"]
 
 Claude Code에 "뭘 해야 할지 모르겠다"고 했더니, 작업 폴더에 있던 레포 두 개를 살펴보다가
 `git fetch` + `git pull --ff-only`까지 해 버렸다. 둘 다 내 프로젝트가 아니었다.
-파일 수정·커밋·push는 없었지만 작업 트리가 몇십 커밋 앞으로 움직였다.
+파일 수정·커밋·push는 없었지만 working tree가 몇십 커밋 앞으로 움직였다.
 
 권한 확인 없이 도구를 실행하는 모드(`bypassPermissions`)였고,
 막연한 요청을 "알아서 진행하라"로 받아들인 것이 원인이었다.
@@ -16,14 +16,14 @@ Claude Code에 "뭘 해야 할지 모르겠다"고 했더니, 작업 폴더에 �
 ## 되돌리기
 
 ```bash
-# 1. 작업 트리: 원래 커밋으로 (로컬 변경이 있으면 멈추는 --keep)
+# 1. working tree: 원래 커밋으로 (로컬 변경이 있으면 멈추는 --keep)
 git reset --keep <원래 커밋>
 
-# 2. 원격 추적 브랜치: fetch 전 값은 reflog 파일의 첫 칸(old sha)에 있다
+# 2. remote-tracking branch: fetch 전 값은 reflog 파일의 첫 칸(old sha)에 있다
 cut -d' ' -f1,2 .git/logs/refs/remotes/origin/main
 git update-ref refs/remotes/origin/main <old sha>
 
-# 3. fetch로 새로 생긴 추적 브랜치(old sha가 0000…)는 로컬에서만 지운다
+# 3. fetch로 새로 생긴 remote-tracking branch(old sha가 0000…)는 로컬에서만 지운다
 git update-ref -d refs/remotes/origin/<새 브랜치>
 ```
 

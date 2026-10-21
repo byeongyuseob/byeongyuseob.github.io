@@ -52,7 +52,7 @@ echo "$TS,$load1,$mem,$disk" >> "$DIR/host-$DAY.csv"
 docker stats --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}}' \
   | sed "s/^/$TS,/" >> "$DIR/ctr-$DAY.csv"
 
-# docker 디스크: 종류, 크기, 회수 가능
+# docker 디스크: Type, Size, Reclaimable
 docker system df --format '{{.Type}},{{.Size}},{{.Reclaimable}}' \
   | sed "s/^/$TS,/" >> "$DIR/dockerdf-$DAY.csv"
 
