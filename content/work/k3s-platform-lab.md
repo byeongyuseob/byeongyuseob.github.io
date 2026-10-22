@@ -3,7 +3,7 @@ title: "K3s 플랫폼 검증 환경 구축"
 description: "물리 서버 1대에 VM 7대로 K3s 플랫폼을 기획·설계·구축하고, GitOps 배포, 관측, 저장소, IssueOps 배포 창구, vLLM 추론과 LoRA 학습까지 올려 ML 인프라 운영 시나리오를 검증하는 프로젝트"
 date: 2026-09-07
 period: "2026.09 – 현재"
-weight: 5
+weight: 6
 track: "platform"
 role: "기획, 설계, 구축, 검증"
 mine: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, GitOps 배포, 관측, 저장소, vLLM 추론 SLO 측정까지 진행하고 있습니다."

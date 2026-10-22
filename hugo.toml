@@ -25,7 +25,7 @@ logo = "byeongyuseob.github.io"
 headline = "데이터센터와 GPU 클러스터 인프라를 현장에서 운영합니다."
 description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고, InfiniBand 광모듈 교체, 고장 노드 복구를 맡았고, GPU 서버 전력 스파이크를 직접 측정해 센터별 운영 대수를 줄이는 검토를 요청했습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
-strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 4건"]
+strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 5건"]
 github = "https://github.com/byeongyuseob"
 linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
@@ -74,6 +74,12 @@ desc = "설계 문서 없이 서버·네트워크 CI, IB 케이블맵 2종, DCIM
 link = "/posts/gpu-cluster-network-reconstruction/"
 
 [[params.now]]
+title = "하드웨어 장애 처리 웹"
+label = "진행 중 · PM"
+desc = "장애 접수부터 OOB 하드웨어 상태 수집, 벤더 점검 요청, 서버 셧다운, 예비 부품 조회까지 한 화면에서 처리하는 웹을 기획하고 운영합니다."
+link = "/work/hw-fault-console/"
+
+[[params.now]]
 title = "K3s 플랫폼 검증 환경"
 desc = "vLLM SLO 기준선(Pod당 동시 4)까지 측정했고, 다음은 대기 요청 수 기반 자동 확장과 콜드 스타트 단축입니다."
 link = "/work/k3s-platform-lab/"
@@ -82,11 +88,6 @@ link = "/work/k3s-platform-lab/"
 title = "IDC 근무일지 · SLA 대시보드"
 desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 사내 시험 배포했고, 장애 48시간 처리 준수율과 지연 사유를 운영 데이터로 보여 주는 대시보드를 운영합니다."
 link = "/work/idc-ops-digital/"
-
-[[params.now]]
-title = "알림 게이트웨이 · IDC 포털"
-desc = "팀 서비스들이 함께 쓰는 알림 발신 게이트웨이와 RAG 기반 AI 도우미가 붙은 IDC 운영 포털을 운영합니다."
-link = "/work/ops-platform/"
 
 [[params.career]]
 period = "2016.04 – 현재"
@@ -102,7 +103,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2025 – 현재"
   title = "자동화, 플랫폼 엔지니어링"
-  desc = "IDC 운영 포털과 RAG 기반 AI 도우미, 근무일지 통합, SLA 대시보드, 알림 게이트웨이, 운영 데이터 MCP 서버, K3s 검증 환경"
+  desc = "하드웨어 장애 처리 웹(PM), IDC 운영 포털과 RAG 기반 AI 도우미, 근무일지 통합, SLA 대시보드, 알림 게이트웨이, 운영 데이터 MCP 서버, K3s 검증 환경"
 
   [[params.career.phases]]
   period = "2023 – 2024"
