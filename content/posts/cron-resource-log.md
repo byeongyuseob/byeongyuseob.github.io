@@ -2,6 +2,7 @@
 title: "1분 cron으로 서버 자원 기록하기"
 description: "OOM 흔적이 나온 서버에 1분 cron으로 자원 기록부터 시작해, 추세를 보고 CPU·load 알림과 일일 리포트 메일까지 붙인 과정"
 date: 2026-10-21
+tip: true
 categories: ["linux"]
 ---
 

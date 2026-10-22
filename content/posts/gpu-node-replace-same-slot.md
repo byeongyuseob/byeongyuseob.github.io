@@ -2,6 +2,7 @@
 title: "GPU 고장 노드를 같은 자리로 교체한 이유"
 description: "Rail-optimized InfiniBand 클러스터에서 고장 노드를 빈 포트가 아닌 같은 자리로 교체해 rail 배치를 지킨 판단과 작업"
 date: 2025-10-31
+written: "2026.10에 당시 기록으로 정리"
 categories: ["gpu-infra"]
 ---
 

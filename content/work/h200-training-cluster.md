@@ -5,9 +5,11 @@ date: 2025-01-01
 period: "2025"
 weight: 1
 role: "현장 구축·운영"
+mine: "입고 전 전력 실측, 랙 배치와 입고, InfiniBand 광모듈 7천여 개 교체 관리, 고장 노드 복구 9회를 현장에서 맡았습니다."
+decision: "랙 배치는 정격이 아니라 실측 전력으로 정했고, 고장 노드는 빈 포트가 아니라 같은 자리로 교체해 rail 배치를 지켰습니다."
 summary: "약 200노드 H200 학습 클러스터의 입고 전 전력 실측부터 랙 마운트, InfiniBand 정비, 고장 노드 복구까지 현장 작업을 맡았습니다."
 result: "약 200노드 입고, IB 광모듈 7천여 개 교체, 고장 노드 복구 9회"
-stack: ["H200 (HGX)", "InfiniBand NDR 400G", "Rail-optimized Fat-tree", "UPS", "UFM", "Kubernetes", "Run:AI"]
+stack: ["H200 (HGX)", "InfiniBand NDR 400G", "Rail-optimized Fat-tree", "Optical Transceiver", "Cable Map", "UPS"]
 ---
 
 ## 요약

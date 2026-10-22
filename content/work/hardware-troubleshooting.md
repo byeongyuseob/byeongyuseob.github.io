@@ -5,6 +5,8 @@ date: 2016-04-01
 period: "2016.04 – 2021.06"
 weight: 4
 role: "운영, Contributor, 현장 대응"
+mine: "서버 입고부터 폐기까지 운영했고, 서버 이전 정보와 종이 일지 3종을 웹으로 옮겼습니다. 성능 저하 분석에는 Contributor로, 팬 설정 일괄 변경에는 센터 대상 확인과 모니터링으로 참여했습니다."
+decision: "손으로 쓰던 서버 이전 정보를 API로 처리하게 해, 대수가 늘어도 사람이 들이는 시간이 늘지 않게 했습니다."
 summary: "서버 6만 대+의 입고부터 폐기까지 하드웨어 lifecycle을 운영했습니다. 손으로 하던 서버 이전 정보와 종이 일지를 웹으로 옮기고, 메모리 성능 저하를 firmware에서 찾아 해결하고, 1만 5천여 대 일괄 변경에서 센터 대상 8천여 대를 맡았습니다."
 result: "서버 이전 정보 서버당 5분 → 3초, 종이 일지 3종 웹화, UEFI v2.31로 메모리 성능 문제 해결, 센터 8천여 대 온라인 변경 현장 대응"
 stack: ["Server Lifecycle", "Python", "MongoDB", "Kickstart", "BMC", "UEFI", "Intel MLC", "FAN Curve", "Linux"]
@@ -183,18 +185,6 @@ steps:
 - 두 건 모두 처음에는 하드웨어 고장이나 냉각 부족처럼 보였지만 원인은 firmware와 센서에 있었습니다. 이후로는 부품 교체 전에 firmware 버전, 센서 값, 전력·냉각 설정부터 확인합니다.
 - 대량 변경은 사전 테스트로 부작용(전력)을 먼저 확인하고, 작업 단위를 나누고, 현장 모니터링을 붙이는 순서로 진행됐습니다.
 - 증상이 난 서버만 고치지 않고, 같은 모델 전체에 조치를 적용했습니다.
-
-## GPU 노드에 옮기면
-
-GPU 노드도 같은 lifecycle을 거칩니다. 입고 검수, firmware 관리, 성능 저하 분석, 일괄 변경이 그대로 이어지고, 확인할 도구만 바뀝니다.
-
-| 서버에서 한 것 | GPU 노드에서 할 것 |
-|---|---|
-| 입고 후 설치 표준화 · 검수 | 입고 후 burn-in과 `dcgmi diag`, `nccl-tests`로 노드와 통신 검수 |
-| 센서와 팬 | GPU 온도와 throttle 사유(`nvidia-smi -q -d TEMPERATURE,PERFORMANCE`), 랙·노드 온도 비교 |
-| 전력 관리(P-state) | GPU P-state, 전력 제한, clock 설정 |
-| firmware 버전 | driver, VBIOS, BMC firmware 버전을 같은 조합끼리 비교 |
-| 부품 교체 후 재측정 | `dcgmi diag`, `nccl-tests`로 재측정 |
 
 ## 자세한 기록
 

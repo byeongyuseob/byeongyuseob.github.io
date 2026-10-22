@@ -263,3 +263,11 @@ a.stat:hover, a.now:hover { border-color: var(--line-3); }
 .now h3 { margin: 0; font-size: 20px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .now p { margin: 0; }
 @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; } .stat { padding: 16px; } .stat-value { font-size: 22px; } }
+
+.tags.lab li { border-color: var(--line-2); color: var(--soft); }
+.facts { margin: 4px 0 0; display: grid; gap: 10px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.facts div { display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: baseline; }
+.facts dt { font-size: 14px; font-weight: 500; color: var(--accent); }
+.facts dd { margin: 0; font-size: 16px; line-height: 1.6; }
+.tips-title { margin-top: 56px; font-size: 22px; }
+@media (max-width: 640px) { .facts div { grid-template-columns: 1fr; gap: 2px; } }

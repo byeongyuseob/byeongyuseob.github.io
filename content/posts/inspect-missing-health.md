@@ -2,6 +2,7 @@
 title: "docker inspect에서 Health 필드 오류"
 description: "healthcheck가 없는 컨테이너에서 docker inspect 템플릿이 멈출 때 index와 with로 피하는 방법과 다른 확인 방법"
 date: 2026-10-21
+tip: true
 categories: ["docker"]
 ---
 

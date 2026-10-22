@@ -2,6 +2,7 @@
 title: "장애 회고: P-state와 메모리 성능 저하"
 description: "특정 서버 모델에서 CPU P-state와 관련된 메모리 성능 저하를 부품 교체, 설정 조정, 제조사 협업을 거쳐 UEFI v2.31로 해결한 과정"
 date: 2020-07-31
+written: "2026.10에 당시 기록으로 정리"
 categories: ["hardware"]
 ---
 
@@ -66,33 +67,3 @@ steps:
 - 증상은 메모리 성능이었지만 원인은 CPU 전력 관리 기능과 firmware였습니다.
 - 부품을 바꿔도 같은 증상이면 설정과 firmware를 확인하는 순서로 진행합니다.
 - 교체나 업데이트 후에는 같은 도구로 다시 측정해서 확인합니다.
-
-## GPU 클러스터에 적용하면
-
-아래는 일반적인 내용입니다.
-
-GPU도 전력 상태(P-state)와 clock 설정이 성능에 영향을 줍니다. 노드마다 설정이나 버전이 다르면 같은 작업도 노드에 따라 속도가 달라지고, 학습에서는 가장 느린 노드에 전체 속도가 맞춰집니다.
-
-| 확인할 것 | 방법 |
-|---|---|
-| driver · VBIOS 버전 | `nvidia-smi --query-gpu=driver_version,vbios_version --format=csv` |
-| persistence mode | `nvidia-smi -q`의 Persistence Mode 항목, 필요하면 `nvidia-smi -pm 1` |
-| 전력 제한과 P-state | `nvidia-smi -q -d POWER,PERFORMANCE` |
-| 교체·업데이트 후 확인 | `dcgmi diag`로 진단, `nccl-tests`로 통신 성능 재측정 |
-
-{{< flow >}}
-title: "GPU 서버라면 · 단계를 눌러 보세요"
-steps:
-  - title: "버전 · 설정 수집"
-    detail: "노드별 driver, firmware 버전과 persistence mode, 전력 제한 설정을 모읍니다."
-  - title: "같은 조합끼리 비교"
-    detail: "같은 모델과 구성끼리 묶어 다른 값을 가진 노드를 찾습니다."
-  - title: "불일치 정리"
-    tone: "warn"
-    sub: "버전 · 설정"
-    detail: "버전이 다르면 업데이트 계획을 세우고, 설정이 다르면 persistence와 전력 제한을 맞춥니다."
-  - title: "재측정"
-    tone: "ok"
-    sub: "dcgmi diag · nccl-tests"
-    detail: "dcgmi diag와 nccl-tests로 다시 재서 결과를 비교합니다."
-{{< /flow >}}

@@ -6,6 +6,8 @@ period: "2025.11 – 현재"
 weight: 6
 track: "platform"
 role: "설계, 개발, 운영"
+mine: "알림 발신 게이트웨이, 운영 데이터 조회 MCP 서버, 배포 서버 보안·자원 점검 도구를 설계하고 개발해 운영합니다."
+decision: "실패했을 때의 동작을 먼저 정했습니다. 알림은 빠지지 않게(at-least-once), 조회는 이상하면 멈추게(fail closed), 점검은 모르면 점검 못 함으로 표시하게 했습니다."
 summary: "팀 서비스들이 함께 쓰는 알림 게이트웨이를 만들어 운영하고, 운영 데이터를 LLM으로 조회하는 MCP 서버와 컨테이너 46개를 점검하는 보안·자원 점검 도구를 개발했습니다."
 result: "알림 발신 통합, 읽기 전용 MCP 도구 11개, 컨테이너 CVE 점검"
 stack: ["Python", "Flask", "SQLite", "Docker", "Messenger Bot API", "SMTP", "MCP", "TypeScript", "LLM"]

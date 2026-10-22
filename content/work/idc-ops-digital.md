@@ -6,6 +6,8 @@ period: "2026.07 – 현재"
 weight: 8
 track: "platform"
 role: "기획, 설계, 개발"
+mine: "근무일지 통합, SLA 대시보드, 온습도 데이터 기반 점검 개선 시제품을 기획부터 개발까지 맡았습니다."
+decision: "같은 공지 90건, 같은 인계 84번 같은 기존 데이터를 먼저 보고 화면을 설계했고, SLA는 팀장이 엑셀로 하던 기준과 먼저 맞췄습니다."
 summary: "IDC 14곳의 근무일지를 하나로 합치고, 운영 데이터로 SLA를 계산하는 대시보드와 온습도 데이터 기반 점검 개선 시제품을 만들었습니다."
 result: "일지 3종을 1종으로 통합, IDC 14곳 적용, 장애 SLA 대시보드 운영"
 stack: ["Node.js", "SQLite", "SSO", "Docker", "Python", "REST API"]
