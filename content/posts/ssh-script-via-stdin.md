@@ -2,6 +2,7 @@
 title: "csh 환경에서 ssh 원격 명령이 깨질 때"
 description: "점프 서버 로그인 셸이 csh라 따옴표가 깨질 때, 명령 대신 스크립트를 stdin으로 넘겨 해결한 방법과 다른 방식 비교"
 date: 2026-10-21
+tip: true
 categories: ["shell"]
 ---
 

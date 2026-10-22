@@ -17,6 +17,13 @@
 </a>
 {{ end }}
 </div>
+{{ else if eq .Kind "section" }}
+{{ $tips := where .Pages "Params.tip" true }}
+{{ partial "post-list.html" (complement $tips .Pages) }}
+{{ with $tips }}
+<h2 class="title tips-title">짧은 팁</h2>
+{{ partial "post-list.html" . }}
+{{ end }}
 {{ else }}
 {{ partial "post-list.html" .Pages }}
 {{ end }}

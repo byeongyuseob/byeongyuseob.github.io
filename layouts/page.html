@@ -6,11 +6,17 @@
 <a class="back mono small" href="{{ "work/" | relURL }}">{{ partial "icon.html" "arrow-left" }} 주요 프로젝트</a>
 {{ else }}
 <a class="back mono small" href="{{ "posts/" | relURL }}">{{ partial "icon.html" "arrow-left" }} 기록</a>
-<time class="mono small muted" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+<span class="mono small muted"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>{{ with .Params.written }} · {{ . }}{{ end }}</span>
 {{ end }}
 <h1>{{ .Title }}</h1>
 {{ if $work }}<span class="mono small muted">{{ .Params.period }}{{ with .Params.role }} · {{ . }}{{ end }}</span>{{ end }}
-{{ with .Params.result }}<p class="result">{{ . }}</p>{{ end }}
+{{ if and $work .Params.mine }}
+<dl class="facts">
+<div><dt>맡은 일</dt><dd>{{ .Params.mine }}</dd></div>
+{{ with .Params.decision }}<div><dt>내린 판단</dt><dd>{{ . }}</dd></div>{{ end }}
+{{ with .Params.result }}<div><dt>결과</dt><dd>{{ . }}</dd></div>{{ end }}
+</dl>
+{{ else }}{{ with .Params.result }}<p class="result">{{ . }}</p>{{ end }}{{ end }}
 {{ with .Params.stack }}<ul class="tags tags-sm">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
 <div class="chips">
 {{ range .GetTerms "projects" }}<a class="chip chip-sm chip-accent" href="{{ .RelPermalink }}">프로젝트 · {{ .LinkTitle }}</a>{{ end }}

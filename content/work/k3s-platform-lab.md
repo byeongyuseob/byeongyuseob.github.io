@@ -6,6 +6,8 @@ period: "2026.09 – 현재"
 weight: 5
 track: "platform"
 role: "기획, 설계, 구축, 검증"
+mine: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, GitOps 배포, 관측, 저장소, vLLM 추론 SLO 측정까지 진행하고 있습니다."
+decision: "Cilium은 ArgoCD가 잘못 반영하면 스스로 복구할 수 없어 GitOps 밖에 두고, 관측 저장소는 Longhorn 장애도 볼 수 있게 노드 local 디스크에 뒀습니다."
 summary: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, ArgoCD로 플랫폼 부품을 배포하고(Application 21개, ApplicationSet 2개) vLLM 추론 SLO 기준선까지 측정했습니다."
 result: "VM 7대, 커밋 148개, ArgoCD Application 21개 + ApplicationSet 2개, IssueOps 배포, vLLM SLO 기준선(Pod당 동시 4), LoRA 학습→서빙 고리"
 stack: ["K3s", "Cilium", "ArgoCD", "Longhorn", "MinIO", "Grafana LGTM", "Harbor", "vLLM", "Terraform", "Ansible"]

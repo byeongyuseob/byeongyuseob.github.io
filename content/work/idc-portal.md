@@ -6,6 +6,8 @@ period: "2026.04 – 현재"
 weight: 7
 track: "platform"
 role: "설계, 개발, 운영"
+mine: "IDC 운영 포털과 포털 글·첨부 파일을 근거로 답하는 AI 도우미를 설계하고 개발해 운영합니다."
+decision: "근거가 없으면 찾지 못했다고 답하게 했고, 같은 질문으로 볼 유사도 기준 0.72는 실제 질문으로 재서 정했습니다."
 summary: "공지·기술 게시판, 알림 메일, 바로가기를 갖춘 IDC 운영 포털을 만들고, 포털 데이터만 근거로 답하는 AI 도우미를 붙였습니다."
 result: "게시판·알림·검색 통합, 글·첨부 파일 기반 RAG 도우미 운영"
 stack: ["Node.js", "Express", "EJS", "MariaDB", "Redis", "TipTap", "Docker", "LLM", "Embedding"]

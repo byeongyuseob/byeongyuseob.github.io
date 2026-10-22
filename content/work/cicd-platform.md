@@ -5,6 +5,8 @@ date: 2023-01-01
 period: "2023.01 – 2024.01"
 weight: 9
 role: "PM"
+mine: "PM으로 표준 개발 스택, 환경별 컨테이너 이미지, GitHub Actions 파이프라인, 배포 알림 채널을 정했습니다."
+decision: "배포를 자동화하기 전에 스택부터 표준화했고, 배포가 느린 원인을 빌드에서 찾아 빌드 과정과 캐시 전략을 고쳤습니다."
 summary: "서비스마다 달랐던 배포 방식을 표준 개발 스택, 컨테이너, GitHub Actions 기반 자동 배포로 통일했습니다."
 result: "배포 시간 평균 60분 → 30분, 문제 해결 시간 평균 2시간 → 30분"
 stack: ["Python/Django", "React", "Docker", "GitHub Actions", "Prometheus", "Grafana"]

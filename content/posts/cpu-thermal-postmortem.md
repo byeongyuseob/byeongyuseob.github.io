@@ -2,6 +2,7 @@
 title: "1만 5천여 대 팬 설정 변경을 현장에서 받친 기록"
 description: "센서 문제로 팬이 안 올라가 CPU 온도가 오른 서버 1만 5천여 대에 팬 최소 속도를 온라인으로 올린 변경에서, 센터 대상 8천여 대의 확인과 작업 중 모니터링을 맡은 기록"
 date: 2021-06-03
+written: "2026.10에 당시 기록으로 정리"
 categories: ["hardware"]
 ---
 
@@ -80,32 +81,3 @@ steps:
 - 사전 테스트로 부작용(전력)을 먼저 확인하고, 작업 단위를 나누고, 현장 모니터링을 붙이는 순서가 대량 변경의 기본이라는 것을 확인했습니다.
 - 온도 문제라고 해서 냉각 설비 부족이라고 단정하지 않습니다. 팬을 제어하는 센서 값과 BMC 설정도 함께 봅니다.
 - 임시 방편은 임시 방편으로 기록해 둡니다. 근본 원인(센서)이 남아 있다는 것을 잊지 않기 위해서입니다.
-
-## GPU 노드에 적용하면
-
-아래는 일반적인 내용입니다.
-
-GPU는 온도가 올라가면 clock을 스스로 낮춥니다(thermal throttling). 장애로 잡히지 않고 학습 속도 저하로만 나타나서 놓치기 쉽습니다. 이번 사례처럼 센서 값이 틀리면 팬이 제때 올라가지 않는 것도 같습니다.
-
-| 확인할 것 | 방법 |
-|---|---|
-| 현재 온도와 clock | `nvidia-smi -q -d TEMPERATURE,CLOCK` |
-| clock이 낮아진 이유 | `nvidia-smi -q -d PERFORMANCE`의 Clocks Throttle Reasons(최근 드라이버는 Clocks Event Reasons)에서 Thermal Slowdown 항목 |
-| 노드 간 비교 | DCGM으로 GPU 온도와 throttle 사유를 계속 수집해 같은 랙·모델끼리 비교 |
-| 펌웨어 | BMC와 GPU 관련 firmware 버전을 노드별로 수집해 같은 조합끼리 묶어 보기 |
-
-{{< tabs >}}
-title: "GPU 서버라면 · throttle 사유를 골라 보세요"
-items:
-  - label: "Thermal"
-    tone: "bad"
-    steps: ["학습 속도 저하", "throttle 사유: Thermal", "랙 · 노드 온도 비교", "팬 정책 · BMC firmware 확인"]
-    text: "같은 랙의 다른 노드와 온도를 비교하고, 팬 정책과 센서 값, BMC firmware 버전 차이를 확인합니다. CPU 사례에서 배운 순서 그대로입니다."
-  - label: "Power"
-    tone: "warn"
-    steps: ["학습 속도 저하", "throttle 사유: Power", "전력 캡 · 랙 급전 확인"]
-    text: "GPU 전력 캡 설정과 랙 급전 상태를 확인합니다."
-  - label: "없음"
-    steps: ["학습 속도 저하", "throttle 사유 없음", "통신 · 다른 원인 확인"]
-    text: "throttle이 없으면 GPU 자체보다 노드 간 통신이나 다른 원인을 먼저 봅니다."
-{{< /tabs >}}

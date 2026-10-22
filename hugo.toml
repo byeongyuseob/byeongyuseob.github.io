@@ -22,50 +22,56 @@ disable = true
 [params]
 name = "변규섭"
 logo = "byeongyuseob.github.io"
-headline = "GPU 클러스터와 데이터센터를 운영합니다."
-description = "10년 동안 데이터센터 서버 6만 대⁠+를 운영했습니다. 최근에는 H200 학습 클러스터를 구축·운영하고, GPU 서버 전력 스파이크를 측정해 랙당 배치 대수를 정했습니다."
+headline = "데이터센터와 GPU 클러스터 인프라를 현장에서 운영합니다."
+description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고, InfiniBand 광모듈 교체, 고장 노드 복구를 맡았고, GPU 서버 전력 스파이크를 직접 측정해 센터별 운영 대수를 줄이는 검토를 요청했습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
-strengths = ["H200 학습 클러스터 운영", "GPU 서버 전력 측정·랙 배치", "사내 운영 플랫폼 개발", "서버 6만 대+ 운영"]
+strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 4건"]
 github = "https://github.com/byeongyuseob"
 linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
 resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호 없는 판으로)
 
 [[params.stats]]
-value = "6만 대+"
-label = "운영한 서버"
-sub = "2016.04부터 데이터센터 서버 Fleet 운영"
-link = "/work/hardware-troubleshooting/"
-
-[[params.stats]]
 value = "약 200노드"
 label = "H200 학습 클러스터"
-sub = "입고, 랙 배치, 운영"
+sub = "입고, 랙 배치, 고장 노드 복구 9회"
 link = "/work/h200-training-cluster/"
+
+[[params.stats]]
+value = "18.9kW"
+label = "H200 서버 1대 스파이크 실측"
+sub = "100% 부하 약 13kW, 기존 기종보다 대당 약 4kW 높음"
+link = "/work/gpu-power-validation/"
+
+[[params.stats]]
+value = "160 → 128대"
+label = "센터별 운영 대수 조정 검토 요청"
+sub = "스파이크 실측 결과를 근거로"
+link = "/work/gpu-power-validation/"
 
 [[params.stats]]
 value = "7천여 개"
 label = "InfiniBand 광모듈 교체"
-sub = "NDR 400G, 케이블맵으로 관리"
+sub = "NDR 400G, 2025.08 – 10, 케이블맵으로 관리"
 link = "/work/h200-training-cluster/"
 
 [[params.stats]]
-value = "160 → 128대"
-label = "센터별 운영 대수 조정 검토"
-sub = "GPU 서버 스파이크 측정 결과"
-link = "/work/gpu-power-validation/"
+value = "5,833행"
+label = "GPU 클러스터 케이블 구조 정리"
+sub = "CI, IB 케이블맵, DCIM을 노드·포트 단위로 연결"
+link = "/posts/gpu-cluster-network-reconstruction/"
 
 [[params.stats]]
-value = "30~40건/일"
-label = "장애를 Playbook으로"
-sub = "정형 장애는 실행 한 번, 수십 초"
-link = "/work/ops-automation/"
+value = "6만 대+"
+label = "운영 환경 서버 규모"
+sub = "2016.04부터 서버 Fleet 하드웨어 운영"
+link = "/work/hardware-troubleshooting/"
 
-[[params.stats]]
-value = "PM 4건"
-label = "자동화·배포 프로젝트"
-sub = "2017 · 2019 · 2021–22 · 2023"
-link = "/work/"
+[[params.now]]
+title = "GPU 네트워크 구조 분석"
+label = "최근 분석"
+desc = "설계 문서 없이 서버·네트워크 CI, IB 케이블맵 2종, DCIM을 이어 붙여 학습 클러스터와 클라우드 클러스터의 IB 구조를 노드·포트 단위로 정리했습니다."
+link = "/posts/gpu-cluster-network-reconstruction/"
 
 [[params.now]]
 title = "K3s 플랫폼 검증 환경"
@@ -73,13 +79,8 @@ desc = "vLLM SLO 기준선(Pod당 동시 4)까지 측정했고, 다음은 대기
 link = "/work/k3s-platform-lab/"
 
 [[params.now]]
-title = "IDC 근무일지 통합"
-desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 만들어 사내 시험 배포했습니다."
-link = "/work/idc-ops-digital/"
-
-[[params.now]]
-title = "장애 SLA 대시보드"
-desc = "48시간 처리 기준 준수율과 지연 사유를 실제 운영 데이터로 보여 주고, 월간 리포트 메일을 보냅니다."
+title = "IDC 근무일지 · SLA 대시보드"
+desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 사내 시험 배포했고, 장애 48시간 처리 준수율과 지연 사유를 운영 데이터로 보여 주는 대시보드를 운영합니다."
 link = "/work/idc-ops-digital/"
 
 [[params.now]]
@@ -150,5 +151,7 @@ school = "선문대학교"
 degree = "정보통신공학부 학사"
 
 [params.skills]
-have = ["H200 · B200 (HGX)", "InfiniBand NDR 400G", "GPU Power Measurement", "Server Lifecycle", "Hardware Troubleshooting", "BIOS · Firmware", "Incident Response", "Linux", "Ansible", "Kubernetes", "ArgoCD", "Docker", "GitHub Actions", "Prometheus · Grafana", "Elasticsearch · Kibana", "Terraform", "Python · Shell"]
+# have: 실제 운영에서 쓴 것. lab: 검증 랩이나 입고 전 계측에서만 쓴 것.
+have = ["H200 (HGX)", "InfiniBand NDR 400G", "GPU Power Measurement", "Server Lifecycle", "Hardware Troubleshooting", "BIOS · Firmware", "Incident Response", "Linux", "Ansible", "Docker", "GitHub Actions", "Prometheus · Grafana", "Elasticsearch · Kibana", "Python · Shell"]
+lab = ["B200 입고 전 계측", "Kubernetes (K3s)", "ArgoCD", "Cilium", "Longhorn", "Terraform", "vLLM"]
 learning = ["nccl-tests", "DCGM diag", "perftest", "Slurm", "GPU Xid Errors", "AI Workload Sizing"]

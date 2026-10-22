@@ -5,6 +5,8 @@ date: 2017-02-01
 period: "2017.02 – 2022.10"
 weight: 3
 role: "PM, 3건"
+mine: "PM으로 2017 서버 정보 수집 자동화, 2019 장애 대응 표준 절차, 2021–22 장애 관리 웹을 진행했습니다."
+decision: "자동화보다 절차 표준화를 먼저 했고, Playbook은 장애 유형 단위로 만들고, 서버 접근은 SSO와 proxy 한 곳으로 모았습니다."
 summary: "하루 30~40건 장애가 나는 서버 6만 대+ 환경에서 검수를 자동화하고, 장애 대응을 표준 절차, Playbook, 웹 콘솔 순서로 바꿨습니다."
 result: "정형 장애 Playbook 처리, 서버 직접 접속 대부분 제거, 전 서버 검수"
 stack: ["Ansible", "Dynamic Inventory", "SSO", "Flask", "Vue.js", "Elasticsearch", "Kibana", "CMDB"]

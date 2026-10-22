@@ -32,6 +32,16 @@
 </section>
 {{ end }}
 
+{{ with where site.RegularPages "Section" "work" }}
+<section aria-labelledby="work-h">
+<h2 id="work-h" class="title">주요 프로젝트</h2>
+<div class="bento">
+{{ range first 3 .ByWeight }}{{ partial "work-card.html" . }}{{ end }}
+</div>
+<a class="more" href="{{ "work/" | relURL }}">전체 프로젝트 {{ len . }}개 보기 {{ partial "icon.html" "arrow-right" }}</a>
+</section>
+{{ end }}
+
 <section class="bento" aria-label="경력과 기술">
 <div class="card card-wide">
 <span class="label">경력</span>
@@ -87,6 +97,12 @@
 <span class="sub">운영 경험</span>
 <ul class="tags">{{ range $p.skills.have }}<li>{{ . }}</li>{{ end }}</ul>
 </div>
+{{ with $p.skills.lab }}
+<div class="stack-sm">
+<span class="sub">검증 랩·입고 전 계측에서 쓴 것</span>
+<ul class="tags lab">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+</div>
+{{ end }}
 <div class="stack-sm">
 <span class="sub">지금 익히는 것</span>
 <ul class="tags learning">{{ range $p.skills.learning }}<li>{{ . }}</li>{{ end }}</ul>
@@ -94,37 +110,21 @@
 </div>
 </section>
 
+
+
+
 {{ with $p.now }}
 <section aria-labelledby="now-h">
 <h2 id="now-h" class="title">지금 하는 일</h2>
 <div class="bento two">
 {{ range . }}
 <a class="card now" href="{{ .link | relURL }}">
-<span class="label">진행 중</span>
+<span class="label">{{ .label | default "진행 중" }}</span>
 <h3>{{ .title }}</h3>
 <p class="small muted">{{ .desc }}</p>
 </a>
 {{ end }}
 </div>
-</section>
-{{ end }}
-
-{{ with where site.RegularPages "Section" "work" }}
-<section aria-labelledby="work-h">
-<h2 id="work-h" class="title">주요 프로젝트</h2>
-<div class="bento">
-{{ range first 3 .ByWeight }}{{ partial "work-card.html" . }}{{ end }}
-</div>
-</section>
-{{ end }}
-
-{{ with where (where site.RegularPages "Section" "work") "Params.track" "platform" }}
-<section aria-labelledby="platform-h">
-<h2 id="platform-h" class="title">자동화·플랫폼 엔지니어링</h2>
-<div class="bento two">
-{{ range .ByDate.Reverse }}{{ partial "work-card.html" . }}{{ end }}
-</div>
-<a class="more" href="{{ "work/" | relURL }}">전체 프로젝트 {{ len (where site.RegularPages "Section" "work") }}개 보기 {{ partial "icon.html" "arrow-right" }}</a>
 </section>
 {{ end }}
 
@@ -154,7 +154,7 @@
 {{ range site.Taxonomies.categories.Alphabetical }}<a class="chip" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
 </nav>
 </div>
-{{ partial "post-list.html" (first 10 (where site.RegularPages "Section" "posts")) }}
+{{ partial "post-list.html" (first 10 (where (where site.RegularPages "Section" "posts") "Params.tip" "!=" true)) }}
 <a class="more" href="{{ "posts/" | relURL }}">전체 기록 보기 {{ partial "icon.html" "arrow-right" }}</a>
 </section>
 {{ end }}

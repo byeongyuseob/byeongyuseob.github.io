@@ -3,6 +3,7 @@ title: "사내 배포를 하나의 파이프라인으로 정리하기"
 aliases: ["/posts/gitops-deploy-pipeline/"]
 description: "서비스마다 다르던 수동 배포를 표준 스택, 컨테이너, GitHub Actions로 하나의 파이프라인으로 정리한 과정"
 date: 2024-01-31
+written: "2026.10에 당시 기록으로 정리"
 categories: ["automation"]
 ---
 
