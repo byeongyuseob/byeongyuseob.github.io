@@ -110,7 +110,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2019 – 2022"
   title = "장애 대응 표준화와 자동화"
-  desc = "장애 대응 표준 절차 수립(2019, PM), 하드웨어 성능 저하 원인 분석(2020), Ansible 기반 장애 관리 웹 개발(2021–22, PM)"
+  desc = "장애 대응 표준 절차 수립(2019, PM), 하드웨어 성능 저하 대응(2020–21), Ansible 기반 장애 관리 웹 개발(2021–22, PM)"
 
   [[params.career.phases]]
   period = "2016 – 2018"
