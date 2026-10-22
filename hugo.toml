@@ -31,6 +31,61 @@ linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
 resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호 없는 판으로)
 
+[[params.stats]]
+value = "6만 대+"
+label = "운영한 서버"
+sub = "2016.04부터 데이터센터 서버 Fleet 운영"
+
+[[params.stats]]
+value = "약 200노드"
+label = "H200 학습 클러스터"
+sub = "입고, 랙 배치, 운영"
+link = "/work/h200-training-cluster/"
+
+[[params.stats]]
+value = "7천여 개"
+label = "InfiniBand 광모듈 교체"
+sub = "NDR 400G, 케이블맵으로 관리"
+link = "/work/h200-training-cluster/"
+
+[[params.stats]]
+value = "160 → 128대"
+label = "센터별 운영 대수 조정 검토"
+sub = "GPU 서버 스파이크 측정 결과"
+link = "/work/gpu-power-validation/"
+
+[[params.stats]]
+value = "30~40건/일"
+label = "장애를 Playbook으로"
+sub = "정형 장애는 실행 한 번, 수십 초"
+link = "/work/ops-automation/"
+
+[[params.stats]]
+value = "PM 4건"
+label = "자동화·배포 프로젝트"
+sub = "2017 · 2019 · 2021–22 · 2023"
+link = "/work/"
+
+[[params.now]]
+title = "K3s 플랫폼 검증 환경"
+desc = "vLLM SLO 기준선(Pod당 동시 4)까지 측정했고, 다음은 대기 요청 수 기반 자동 확장과 콜드 스타트 단축입니다."
+link = "/work/k3s-platform-lab/"
+
+[[params.now]]
+title = "IDC 근무일지 통합"
+desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 만들어 사내 시험 배포했습니다."
+link = "/work/idc-ops-digital/"
+
+[[params.now]]
+title = "장애 SLA 대시보드"
+desc = "48시간 처리 기준 준수율과 지연 사유를 실제 운영 데이터로 보여 주고, 월간 리포트 메일을 보냅니다."
+link = "/work/idc-ops-digital/"
+
+[[params.now]]
+title = "알림 게이트웨이 · IDC 포털"
+desc = "팀 서비스들이 함께 쓰는 알림 발신 게이트웨이와 RAG 기반 AI 도우미가 붙은 IDC 운영 포털을 운영합니다."
+link = "/work/ops-platform/"
+
 [[params.career]]
 period = "2016.04 – 현재"
 start = "2016-04-01"   # 재직 기간 자동 계산용
