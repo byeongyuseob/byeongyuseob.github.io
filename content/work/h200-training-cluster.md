@@ -63,7 +63,7 @@ layers:
 | 네트워크 분리 | compute 네트워크와 storage 네트워크 분리 |
 | 관리 | UFM으로 fabric 관리, Kubernetes와 Run:AI로 작업 스케줄링 |
 
-구성은 운영 자료를 보고 정리한 내용입니다. 정리 과정은 [GPU 클러스터 네트워크 구조 분석](/posts/gpu-cluster-network-reconstruction/)에 따로 적었습니다.
+구성은 운영 자료를 보고 정리한 내용입니다. Kubernetes와 Run:AI는 제 담당이 아니어서 접근 권한이 없었습니다. 정리 과정은 [GPU 클러스터 네트워크 구조 분석](/posts/gpu-cluster-network-reconstruction/)에 따로 적었습니다.
 
 ## 맡은 일
 
