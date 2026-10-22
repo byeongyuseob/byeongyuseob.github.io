@@ -54,4 +54,4 @@ steps:
 
 ## 이후
 
-Kubernetes 클러스터 구성과 ArgoCD GitOps 배포는 2026년 [K3s 플랫폼 검증 환경](/work/k3s-platform-lab/)에서 직접 구축했습니다. 그때는 ArgoCD로 플랫폼 부품 23개를 배포하고, 개발자 앱은 이슈로 요청받는 IssueOps 창구로 넓혔습니다.
+Kubernetes 클러스터 구성과 ArgoCD GitOps 배포는 2026년 [K3s 플랫폼 검증 환경](/work/k3s-platform-lab/)에서 직접 구축했습니다. 그때는 ArgoCD로 플랫폼 부품(Application 21개, ApplicationSet 2개)을 배포하고, 개발자 앱은 이슈로 요청받는 IssueOps 창구로 넓혔습니다.
