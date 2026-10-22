@@ -7,7 +7,7 @@ categories: ["docker"]
 
 ## 문제
 
-컨테이너 상태를 한 줄씩 출력하려고 아래처럼 작성했습니다.
+팀 배포 서버의 컨테이너 상태를 [1분 cron 자원 기록](/posts/cron-resource-log/)과 함께 남기려고, 상태를 한 줄씩 출력하는 명령을 아래처럼 작성했습니다.
 
 ```bash
 docker inspect -f '{{.Name}} {{if .State.Health}}{{.State.Health.Status}}{{end}}' $(docker ps -q)
