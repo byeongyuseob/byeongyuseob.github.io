@@ -35,6 +35,7 @@ resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호
 value = "6만 대+"
 label = "운영한 서버"
 sub = "2016.04부터 데이터센터 서버 Fleet 운영"
+link = "/work/hardware-troubleshooting/"
 
 [[params.stats]]
 value = "약 200노드"
