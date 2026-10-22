@@ -251,3 +251,15 @@ a:hover { color: #FFFFFF; }
 .spike-rows li { margin: 0; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--muted); }
 .spike-rows b { font-size: 20px; color: var(--text); font-weight: 600; }
 @media (max-width: 640px) { .spike-rows li { padding: 8px 10px; font-size: 13px; } .spike-rows b { font-size: 18px; } }
+
+/* 첫 화면: 숫자 · 지금 하는 일 */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.stat { padding: 22px 24px; gap: 4px; text-decoration: none; }
+a.stat:hover, a.now:hover { border-color: var(--line-3); }
+.stat-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--accent); white-space: nowrap; }
+.stat-label { font-size: 16px; font-weight: 500; }
+.stat-sub { font-size: 14px; color: var(--muted); }
+.now { text-decoration: none; gap: 10px; }
+.now h3 { margin: 0; font-size: 20px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.now p { margin: 0; }
+@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; } .stat { padding: 16px; } .stat-value { font-size: 22px; } }
