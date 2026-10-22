@@ -5,7 +5,7 @@ date: 2021-06-03
 categories: ["hardware"]
 ---
 
-> 2021.05 – 2021.06, 현장 대응(센터 대상 확인, 작업 중 모니터링). 관련 프로젝트: [서버 하드웨어 트러블슈팅](/work/hardware-troubleshooting/)
+> 2021.05 – 2021.06, 현장 대응(센터 대상 확인, 작업 중 모니터링). 관련 프로젝트: [서버 Fleet 하드웨어 운영](/work/hardware-troubleshooting/)
 
 ## 요약
 
