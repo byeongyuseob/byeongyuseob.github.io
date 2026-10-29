@@ -23,7 +23,7 @@ disable = true
 name = "변규섭"
 logo = "byeongyuseob.github.io"
 headline = "데이터센터와 GPU 클러스터 인프라를 현장에서 운영합니다."
-description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고, InfiniBand 광모듈 교체, 고장 노드 복구를 맡았고, GPU 서버 전력 스파이크 측정에 참여해 투입 대수를 줄이는 판단의 근거를 만들었습니다."
+description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고와 고장 노드 복구를 맡고 InfiniBand 광모듈 교체 작업에 참여했으며, GPU 서버 전력 스파이크 측정에 참여해 투입 대수를 줄이는 판단의 근거를 만들었습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
 strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 5건"]
 github = "https://github.com/byeongyuseob"
@@ -52,7 +52,7 @@ link = "/work/gpu-power-validation/"
 [[params.stats]]
 value = "7천여 개"
 label = "InfiniBand 광모듈 교체"
-sub = "NDR 400G, 2025.08 – 10, 케이블맵으로 관리"
+sub = "NDR 400G, 2025.08 – 10, 팀 작업"
 link = "/work/h200-training-cluster/"
 
 [[params.stats]]
@@ -118,7 +118,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2016 – 2018"
   title = "서버 Fleet 운영"
-  desc = "서버 입고부터 폐기까지 관리, 팀 최초 웹 솔루션으로 서버 이전 정보(서버당 5분 → 3초)와 종이 일지 3종 웹화, Kickstart로 OS 설치 표준화, 서버 정보 수집 자동화(2017, PM)"
+  desc = "서버 입고부터 폐기까지 관리, 팀 최초 웹 솔루션으로 서버 이전 정보(서버당 2분 → 3초)와 종이 일지 3종 웹화, Kickstart로 OS 설치 표준화, 서버 정보 수집 자동화(2017, PM)"
 
   [[params.career.phases]]
   period = "전 기간"
