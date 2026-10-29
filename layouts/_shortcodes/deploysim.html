@@ -1,0 +1,46 @@
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz dsim" data-deploysim>
+<figcaption class="viz-title">merge에서 운영까지 · 경우를 골라 보세요</figcaption>
+<div class="tab-list" role="group" aria-label="경우">
+<button type="button" class="tab-btn tone-ok" data-scn="ok" aria-pressed="true" data-result="운영 반영까지 끝났습니다. merge부터 약 7분 걸립니다(2026.10.27 실측).">정상 배포</button>
+<button type="button" class="tab-btn tone-bad" data-scn="contract" aria-pressed="false" data-result="계약 검사에서 멈췄습니다. 이미지를 만들지 않으므로 운영에는 아무것도 바뀌지 않고, 걸린 규칙이 CI 결과에 남습니다.">계약 검사 실패</button>
+<button type="button" class="tab-btn tone-bad" data-scn="d1" aria-pressed="false" data-result="배포 뒤 확인이 실패해 운영 설정을 디렉터리째 이전 상태로 되돌렸습니다. 2026.10.27까지 운영에서 3번 있었습니다.">배포 뒤 확인 실패</button>
+<button type="button" class="tab-btn tone-warn" data-scn="unknown" aria-pressed="false" data-result="상태를 읽지 못해 판정할 수 없으면 되돌리지 않습니다. 판정 불가를 실패로 읽어 멀쩡한 배포를 되돌린 일이 있은 뒤 정한 원칙입니다.">판정할 수 없음</button>
+</div>
+<ol class="dsim-steps">
+<li data-stage><button type="button" class="dsim-step" data-detail="개발자가 앱 저장소의 main에 merge합니다. PR 단계에서 이미 계약 검사를 한 번 통과한 상태입니다."><span class="dsim-num">01</span><span class="dsim-name">merge</span><span class="dsim-sub">개발자</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="클러스터 안의 ARC 러너가 잡을 받습니다. 러너 5대가 차 있을 때는 13분 40초를 기다렸고, 최대 10대와 배포 전용 풀을 둔 뒤 11~24초가 됐습니다."><span class="dsim-num">02</span><span class="dsim-name">러너 배정</span><span class="dsim-sub">GitHub Actions (ARC) · 11~24초</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="렌더된 리소스를 기준으로 인증 우회, NetworkPolicy 누락, 상태 리소스 보호 누락 같은 규칙을 검사합니다. 테스트와 병렬로 돌아 추가 지연이 없고, 걸리면 이미지를 만들지 않습니다."><span class="dsim-num">03</span><span class="dsim-name">계약 검사</span><span class="dsim-sub">플랫폼 검사기 · 약 1초</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="앱 테스트를 돌리고 상주 BuildKit으로 이미지를 빌드해 커밋 SHA 태그로 Harbor에 올립니다. 앱마다 다르지만 이 구간이 가장 깁니다(약 4분)."><span class="dsim-num">04</span><span class="dsim-name">테스트와 빌드</span><span class="dsim-sub">BuildKit → Harbor · 약 4분</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="빌드가 끝나면 클러스터 안 중계가 배포기를 바로 깨웁니다. 배포기는 모든 서비스 이미지가 준비된 최신 커밋을 고르고, 계약을 한 번 더 검사한 뒤 검사한 사본만 운영 설정에 반영합니다."><span class="dsim-num">05</span><span class="dsim-name">배포기</span><span class="dsim-sub">계약 재검사 · 설정 사본 반영</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="웹훅을 받아 약 2초 안에 동기화를 시작합니다. 폴링에 기대던 때는 2분 37초가 걸렸습니다."><span class="dsim-num">06</span><span class="dsim-name">동기화</span><span class="dsim-sub">ArgoCD · 약 2초</span><span class="dsim-state"></span></button></li>
+<li data-stage><button type="button" class="dsim-step" data-detail="Synced와 Healthy를 두 번 연달아 확인합니다. 상한은 10분입니다. 실패하면 되돌리고, 판정할 수 없으면 되돌리지 않습니다."><span class="dsim-num">07</span><span class="dsim-name">배포 뒤 확인</span><span class="dsim-sub">D1 · 최대 10분</span><span class="dsim-state"></span></button></li>
+<li data-rollback hidden><button type="button" class="dsim-step" data-detail="운영 설정 디렉터리를 이전 커밋 상태로 되돌리고, ArgoCD가 이전 버전으로 다시 맞춥니다. 사람이 손대지 않아도 됩니다."><span class="dsim-num">↩</span><span class="dsim-name">자동 되돌림</span><span class="dsim-sub">배포기</span><span class="dsim-state"></span></button></li>
+</ol>
+<p class="viz-detail" data-dsim-out aria-live="polite"></p>
+<div class="dsim-bars">
+<p class="viz-title">걸린 시간 · 막대를 눌러 보세요 (같은 축, 28분 = 전체 폭)</p>
+<div class="dsim-bar-label"><span>개선 전 (러너가 밀렸을 때)</span><span>28분</span></div>
+<div class="dsim-bar">
+<button type="button" class="dsim-seg s-wait" style="width:48.8%" data-detail="러너 대기 13분 40초. 러너 5대가 모두 차 있었습니다." aria-label="러너 대기 13분 40초"></button>
+<button type="button" class="dsim-seg s-deployer" style="width:17.9%" data-detail="배포기 대기 약 5분. 배포기가 5분 주기로만 돌았습니다." aria-label="배포기 대기 약 5분"></button>
+<button type="button" class="dsim-seg s-sync" style="width:9.4%" data-detail="ArgoCD 동기화 시작까지 2분 37초. 웹훅 없이 폴링에 기댔습니다." aria-label="동기화 대기 2분 37초"></button>
+<button type="button" class="dsim-seg s-rest" style="width:23.9%" data-detail="그 밖 약 6분 40초. 테스트, 빌드, 배포 뒤 확인이 들어 있습니다." aria-label="그 밖 약 6분 40초"></button>
+</div>
+<div class="dsim-bar-label"><span>지금 (2026.10.27 실측)</span><span>약 7분</span></div>
+<div class="dsim-bar">
+<button type="button" class="dsim-seg s-wait" style="width:1.4%" data-detail="러너 대기 11~24초. 러너를 최대 10대로 늘리고 배포 전용 풀을 뒀습니다." aria-label="러너 대기 11~24초"></button>
+<button type="button" class="dsim-seg s-test" style="width:14.3%" data-detail="앱 테스트와 빌드 약 4분. 남은 시간의 대부분은 앱 자체의 테스트입니다." aria-label="테스트와 빌드 약 4분"></button>
+<button type="button" class="dsim-seg s-deployer" style="width:3.6%" data-detail="플랫폼 구간 1분 안팎. 빌드가 끝나면 배포기가 바로 깨어나고, 동기화는 웹훅으로 약 2초에 시작합니다." aria-label="플랫폼 구간 1분 안팎"></button>
+<button type="button" class="dsim-seg s-rest" style="width:5.7%" data-detail="그 밖. 배포 뒤 확인 등 나머지 시간입니다." aria-label="그 밖"></button>
+</div>
+<ul class="dsim-legend">
+<li><i class="s-wait"></i>러너 대기</li>
+<li><i class="s-test"></i>테스트, 빌드</li>
+<li><i class="s-deployer"></i>배포기</li>
+<li><i class="s-sync"></i>동기화 대기</li>
+<li><i class="s-rest"></i>그 밖</li>
+</ul>
+</div>
+<p class="viz-detail" data-dsim-detail aria-live="polite">단계나 막대를 누르면 설명이 여기에 나옵니다.</p>
+</figure>

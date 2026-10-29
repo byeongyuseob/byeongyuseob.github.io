@@ -1,4 +1,4 @@
-// 블로그 시각화: flow · arch · tabs · rail · permsim
+// 블로그 시각화: flow · arch · tabs · rail · permsim · spike · deploysim
 (function () {
   // flow · arch: 항목을 누르면 설명 표시
   document.addEventListener("click", function (e) {
@@ -151,5 +151,54 @@
     });
     budget.addEventListener("input", calc);
     draw();
+  });
+})();
+
+// deploysim: 배포 흐름 경우별 재생
+(function () {
+  var PLAN = { ok: { stop: -1 }, contract: { stop: 2 }, d1: { stop: 6, back: true }, unknown: { stop: 6, hold: true } };
+  var LABEL = { wait: "", run: "진행 중", pass: "통과", fail: "실패", hold: "판정 불가", skip: "건너뜀", back: "완료" };
+  document.querySelectorAll("[data-deploysim]").forEach(function (fig) {
+    var steps = [].slice.call(fig.querySelectorAll("[data-stage]"));
+    var back = fig.querySelector("[data-rollback]");
+    var out = fig.querySelector("[data-dsim-out]");
+    var detail = fig.querySelector("[data-dsim-detail]");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var timer = null;
+    function mark(li, s) { li.dataset.state = s; li.querySelector(".dsim-state").textContent = LABEL[s]; }
+    function play(btn, instant) {
+      clearTimeout(timer);
+      var p = PLAN[btn.dataset.scn], i = 0, wait = instant || reduce ? 0 : 420;
+      fig.querySelectorAll("[data-scn]").forEach(function (x) { x.setAttribute("aria-pressed", x === btn ? "true" : "false"); });
+      steps.forEach(function (li) { mark(li, "wait"); });
+      back.hidden = true;
+      out.textContent = "";
+      out.className = "viz-detail dsim-out";
+      function finish() {
+        if (p.back) { back.hidden = false; mark(back, "back"); }
+        out.textContent = btn.dataset.result;
+        out.className = "viz-detail dsim-out " + (p.stop < 0 ? "tone-ok" : p.hold ? "tone-warn" : "tone-bad");
+      }
+      function next() {
+        if (i >= steps.length) return finish();
+        var li = steps[i];
+        if (p.stop >= 0 && i > p.stop) {
+          for (; i < steps.length; i++) mark(steps[i], "skip");
+          return finish();
+        }
+        mark(li, "run");
+        var done = function () { mark(li, i === p.stop ? (p.hold ? "hold" : "fail") : "pass"); i++; next(); };
+        if (wait) timer = setTimeout(done, wait); else done();
+      }
+      next();
+    }
+    fig.querySelectorAll("[data-scn]").forEach(function (b) { b.addEventListener("click", function () { play(b, false); }); });
+    fig.addEventListener("click", function (e) {
+      var b = e.target.closest(".dsim-step, .dsim-seg");
+      if (!b) return;
+      fig.querySelectorAll(".dsim-seg").forEach(function (x) { x.classList.toggle("is-active", x === b); });
+      detail.textContent = b.dataset.detail || "";
+    });
+    play(fig.querySelector('[data-scn="ok"]'), true);
   });
 })();

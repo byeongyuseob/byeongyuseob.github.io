@@ -271,3 +271,40 @@ a.stat:hover, a.now:hover { border-color: var(--line-3); }
 .facts dd { margin: 0; font-size: 16px; line-height: 1.6; }
 .tips-title { margin-top: 56px; font-size: 22px; }
 @media (max-width: 640px) { .facts div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* deploysim */
+.dsim { --info: #7DD3FC; }
+.dsim-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.dsim-steps li { margin: 0; }
+.dsim-step { width: 100%; display: grid; grid-template-columns: 28px 1fr auto; gap: 2px 12px; align-items: center; text-align: left; padding: 10px 12px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-2); transition: border-color .2s, opacity .2s; }
+.dsim-step:hover { border-color: var(--soft); }
+.dsim-num { grid-row: 1 / span 2; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.dsim-name { font-size: 15px; font-weight: 500; line-height: 1.4; }
+.dsim-sub { grid-column: 2; font-size: 13px; color: var(--muted); line-height: 1.4; }
+.dsim-state { grid-column: 3; grid-row: 1 / span 2; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+[data-state="run"] .dsim-step { border-color: var(--accent); }
+[data-state="run"] .dsim-state { color: var(--accent); }
+[data-state="pass"] .dsim-step { border-color: var(--ok); }
+[data-state="pass"] .dsim-state { color: var(--ok); }
+[data-state="fail"] .dsim-step { border-color: var(--bad); }
+[data-state="fail"] .dsim-state { color: var(--bad); }
+[data-state="hold"] .dsim-step { border-color: var(--warn); }
+[data-state="hold"] .dsim-state { color: var(--warn); }
+[data-state="skip"] .dsim-step { opacity: .45; }
+.dsim-out.tone-ok { border-color: var(--ok); color: var(--ok); }
+.dsim-out.tone-bad { border-color: var(--bad); color: var(--bad); }
+.dsim-out.tone-warn { border-color: var(--warn); color: var(--warn); }
+.dsim-bars { margin-top: 22px; display: flex; flex-direction: column; gap: 6px; }
+.dsim-bars .viz-title { margin: 0 0 6px; }
+.dsim-bar-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.dsim-bar { display: flex; height: 26px; margin-bottom: 8px; border-radius: 6px; overflow: hidden; background: var(--bg); border: 1px solid var(--line-2); }
+.dsim-seg { flex: none; height: 100%; min-width: 4px; padding: 0; border: 0; border-right: 1px solid var(--bg); }
+.dsim-seg:hover, .dsim-seg.is-active { filter: brightness(1.25); }
+.s-wait { background: var(--bad); }
+.s-test { background: var(--accent); }
+.s-deployer { background: var(--warn); }
+.s-sync { background: var(--info); }
+.s-rest { background: var(--line-3); }
+.dsim-legend { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+.dsim-legend li { margin: 0; display: flex; align-items: center; gap: 6px; }
+.dsim-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
