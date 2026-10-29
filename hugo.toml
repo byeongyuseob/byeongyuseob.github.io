@@ -22,14 +22,20 @@ disable = true
 [params]
 name = "변규섭"
 logo = "byeongyuseob.github.io"
-headline = "데이터센터와 GPU 클러스터 인프라를 현장에서 운영합니다."
-description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고와 고장 노드 복구를 맡고 InfiniBand 광모듈 교체 작업에 참여했으며, GPU 서버 전력 스파이크 측정에 참여해 투입 대수를 줄이는 판단의 근거를 만들었습니다."
+headline = "A100부터 B300까지 GPU 인프라를 현장에서 운영합니다."
+description = "AI Factory를 구축하는 국내 대형 IT·클라우드 사업자의 데이터센터에서 10년째 서버를 운영하고 있습니다. GPU는 A100 SuperPOD 구성, H100과 H200 학습 클러스터 운영, B200 입고 전 계측, B300 입고와 테스트를 거쳤고, Vera Rubin 입고를 준비하고 있습니다. 약 200노드 H200 클러스터에서는 입고와 고장 노드 복구를 맡았고, 전력 스파이크 측정과 InfiniBand 광모듈 교체 작업에 참여했습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
-strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 5건"]
+strengths = ["A100부터 B300까지 GPU 현장 경험", "H200 학습 클러스터 운영", "GPU 서버 전력 측정과 랙 배치", "운영 자동화 PM 5건"]
 github = "https://github.com/byeongyuseob"
 linkedin = "https://www.linkedin.com/in/byeongyuseob"
 email = "byeongyuseob.career@gmail.com"
 resume = ""  # 예: "/resume.pdf" — static/resume.pdf 에 둔다 (전화번호 없는 판으로)
+
+[[params.stats]]
+value = "A100 → B300"
+label = "현장에서 다룬 GPU 세대"
+sub = "A100 SuperPOD 구성, H100과 H200 운영, B200 계측, B300 입고와 테스트"
+link = "/work/h200-training-cluster/"
 
 [[params.stats]]
 value = "약 200노드"
@@ -41,12 +47,6 @@ link = "/work/h200-training-cluster/"
 value = "18.9kW"
 label = "H200 서버 1대 스파이크 실측"
 sub = "100% 부하 약 13kW, 기존 기종보다 대당 약 4kW 높음"
-link = "/work/gpu-power-validation/"
-
-[[params.stats]]
-value = "160 → 128대"
-label = "투입 대수 조정 (160대 계획)"
-sub = "함께 측정한 스파이크 값이 근거"
 link = "/work/gpu-power-validation/"
 
 [[params.stats]]
@@ -80,11 +80,6 @@ desc = "장애 접수부터 OOB 하드웨어 상태 수집, 벤더 점검 요청
 link = "/work/hw-fault-console/"
 
 [[params.now]]
-title = "K3s 플랫폼 검증 환경"
-desc = "vLLM SLO 기준선(Pod당 동시 4)까지 측정했고, 다음은 대기 요청 수 기반 자동 확장과 콜드 스타트 단축입니다."
-link = "/work/k3s-platform-lab/"
-
-[[params.now]]
 title = "IDC 근무일지 · SLA 대시보드"
 desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 사내 시험 배포했고, 장애 48시간 처리 준수율과 지연 사유를 운영 데이터로 보여 주는 대시보드를 운영합니다."
 link = "/work/idc-ops-digital/"
@@ -98,7 +93,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2025 – 현재"
   title = "GPU 인프라"
-  desc = "H200 학습 클러스터(약 200노드) 구축과 운영, InfiniBand 광모듈 교체, GPU 서버 전력 스파이크 측정과 운영 대수 조정 검토"
+  desc = "H200 학습 클러스터(약 200노드) 입고와 운영, B200 입고 전 계측, B300 입고와 테스트, Vera Rubin 입고 준비. GPU 서버 전력 스파이크 측정과 InfiniBand 광모듈 교체 작업 참여, UPS By-Pass 중 한전 전력 불안정 상황 모의훈련 기획과 GPU 장애 SOP 마련"
 
   [[params.career.phases]]
   period = "2025 – 현재"
@@ -153,6 +148,6 @@ degree = "정보통신공학부 학사"
 
 [params.skills]
 # have: 실제 운영에서 쓴 것. lab: 검증 랩이나 입고 전 계측에서만 쓴 것.
-have = ["H200 (HGX)", "InfiniBand NDR 400G", "GPU Power Measurement", "Server Lifecycle", "Hardware Troubleshooting", "BIOS · Firmware", "Incident Response", "Linux", "Ansible", "Docker", "GitHub Actions", "Prometheus · Grafana", "Elasticsearch · Kibana", "Python · Shell"]
+have = ["A100 SuperPOD", "H100", "H200 (HGX)", "B300 입고 테스트", "InfiniBand NDR 400G", "GPU Power Measurement", "Server Lifecycle", "Hardware Troubleshooting", "BIOS · Firmware", "Incident Response", "Linux", "Ansible", "Docker", "GitHub Actions", "Prometheus · Grafana", "Elasticsearch · Kibana", "Python · Shell"]
 lab = ["B200 입고 전 계측", "Kubernetes (K3s)", "ArgoCD", "Cilium", "Longhorn", "Terraform", "vLLM"]
 learning = ["nccl-tests", "DCGM diag", "perftest", "Slurm", "GPU Xid Errors", "AI Workload Sizing"]
