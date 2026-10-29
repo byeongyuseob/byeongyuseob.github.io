@@ -80,6 +80,12 @@ desc = "장애 접수부터 OOB 하드웨어 상태 수집, 벤더 점검 요청
 link = "/work/hw-fault-console/"
 
 [[params.now]]
+title = "사내 K3s 배포 플랫폼 TF"
+label = "진행 중 · PM"
+desc = "사내 개발 서버를 K3s로 다시 세우고, 이슈 양식으로 앱 생성부터 운영 반영까지 하는 배포 체계를 운영합니다. merge에서 운영 반영까지 약 7분입니다."
+link = "/work/k3s-deploy-platform/"
+
+[[params.now]]
 title = "IDC 근무일지 · SLA 대시보드"
 desc = "일지 3종을 하나로 합친 근무일지를 IDC 14곳 기준으로 사내 시험 배포했고, 장애 48시간 처리 준수율과 지연 사유를 운영 데이터로 보여 주는 대시보드를 운영합니다."
 link = "/work/idc-ops-digital/"

@@ -3,7 +3,7 @@ title: "IDC 운영 포털 개발"
 description: "IDC 운영 조직이 쓰는 사내 포털을 개발하고, 포털 글과 첨부 파일을 근거로 답하는 RAG 기반 AI 도우미를 붙인 경험"
 date: 2026-04-15
 period: "2026.04 – 현재"
-weight: 8
+weight: 9
 track: "platform"
 role: "설계, 개발, 운영"
 mine: "IDC 운영 포털과 포털 글·첨부 파일을 근거로 답하는 AI 도우미를 설계하고 개발해 운영합니다."
