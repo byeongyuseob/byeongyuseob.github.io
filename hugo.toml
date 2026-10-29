@@ -98,7 +98,7 @@ role = "국내 대형 IT·클라우드 사업자 데이터센터의 서버와 GP
   [[params.career.phases]]
   period = "2025 – 현재"
   title = "자동화, 플랫폼 엔지니어링"
-  desc = "하드웨어 장애 처리 웹(PM), IDC 운영 포털과 RAG 기반 AI 도우미, 근무일지 통합, SLA 대시보드, 알림 게이트웨이, 운영 데이터 MCP 서버, 사내 개발 서버 K3s 클러스터와 IssueOps 배포 운영"
+  desc = "하드웨어 장애 처리 웹(PM), IDC 운영 포털과 RAG 기반 AI 도우미, 근무일지 통합, SLA 대시보드, 알림 게이트웨이, 운영 데이터 MCP 서버, 사내 개발 서버 K3s + IssueOps 배포 플랫폼 TF(PM, 설계부터 구축까지)"
 
   [[params.career.phases]]
   period = "2023 – 2024"
