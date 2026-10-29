@@ -23,7 +23,7 @@ disable = true
 name = "변규섭"
 logo = "byeongyuseob.github.io"
 headline = "데이터센터와 GPU 클러스터 인프라를 현장에서 운영합니다."
-description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고, InfiniBand 광모듈 교체, 고장 노드 복구를 맡았고, GPU 서버 전력 스파이크를 직접 측정해 센터별 운영 대수를 줄이는 검토를 요청했습니다."
+description = "서버 6만 대⁠+ 규모 데이터센터에서 10년째 서버 하드웨어를 운영하고 있습니다. 최근에는 약 200노드 H200 학습 클러스터의 입고, InfiniBand 광모듈 교체, 고장 노드 복구를 맡았고, GPU 서버 전력 스파이크 측정에 참여해 센터별 운영 대수를 줄이는 검토의 근거를 만들었습니다."
 focus = "관심 분야: GPU 클러스터 운영, AI 인프라 아키텍처"
 strengths = ["H200 클러스터 현장 구축·운영", "GPU 서버 전력 실측·랙 배치", "서버 6만 대+ 규모 운영", "운영 자동화 PM 5건"]
 github = "https://github.com/byeongyuseob"
@@ -45,8 +45,8 @@ link = "/work/gpu-power-validation/"
 
 [[params.stats]]
 value = "160 → 128대"
-label = "센터별 운영 대수 조정 검토 요청"
-sub = "스파이크 실측 결과를 근거로"
+label = "센터별 운영 대수 조정 검토"
+sub = "함께 측정한 스파이크 값이 근거"
 link = "/work/gpu-power-validation/"
 
 [[params.stats]]
