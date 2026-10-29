@@ -2,13 +2,13 @@
 title: "K3s 플랫폼 검증 환경 구축"
 description: "물리 서버 1대에 VM 7대로 K3s 플랫폼을 기획·설계·구축하고, GitOps 배포, 관측, 저장소, IssueOps 배포 창구, vLLM 추론과 LoRA 학습까지 올려 ML 인프라 운영 시나리오를 검증하는 프로젝트"
 date: 2026-09-07
-period: "2026.09 – 현재"
+period: "2026.09 – 2026.10"
 weight: 6
 track: "platform"
 role: "기획, 설계, 구축, 검증"
-mine: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, GitOps 배포, 관측, 저장소, vLLM 추론 SLO 측정까지 진행하고 있습니다."
+mine: "물리 서버 1대에 VM 7대로 K3s 클러스터를 설계하고 세워, GitOps 배포, 관측, 저장소, vLLM 추론 SLO 측정까지 진행했습니다."
 decision: "Cilium은 ArgoCD가 잘못 반영하면 스스로 복구할 수 없어 GitOps 밖에 두고, 관측 저장소는 Longhorn 장애도 볼 수 있게 노드 local 디스크에 뒀습니다."
-summary: "물리 서버 1대에 VM 7대로 K3s 클러스터를 직접 설계하고 세워, ArgoCD로 플랫폼 부품을 배포하고(Application 21개, ApplicationSet 2개) vLLM 추론 SLO 기준선까지 측정했습니다."
+summary: "물리 서버 1대에 VM 7대로 K3s 클러스터를 설계하고 세워, ArgoCD로 플랫폼 부품을 배포하고(Application 21개, ApplicationSet 2개) vLLM 추론 SLO 기준선까지 측정했습니다."
 result: "VM 7대, 커밋 148개, ArgoCD Application 21개 + ApplicationSet 2개, IssueOps 배포, vLLM SLO 기준선(Pod당 동시 4), LoRA 학습→서빙 고리"
 stack: ["K3s", "Cilium", "ArgoCD", "Longhorn", "MinIO", "Grafana LGTM", "Harbor", "vLLM", "Terraform", "Ansible"]
 ---
@@ -22,7 +22,7 @@ stack: ["K3s", "Cilium", "ArgoCD", "Longhorn", "MinIO", "Grafana LGTM", "Harbor"
 | 1. 플랫폼 | Cilium, Longhorn, MinIO, 관측 스택, ArgoCD가 서로 물린 상태에서 장애, 복구, 추적이 end-to-end로 성립하는지 확인 |
 | 2. ML 인프라 | GPU 없이 CPU 클러스터에서, ML 인프라 엔지니어가 하는 운영 일(서빙 용량 계획, 자동 확장, 카나리, 학습 Job 대기열)을 같은 도구와 같은 지표로 해 보기 |
 
-숫자(지연, 처리량 절대값)는 GPU 환경과 다르지만, 곡선의 모양, 병목이 생기는 이유, 운영 절차는 같다고 보고 진행하고 있습니다.
+숫자(지연, 처리량 절대값)는 GPU 환경과 다르지만, 곡선의 모양, 병목이 생기는 이유, 운영 절차는 같다고 보고 진행했습니다.
 
 ## 진행 경과
 
@@ -344,7 +344,9 @@ steps:
 | medium | 자동 검증(smoke)이 없음 | 만들 예정 |
 | medium | dev 앱이 인증 없는 이미지 창고와 평평한 클러스터망으로 플랫폼에 닿을 수 있음 | 고칠 예정 |
 
-## 앞으로 할 것
+## 하지 못한 것
+
+2026.10.22에 GPU 실습 랩으로 옮기면서 이 랩을 철거했습니다. 아래는 그때 계획만 세우고 진행하지 않은 단계입니다.
 
 {{< tabs >}}
 title: "다음 시나리오 · 탭을 바꿔 보세요"
