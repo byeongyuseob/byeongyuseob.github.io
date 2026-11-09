@@ -8,7 +8,7 @@ categories: ["docker"]
 
 ## 문제
 
-팀 배포 서버의 컨테이너 상태를 [1분 cron 자원 기록](/posts/cron-resource-log/)과 함께 남기려고, 상태를 한 줄씩 출력하는 명령을 아래처럼 작성했습니다.
+팀 배포 서버의 컨테이너 상태를 [1분 cron 자원 기록](/posts/cron-resource-log/)과 함께 남기려고 했습니다. 컨테이너 상태를 한 줄씩 출력하는 명령을 아래처럼 작성했습니다.
 
 ```bash
 docker inspect -f '{{.Name}} {{if .State.Health}}{{.State.Health.Status}}{{end}}' $(docker ps -q)
@@ -18,7 +18,7 @@ healthcheck가 없는 컨테이너에서 `Health` 키가 없다는 오류가 나
 
 ## 원인
 
-healthcheck가 없는 컨테이너는 `State` 안에 `Health` 항목 자체가 없습니다. `.State.Health`처럼 필드로 접근하면 값을 꺼내는 단계에서 오류가 나기 때문에, 그 결과를 검사하는 `if`까지 가지 못합니다.
+healthcheck가 없는 컨테이너는 `State` 안에 `Health` 항목 자체가 없습니다. `.State.Health`처럼 필드로 접근하면 값을 꺼내는 단계에서 오류가 납니다. 그래서 그 결과를 검사하는 `if`까지 가지 못합니다.
 
 {{< tabs >}}
 title: "두 방식 비교 · 탭을 바꿔 보세요"
@@ -26,11 +26,11 @@ items:
   - label: "if .State.Health"
     tone: "bad"
     steps: ["필드 접근 .State.Health", "키가 없으면 오류", "if 검사 전에 멈춤"]
-    text: "healthcheck가 없는 컨테이너는 Health 키가 없어서, if가 값을 보기 전에 필드 접근에서 멈춥니다."
+    text: "healthcheck가 없는 컨테이너는 Health 키가 없습니다. if가 값을 보기 전에 필드 접근에서 멈춥니다."
   - label: "with index .State \"Health\""
     tone: "ok"
     steps: ["index로 값 꺼내기", "키가 없으면 빈 값", "with가 건너뜀"]
-    text: "index는 키가 없으면 빈 값을 돌려주고, with는 빈 값이면 블록을 건너뜁니다."
+    text: "index는 키가 없으면 빈 값을 돌려줍니다. with는 빈 값이면 블록을 건너뜁니다."
 {{< /tabs >}}
 
 ## 해결
