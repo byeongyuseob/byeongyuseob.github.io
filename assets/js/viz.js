@@ -1,4 +1,4 @@
-// 블로그 시각화: flow · arch · tabs · rail · permsim · spike · deploysim
+// 블로그 시각화: flow · arch · tabs · rail · permsim · spike · deploysim · scoresim
 (function () {
   // flow · arch: 항목을 누르면 설명 표시
   document.addEventListener("click", function (e) {
@@ -200,5 +200,38 @@
       detail.textContent = b.dataset.detail || "";
     });
     play(fig.querySelector('[data-scn="ok"]'), true);
+  });
+})();
+
+// scoresim: 광모듈 선조치 점수 계산
+(function () {
+  var GRADE = {
+    critical: ["CRITICAL", "tone-bad", "끊긴 채 유지되는 링크는 점수와 관계없이 즉시 최고 등급입니다. 문의 시 바로 광모듈 교체 또는 서버 NIC 점검 대상입니다."],
+    action: ["ACTION", "tone-warn", "100점 이상이라 조치 대상입니다. 하루 단위 목록으로 고객에게 안내하고, 고객 작업이 끝난 뒤 문의가 오면 교체합니다."],
+    watch: ["WATCH", "", "기준은 넘었지만 100점 미만이라 운영팀이 재발을 지켜봅니다. 고객 안내는 하지 않습니다."],
+    info: ["INFO", "", "단발성 징후라 기록만 남깁니다. 24시간 안에 3회 이상 반복되면 그때 조치 대상에 오릅니다."],
+    none: ["정상", "tone-ok", "이상 징후가 없습니다. 항목을 골라 점수가 어떻게 쌓이는지 보세요."]
+  };
+  document.querySelectorAll("[data-scoresim]").forEach(function (fig) {
+    var boxes = [].slice.call(fig.querySelectorAll("input[data-pt]"));
+    var flap = fig.querySelector("[data-flap]"), down = fig.querySelector("[data-down]");
+    var total = fig.querySelector("[data-total]"), grade = fig.querySelector("[data-grade]");
+    var fill = fig.querySelector("[data-fill]"), txt = fig.querySelector("[data-score-text]");
+    function run() {
+      var sum = +flap.value, layers = {};
+      boxes.forEach(function (b) { if (b.checked) { sum += +b.dataset.pt; layers[b.dataset.layer] = true; } });
+      if (+flap.value > 0) layers["결과"] = true;
+      var g = down.checked ? "critical" : sum >= 100 ? "action"
+        : (fig.querySelector("[data-ber]").checked || +flap.value >= 30) ? "watch" : sum > 0 ? "info" : "none";
+      total.textContent = sum;
+      fill.style.width = Math.min(sum, 130) / 130 * 100 + "%";
+      fill.className = "score-fill " + GRADE[g][1];
+      grade.textContent = GRADE[g][0];
+      grade.className = "score-grade " + GRADE[g][1];
+      var ls = Object.keys(layers);
+      txt.textContent = GRADE[g][2] + (ls.length ? " 지금 고른 징후는 " + ls.join(", ") + " 층입니다." : "");
+    }
+    fig.addEventListener("change", run);
+    run();
   });
 })();

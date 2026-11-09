@@ -1,0 +1,22 @@
+{{- .Page.Store.Set "hasViz" true -}}
+<figure class="viz scoresim" data-scoresim>
+<figcaption class="viz-title">포트 점수 계산기 · 이상 징후를 골라 보세요</figcaption>
+<div class="score-items">
+<label class="score-item"><input type="checkbox" data-pt="100" data-layer="증상"><span class="score-name">신호 품질 불량 (BSI)</span><span class="score-pt">+100</span></label>
+<label class="score-item"><input type="checkbox" data-pt="30" data-layer="증상" data-ber><span class="score-name">BER 기준 초과 (raw 1e-5 / effective 1e-13)</span><span class="score-pt">+30</span></label>
+<label class="score-item"><input type="checkbox" data-pt="8" data-layer="증상"><span class="score-name">에러 카운터 증가 (Symbol &gt; 0, Effective &gt; 100)</span><span class="score-pt">+8</span></label>
+<label class="score-item"><input type="checkbox" data-pt="5" data-layer="원인"><span class="score-name">광모듈 온도 70℃ 이상</span><span class="score-pt">+5</span></label>
+<label class="score-item score-select"><span class="score-name">링크 끊김 (24시간)</span>
+<select data-flap>
+<option value="0">0회</option>
+<option value="15">1회 (+15)</option>
+<option value="30">2회 (+30)</option>
+<option value="50">3회 이상 (+50~80)</option>
+</select></label>
+<label class="score-item"><input type="checkbox" data-down><span class="score-name">링크가 끊긴 채 유지</span><span class="score-pt">즉시</span></label>
+</div>
+<div class="score-bar"><div class="score-fill" data-fill></div><span class="score-mark">100</span></div>
+<div class="score-out"><span class="score-total"><b data-total>0</b>점</span><span class="score-grade" data-grade>정상</span></div>
+<p class="viz-detail" data-score-text aria-live="polite"></p>
+<p class="viz-note">점수는 하루 1회 갱신됩니다. 3회 이상 끊김은 50~80점 사이에서 매겨지는데 무엇에 따라 달라지는지는 아직 확인하지 못해 50점으로 계산했습니다.</p>
+</figure>
