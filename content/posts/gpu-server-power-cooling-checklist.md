@@ -3,6 +3,7 @@ title: "A측만 보고 2배 했더니 사양서와 맞았다: 8-GPU 서버 전�
 description: "공랭 상면에 B300 8-GPU 서버 2대를 올리면서, A측 PDU 값만 보고 2배 한 계산이 사양서와 맞아떨어져 틀린 줄 몰랐던 일과 랙 합계 전류로는 보이지 않는 쏠림을 정리한 기록"
 date: 2026-11-16
 categories: ["gpu-infra"]
+draft: true
 ---
 
 > 2026.11 진행 중. OS 설치 전까지 측정했고, GPU 부하 값은 아직 없습니다. 관련 프로젝트: [GPU 전력 검증](/work/gpu-power-validation/)
